@@ -1,0 +1,152 @@
+
+
+/*>> Reset:
+   http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/*fin reset*/
+
+
+
+/*>> Tipografía*/
+
+body{
+	font-family: 'raleway';
+	color: #009898;
+}
+
+b {
+    font-weight: bold;
+}
+
+a {
+    text-decoration: none;
+	color: #009898;
+}
+
+/*>> layout */
+
+header {
+    height: 68px;
+}
+
+.titulo {
+    height: 100%;
+    width: 300px;
+}
+
+img.header__logo {
+    height: 68px;
+    float: left;
+    cursor: pointer;
+}
+
+.header__titulo {
+    display: block;
+    float: left;
+    margin: 25px 0;
+    margin-left: 15px;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+main {
+    height: 100vh;
+}
+
+.l-panelDerecha {
+    height: 100%;
+    width: 60%;
+    float: right;
+}
+
+.l-panelDerSup {
+    height: 75%;
+    overflow: auto;
+}
+
+main h1 {
+    font-size: 7em;
+    font-weight: 600;
+    letter-spacing: -0.07em;
+    text-align: right;
+    margin-top: 70px;
+    margin-right: 50px;
+}
+
+.l-panelDerInf {
+    height: 25%;
+}
+
+.contacto {
+    width: 400px;
+    float: right;
+    height: 50px;
+    margin-top: 20px;
+    text-align: right;
+    padding-right: 50px;
+}
+
+@media(max-width:1200px){
+	main h1 {
+		font-size:5em;
+	}
+}
+
+@media(max-width:800px){
+	.l-panelDerecha {
+		width:100%;
+	}
+}
+
+@media(max-width:500px){
+	main h1 {
+		font-size:4em;
+	}
+}
