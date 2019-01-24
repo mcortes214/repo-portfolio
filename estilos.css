@@ -152,6 +152,6 @@ main h1 {
 
 @media(max-width:500px){
 	main h1 {
-		font-size:4em;
+		font-size:3.5em;
 	}
 }
