@@ -85,6 +85,7 @@ img.header__logo {
     height: 68px;
     float: left;
     cursor: pointer;
+	margin-left: 20px;
 }
 
 .header__titulo {
@@ -94,16 +95,19 @@ img.header__logo {
     margin-left: 15px;
     font-size: 18px;
     font-weight: 500;
+	text-transform: uppercase;
 }
 
 main {
     height: 100vh;
+    background-image: url('img/bkg.png');
 }
 
 .l-panelDerecha {
     height: 100%;
     width: 60%;
     float: right;
+	background: rgba(255,255,255,0.7);
 }
 
 .l-panelDerSup {
@@ -128,9 +132,10 @@ main h1 {
     width: 400px;
     float: right;
     height: 50px;
-    margin-top: 20px;
+    padding-top: 20px;
     text-align: right;
     padding-right: 50px;
+    border-top: 1px solid #bbb;
 }
 
 @media(max-width:1200px){
