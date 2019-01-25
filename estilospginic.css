@@ -70,7 +70,16 @@ a {
 	color: #009898;
 }
 
-/*>> layout */
+/*>> Layout */
+
+/*>> General */
+
+section{
+	height:100vh;
+	border:1px solid red;
+}
+
+/*>> - Header */
 
 header {
     height: 68px;
@@ -98,60 +107,3 @@ img.header__logo {
 	text-transform: uppercase;
 }
 
-main {
-    height: 100vh;
-    background-image: url('img/bkg.png');
-}
-
-.l-panelDerecha {
-    height: 100%;
-    width: 60%;
-    float: right;
-	background: rgba(255,255,255,0.7);
-}
-
-.l-panelDerSup {
-    height: 75%;
-    overflow: auto;
-}
-
-main h1 {
-    font-size: 7em;
-    font-weight: 600;
-    letter-spacing: -0.07em;
-    text-align: right;
-    margin-top: 70px;
-    margin-right: 50px;
-}
-
-.l-panelDerInf {
-    height: 25%;
-}
-
-.contacto {
-    width: 400px;
-    float: right;
-    height: 50px;
-    padding-top: 20px;
-    text-align: right;
-    padding-right: 50px;
-    border-top: 1px solid #bbb;
-}
-
-@media(max-width:1200px){
-	main h1 {
-		font-size:5em;
-	}
-}
-
-@media(max-width:800px){
-	.l-panelDerecha {
-		width:100%;
-	}
-}
-
-@media(max-width:500px){
-	main h1 {
-		font-size:3em;
-	}
-}
