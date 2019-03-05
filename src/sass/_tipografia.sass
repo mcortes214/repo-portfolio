@@ -1,0 +1,63 @@
+//---------- tipografía general
+
+@font-face
+  font-family: "neris"
+  src: url('fonts/Neris-Light-webfont.woff')
+  font-weight: normal
+
+@font-face
+  font-family: "neris"
+  src: url('fonts/Neris-SemiBold-webfont.woff')
+  font-weight: bold
+
+body
+  font-family: neris
+  @media screen and (min-width: $bp-large)
+    font-size: 1.3em
+
+h1
+  font-weight: normal
+
+h2
+  font-size: 3.5em
+  font-weight: normal
+  letter-spacing: -0.05em
+  margin-bottom: 0.5em
+  @media screen and (max-width: $bp-mobile)
+    margin-bottom: 1em
+
+h3
+  font-weight: normal
+  font-size: 2em
+  margin-bottom: 35px
+
+h4
+  font-weight: normal
+  font-size: 1.3em
+  margin-bottom: 0.2em
+
+p
+  margin-bottom: 1em
+
+a
+  text-decoration: none
+  font-weight: bold
+  color: $color-dark
+
+.textoGigante
+  font-size: 4.5em
+  letter-spacing: -0.025em
+  margin-bottom: 0.5em
+
+.textoMediano
+  font-weight: bold
+  font-size: 1.6em
+  margin-bottom: 0.4em
+
+//helpers
+
+.texto-derecha
+  text-align: right
+
+.texto-centrado
+  text-align: center

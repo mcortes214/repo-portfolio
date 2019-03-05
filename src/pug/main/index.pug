@@ -1,0 +1,90 @@
+include ../parts/_mixins.pug
+
+doctype html
+html(lang="es-AR")
+  head
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+    meta(name='description' content= 'Diseño y programación front-end')
+    meta(name='author' content= 'Maximiliano Cortés')
+    meta(name='keywords' content= 'diseño, programación front-end')
+    link(rel="stylesheet" type="text/css" href="css/estilos.css")
+    link(rel="canonical" href= 'https://maxicortes.com.ar')
+    title Maximiliano Cortés
+    script(type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js')
+      script(type='text/javascript', src='js/jquery-momentum-scroll.js')
+    script(type='text/javascript', src='js/funciones.js')
+    
+  body
+    header.header.scrollHide
+      .container
+        a.titulo(href="#")
+          img.logo(src="img/logo-150x150-color.svg")
+          h1 Maximiliano Cortés
+        nav.mainNav
+          ul.mainNav_list
+            li.mainNav_item
+              a.mainNav_link(href="#proyectos") Proyectos
+            li.mainNav_item
+              a.mainNav_link(href="#contacto") Contactame
+        
+    .breadcrumbs
+      a.breadcrumbs_box(href="#home")
+        .breadcrumbs_item.ss_item(data-ss='#home')
+      a.breadcrumbs_box(href="#sobreMi")
+        .breadcrumbs_item.ss_item(data-ss='#sobreMi')
+      a.breadcrumbs_box(href="#proyectos")
+        .breadcrumbs_item.ss_item(data-ss='#proyectos')
+      a.breadcrumbs_box(href="#contacto")
+        .breadcrumbs_item.ss_item(data-ss='#contacto')
+    
+    section#home.section-fullHeight
+      .container
+        .col.col-50
+          .box.v-center
+            .backgroundBlanco
+              p.textoGigante ¡Hola!
+              p.textoMediano Me llamo Maxi.
+              p Soy licenciado en Artes Electrónicas, y me interesan la programación y el diseño. Hago programación web front-end.
+            a.btn.btn-primary(href="#sobreMi") Conocé más
+      
+    section#sobreMi.section-fullHeight
+      .container
+        .col.col-50.h-right.texto-derecha
+          .v-center
+            h3 Sobre mí
+            p Soy licenciado en Artes Electrónicas, y mis principales intereses son la programación, el arte y el diseño.
+            p Durante varios años trabajé en un museo de arte, investigando y combinando tecnologías para facilitar el funcionamiento de exhibiciones. Desde entonces me gusta explorar distintos caminos y aprender nuevas herramientas con cada proyecto que realizo.
+            p En los últimos dos años comencé a trabajar en sitios web de proyectos independientes en los que participé, y también en la creación de sitios para clientes en un equipo freelance.
+            a.btn.btn-primary#btn-verProyectos(href="#proyectos") Ver proyectos
+            a.btn.btn-secondary#btn-cv(href="docs/maximiliano-cortes.pdf") Descargar CV
+            
+    section#proyectos
+      .container
+        .col.col-100
+          h2.h-center Proyectos
+        .col.col-100
+          .col-50
+            h3 Proyectos individuales
+            +widgetProyecto('Experiencia OK','2018-2019','https://www.experienciaok.com','img/screen-experienciaok.jpg','img/screen-experienciaok-overlay.jpg')
+            +widgetProyecto('Los que se van','2015','/webs/los-que-se-van/index.html','img/screen-losquesevan.jpg','img/screen-losquesevan-overlay.jpg')
+            //+widgetProyecto('Portfolio','2019') //este solo tiene sentido cuando haya casos de estudio
+          .col-50.texto-derecha
+            h3 Proyectos grupales
+            +widgetProyecto('Plataforma Hormiguero','2016-2019','https://plataformahormiguero.com.ar','img/screen-hormiguero.jpg','img/screen-hormiguero-overlay.jpg')
+            +widgetProyecto('Miriam Hecht','2018','https://www.miriamhecht.com.ar','img/screen-miriamhecht.jpg','img/screen-miriamhecht-overlay.jpg')
+      svg(viewbox='0 0 100 100', preserveAspectRatio='none').backgroundFlecha
+        path(d='M0 0 V 100 H 100 V 0 L50 50 Z',fill="#fafafa",stroke="transparent")
+            
+    section#contacto.section-fullHeight
+      .container
+        .box.v-center.h-center.contenedorFormulario
+          h3.texto-centrado Contactame
+          p.texto-centrado Si querés comunicarte conmigo, podés enviarme un mail a #[b contacto@maxicortes.com.ar] o dejarme un mensaje acá abajo:
+          form(id="formularioContacto", method="POST", action="#")
+            label(for="nombre") Nombre
+            input(id="nombre", type="text")
+            label(for="mail") Correo electrónico
+            input(id="mail" type="email")
+            label(for="#mensaje") Tu mensaje:
+            textarea(style="resize: none")
+            input.btn.btn-primary(type="submit", value="Enviar")

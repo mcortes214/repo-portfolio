@@ -1,0 +1,11 @@
+mixin widgetProyecto(nombre,fecha,link,img, imgOver)
+  .widgetProyecto
+    .widgetProyecto_contenedorImg
+      a(href=link, target="_blank")
+        img.widgetProyecto_cover(src= imgOver)
+      img.widgetProyecto_img(src= img)
+    .widgetProyecto_contenedorTexto
+      h4= nombre
+      p= fecha
+      p= desc
+      a(href=link, target="_blank") Ver sitio

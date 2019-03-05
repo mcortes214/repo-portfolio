@@ -1,0 +1,120 @@
+//---------- layout general
+
+section
+  min-height: 100vh
+  position: relative
+
+.section-fullHeight
+  height: 100vh
+
+.container
+  width: 84%
+  height: 100%
+  margin: 0 8%
+  display: flex
+  flex-wrap: wrap
+  @media screen and (max-width: $bp-mobile)
+    width: 74%
+    margin: 0 13%
+
+//alineación de cajas
+
+.v-center
+  align-self: center
+
+.h-center
+  margin-left: auto
+  margin-right: auto
+
+.h-right
+  margin-left: auto
+
+//columnas
+
+.col
+  display: flex
+  height: 100%
+
+.col-100
+  width: 100%
+  @media screen and (max-width: $bp-mobile)
+    flex-wrap: wrap
+
+.col-50
+  width: 45%
+  &:not(:last-of-type)
+    margin-right: 10%
+  @media screen and (max-width: $bp-mobile)
+    width: 100%
+    &:not(:last-of-type)
+      margin-right: 0
+      margin-bottom: 75px
+
+//---------- Layouts específicos
+
+//----- Sección home
+
+section#home
+  @media screen and (max-width: $bp-mobile)
+    padding-top: 150px
+    text-align: center
+    .btn
+      margin: 50px auto 0 auto
+
+//----- Sección Sobre mí
+
+section#sobreMi
+  @media screen and (max-width: $bp-mobile-sm)
+    min-height: 100vh
+    height: auto
+    padding-top: 100px
+    .btn
+      margin: 10px 0
+
+
+//----- Sección Proyectos (background azul)
+
+section#proyectos
+  padding-top: 80px
+  padding-bottom: 30vh
+
+
+.backgroundFlecha
+  width: 100%
+  height: 20vh
+  position: absolute
+  bottom: 0
+  z-index: -1
+
+//----- Formulario de contacto
+
+section#contacto
+  background-color: $color-gray
+
+.contenedorFormulario
+  width: 50%
+  @media screen and (max-width: $bp-mobile)
+    width: 80%
+
+.contenedorFormulario h3
+  margin-bottom: 15px
+
+#formularioContacto
+  width: 100%
+  & input:not([type^="submit"])
+    width: 100%
+    height: 30px
+    background-color: transparent
+    box-shadow: none
+    border: 1px solid $color-dark
+  & textarea
+    width: 100%
+    height: 80px
+    background-color: transparent
+    box-shadow: none
+    border: 1px solid $color-dark
+  & input[type^="submit"]
+    margin: 30px auto
+  & label
+    display: inline-block
+    margin: 12px 0 5px 0
