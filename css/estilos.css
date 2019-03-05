@@ -224,6 +224,9 @@ section#contacto {
   display: inline-block;
   margin: 12px 0 5px 0;
 }
+#formularioContacto #formularioContacto input#honeypot {
+  display: none;
+}
 
 section#home {
   background-image: linear-gradient(to right, #fafafa, #f0f0f0);
