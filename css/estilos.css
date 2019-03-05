@@ -224,7 +224,8 @@ section#contacto {
   display: inline-block;
   margin: 12px 0 5px 0;
 }
-#formularioContacto #formularioContacto input#honeypot {
+
+#formularioContacto input#honeypot {
   display: none;
 }
 

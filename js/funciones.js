@@ -31,6 +31,10 @@ $('document').ready(function(){
       var b = navbar.height();
       var c, currentScrollTop = 0;
 
+      if(a>0){
+        navbar.addClass("scrollHide-hidden");
+      }
+
     //EVENTOS
 
     //condiciones de scroll
@@ -101,7 +105,6 @@ Otros atributos asociados:
                               $('.ss_item-active').toggleClass('ss_item-active');
                               $($('.ss_item')[a]).toggleClass('ss_item-active');
                             }
-
                             //resetear aPrev
                             aPrev = a;
                           };
