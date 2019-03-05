@@ -1,0 +1,502 @@
+body, h1, h2, h3, h4, h5, h6, p {
+  margin: 0;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: "neris";
+  src: url("fonts/Neris-Light-webfont.woff");
+  font-weight: normal;
+}
+@font-face {
+  font-family: "neris";
+  src: url("fonts/Neris-SemiBold-webfont.woff");
+  font-weight: bold;
+}
+body {
+  font-family: neris;
+}
+@media screen and (min-width: 1500px) {
+  body {
+    font-size: 1.3em;
+  }
+}
+
+h1 {
+  font-weight: normal;
+}
+
+h2 {
+  font-size: 3.5em;
+  font-weight: normal;
+  letter-spacing: -0.05em;
+  margin-bottom: 0.5em;
+}
+@media screen and (max-width: 850px) {
+  h2 {
+    margin-bottom: 1em;
+  }
+}
+
+h3 {
+  font-weight: normal;
+  font-size: 2em;
+  margin-bottom: 35px;
+}
+
+h4 {
+  font-weight: normal;
+  font-size: 1.3em;
+  margin-bottom: 0.2em;
+}
+
+p {
+  margin-bottom: 1em;
+}
+
+a {
+  text-decoration: none;
+  font-weight: bold;
+  color: black;
+}
+
+.textoGigante {
+  font-size: 4.5em;
+  letter-spacing: -0.025em;
+  margin-bottom: 0.5em;
+}
+
+.textoMediano {
+  font-weight: bold;
+  font-size: 1.6em;
+  margin-bottom: 0.4em;
+}
+
+.texto-derecha {
+  text-align: right;
+}
+
+.texto-centrado {
+  text-align: center;
+}
+
+section {
+  min-height: 100vh;
+  position: relative;
+}
+
+.section-fullHeight {
+  height: 100vh;
+}
+
+.container {
+  width: 84%;
+  height: 100%;
+  margin: 0 8%;
+  display: flex;
+  flex-wrap: wrap;
+}
+@media screen and (max-width: 850px) {
+  .container {
+    width: 74%;
+    margin: 0 13%;
+  }
+}
+
+.v-center {
+  align-self: center;
+}
+
+.h-center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.h-right {
+  margin-left: auto;
+}
+
+.col {
+  display: flex;
+  height: 100%;
+}
+
+.col-100 {
+  width: 100%;
+}
+@media screen and (max-width: 850px) {
+  .col-100 {
+    flex-wrap: wrap;
+  }
+}
+
+.col-50 {
+  width: 45%;
+}
+.col-50:not(:last-of-type) {
+  margin-right: 10%;
+}
+@media screen and (max-width: 850px) {
+  .col-50 {
+    width: 100%;
+  }
+  .col-50:not(:last-of-type) {
+    margin-right: 0;
+    margin-bottom: 75px;
+  }
+}
+
+@media screen and (max-width: 850px) {
+  section#home {
+    padding-top: 150px;
+    text-align: center;
+  }
+  section#home .btn {
+    margin: 50px auto 0 auto;
+  }
+}
+
+@media screen and (max-width: 530px) {
+  section#sobreMi {
+    min-height: 100vh;
+    height: auto;
+    padding-top: 100px;
+  }
+  section#sobreMi .btn {
+    margin: 10px 0;
+  }
+}
+
+section#proyectos {
+  padding-top: 80px;
+  padding-bottom: 30vh;
+}
+
+.backgroundFlecha {
+  width: 100%;
+  height: 20vh;
+  position: absolute;
+  bottom: 0;
+  z-index: -1;
+}
+
+section#contacto {
+  background-color: #fafafa;
+}
+
+.contenedorFormulario {
+  width: 50%;
+}
+@media screen and (max-width: 850px) {
+  .contenedorFormulario {
+    width: 80%;
+  }
+}
+
+.contenedorFormulario h3 {
+  margin-bottom: 15px;
+}
+
+#formularioContacto {
+  width: 100%;
+}
+#formularioContacto input:not([type^=submit]) {
+  width: 100%;
+  height: 30px;
+  background-color: transparent;
+  box-shadow: none;
+  border: 1px solid black;
+}
+#formularioContacto textarea {
+  width: 100%;
+  height: 80px;
+  background-color: transparent;
+  box-shadow: none;
+  border: 1px solid black;
+}
+#formularioContacto input[type^=submit] {
+  margin: 30px auto;
+}
+#formularioContacto label {
+  display: inline-block;
+  margin: 12px 0 5px 0;
+}
+
+section#home {
+  background-image: linear-gradient(to right, #fafafa, #f0f0f0);
+  background-position: right;
+  background-repeat: no-repeat;
+  background-size: 60% auto;
+}
+@media screen and (max-width: 850px) {
+  section#home {
+    background-size: 100%;
+  }
+}
+
+section#home .container {
+  background-image: url("../img/bg-home.png");
+  background-position: right;
+  background-repeat: no-repeat;
+  background-size: 50%;
+}
+@media screen and (max-width: 850px) {
+  section#home .container {
+    background-image: none;
+  }
+}
+
+section#sobreMi {
+  background-image: linear-gradient(to right, #fafafa, #f0f0f0);
+  background-position: left;
+  background-repeat: no-repeat;
+  background-size: 40% auto;
+}
+@media screen and (max-width: 850px) {
+  section#sobreMi {
+    background-image: none;
+  }
+}
+
+section#sobreMi .container {
+  background-image: url("../img/bg-sobremi.png");
+  background-position: left;
+  background-repeat: no-repeat;
+  background-size: 30%;
+}
+@media screen and (max-width: 850px) {
+  section#sobreMi .container {
+    background-image: none;
+  }
+}
+
+.backgroundBlanco {
+  background-color: rgba(255, 255, 255, 0.7);
+}
+@media screen and (max-width: 850px) {
+  .backgroundBlanco {
+    padding: 20px;
+  }
+}
+
+.header {
+  background-color: rgba(255, 255, 255, 0.98);
+  position: fixed;
+  z-index: 1;
+  width: 100%;
+  padding-top: 10px;
+}
+
+.header .mainNav {
+  margin-left: auto;
+}
+@media screen and (max-width: 850px) {
+  .header .mainNav {
+    margin: 10px auto;
+  }
+}
+
+@media screen and (max-width: 850px) {
+  .header .titulo {
+    margin: auto;
+    width: 100%;
+  }
+}
+
+.header .titulo h1 {
+  float: left;
+  font-size: 1.4em;
+}
+@media screen and (max-width: 850px) {
+  .header .titulo h1 {
+    float: none;
+    margin: auto;
+    text-align: center;
+  }
+}
+
+.header .logo {
+  display: block;
+  float: left;
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+  margin-top: -8px;
+}
+@media screen and (max-width: 850px) {
+  .header .logo {
+    float: none;
+    margin: 0 auto;
+  }
+}
+@media screen and (min-width: 1500px) {
+  .header .logo {
+    margin-top: -2.5px;
+  }
+}
+
+.mainNav_list {
+  margin: 0;
+  padding: 0;
+}
+.mainNav_list:after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.mainNav_item {
+  float: left;
+  list-style: none;
+  text-align: center;
+}
+@media screen and (max-width: 850px) {
+  .mainNav_item {
+    float: none;
+    margin: auto;
+  }
+}
+.mainNav_item:not(:last-of-type) {
+  margin-right: 10px;
+}
+@media screen and (max-width: 850px) {
+  .mainNav_item:not(:last-of-type) {
+    margin-right: 0;
+  }
+}
+
+.mainNav_link {
+  display: block;
+  margin: 4px 10px;
+  font-weight: normal;
+}
+
+.scrollHide {
+  transition: 0.4s;
+}
+
+@media screen and (max-width: 850px) {
+  .scrollHide-hidden {
+    transform: translate(0, -100%);
+  }
+}
+
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  position: fixed;
+  top: 50%;
+  transform: translate(0, -50%);
+  right: 20px;
+  z-index: 1;
+}
+@media screen and (max-width: 850px) {
+  .breadcrumbs {
+    right: 0;
+  }
+}
+
+.breadcrumbs_box {
+  width: 26px;
+  height: 26px;
+  margin: 5px;
+}
+
+.breadcrumbs_item {
+  background: black;
+  width: 16px;
+  height: 16px;
+  border-radius: 8px;
+  margin: 5px;
+  transition: 0.2s;
+}
+
+.ss_item-active {
+  width: 26px;
+  height: 26px;
+  border-radius: 13px;
+  margin: 0;
+}
+
+.widgetProyecto {
+  padding-bottom: 20px;
+  margin-bottom: 75px;
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.05);
+  font-size: 0.8em;
+}
+
+.widgetProyecto img {
+  display: block;
+}
+
+.widgetProyecto_contenedorImg {
+  position: relative;
+  margin-bottom: 15px;
+}
+
+.widgetProyecto_contenedorTexto {
+  margin-left: 20px;
+  margin-right: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.widgetProyecto_img {
+  background-color: #d99;
+  width: 100%;
+  height: auto;
+}
+
+.widgetProyecto_cover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  cursor: pointer;
+  transition: 0.4s;
+}
+.widgetProyecto_cover:hover {
+  opacity: 0;
+  transition: 0.4s;
+}
+
+.btn {
+  font-family: neris;
+  text-align: center;
+  width: 180px;
+  display: block;
+  margin: 25px 5px;
+  padding: 10px 20px;
+  text-decoration: none;
+  font-size: 1em;
+  font-weight: normal;
+  cursor: pointer;
+}
+
+.btn-primary {
+  border: none;
+  background-color: #0a516d;
+  color: white;
+}
+
+.btn-secondary {
+  box-shadow: inset 0 0 0 2px #0a516d;
+  background-color: transparent;
+  color: black;
+}
+
+#btn-contactame {
+  margin: 0 auto;
+}
+
+#btn-verProyectos, #btn-cv {
+  float: right;
+}
+
+/*# sourceMappingURL=estilos.css.map */

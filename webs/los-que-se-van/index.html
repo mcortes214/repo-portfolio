@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="es">
+<head>
+<meta charset="utf-8">
+<title>Los que se Van</title>
+<script src="js/libs/modernizr-1.7.min.js"></script>
+<link rel="stylesheet" href="css/reset.css" media="all" />
+<link rel="stylesheet" href="css/forma.css" media="all" />
+<script src="js/libs/jquery-1.5.2.min.js"></script>
+<script src="js/funciones.js"></script>
+</head>
+<body>
+
+	<!-- --------- Cargar si no hay Canvas/en IE -->
+	
+	<div class="nocanvas">
+	<p>Su navegador no soporta la tecnología Canvas, que esta página necesita para funcionar. Para poder visualizar el contenido, por favor ingrese a la página desde otro navegador.</p>
+	</div>
+
+	<!-- ---------Título -->
+	
+	<div class="titulo">
+		<p>Los que se van</p>
+	</div>
+
+	<!-- ---------Botones seleccionables -->
+
+	<div class="caja" id="botoninfo">
+		<p class="chd">Información</p>
+	</div>
+	
+	<div class="caja" id="elegir">
+		<p class="chd">Elegir país</p>
+	</div>
+
+<div class="continentes">
+	
+	<div class="caja cont" id="africa">
+		<p class="chd ct">África</p>
+	</div>
+	
+	<div class="caja cont" id="america">
+		<p class="chd ct">América</p>
+	</div>
+
+	<div class="caja cont" id="asia">
+		<p class="chd ct">Asia</p>
+	</div>
+	
+	<div class="caja cont" id="europa">
+		<p class="chd ct">Europa</p>
+	</div>	
+
+	<div class="caja cont" id="oceania">
+		<p class="chd ct">Oceanía</p>
+	</div>	
+
+</div>
+	
+	<!-- ---------Cuadros informativos -->
+
+	<div class="caja" id="paisactual">
+		<p class="chd">Argentina</p>
+	</div>
+
+	<div class="contenedorinfo">
+	<div class="textoinfo">
+		<div class="info">
+
+			<p class="parrafo">La muerte, como la caída de las gotas de lluvia, es inevitable y masiva; a cada minuto decenas de personas mueren en distintas partes del mundo. "Los que se Van" permite explorar visualmente estadísticas de mortalidad en distintos países, haciendo una analogía - una gota = una persona fallecida - y convirtiendo la abstracción de los números en algo un poco más tangible.</p>
+
+			<p class="parrafo">La cantidad de gotas que hay en pantalla a cada momento representa la cantidad de muertes por mes cada 100 mil personas - tan solo la población de una ciudad pequeña. Donde hay más mortalidad, más densa es la lluvia.</p>
+
+			<p class="parrafo">El clima lluvioso puede ser triste y depresivo, pero a la vez representa la fertilización de la tierra; de la misma manera, las vidas humanas que se van causan sufrimiento en su entorno, pero dejan lugar a las vidas que están por venir, y son parte del proceso de renovación de la vida.</p>
+
+		</div>
+	</div>
+	</div>
+
+		<!-- ---------Tablas de países -->
+		<div class="tabla tablaafrica">
+		<table class="africa">
+			<tr>
+				<td class="pais" data-mort="36.67">Argelia</td>
+				<td class="pais" data-mort="126.67">Angola</td>
+				<td class="pais" data-mort="68.34">Benin</td>
+				<td class="pais" data-mort="75.84">Botswana</td>
+				<td class="pais" data-mort="94.17">Burkina Faso</td>
+
+			</tr>
+			<tr>
+				<td class="pais" data-mort="107.5">Burundi</td>
+				<td class="pais" data-mort="110">Camerún</td>
+				<td class="pais" data-mort="46.67">Cabo Verde</td>
+				<td class="pais" data-mort="130.84">República Centroafricana</td>
+				<td class="pais" data-mort="116.67">Chad</td>
+			</tr>
+			<tr>
+				<td class="pais" data-mort="50">Comoros</td>
+				<td class="pais" data-mort="86.67">Djibouti</td>
+				<td class="pais" data-mort="131.67">R. D. Congo</td>
+				<td class="pais" data-mort="115">Guinea Ecuatorial</td>
+				<td class="pais" data-mort="63.34">Eritrea</td>
+
+			</tr>
+			<tr>
+				<td class="pais" data-mort="89.17">Etiopía</td>
+				<td class="pais" data-mort="74.17">Gabón</td>
+				<td class="pais" data-mort="73.34">Ghana</td>
+				<td class="pais" data-mort="80.84">Guinea</td>
+				<td class="pais" data-mort="131.67">Guinea-Bissau</td>
+			</tr>
+			<tr>
+				<td class="pais" data-mort="81.67">Costa de Marfil</td>
+				<td class="pais" data-mort="85.84">Kenia</td>
+				<td class="pais" data-mort="179.17">Lesotho</td>
+				<td class="pais" data-mort="79.17">Liberia</td>
+				<td class="pais" data-mort="35">Libia</td>
+			</tr>
+			<tr>
+				<td class="pais" data-mort="68.34">Madagascar</td>
+				<td class="pais" data-mort="112.5">Malawi</td>
+				<td class="pais" data-mort="30">Maldivas</td>
+				<td class="pais" data-mort="109.17">Mali</td>
+				<td class="pais" data-mort="73.34">Mauritania</td>
+			</tr>
+			<tr>
+				<td class="pais" data-mort="59.17">Mauricio</td>
+				<td class="pais" data-mort="46.67">Marruecos</td>
+				<td class="pais" data-mort="112.5">Mozambique</td>
+				<td class="pais" data-mort="70">Namibia</td>
+				<td class="pais" data-mort="92.5">Níger</td>
+			</tr>
+			<tr>
+				<td class="pais" data-mort="127.5">Nigeria</td>
+				<td class="pais" data-mort="102.5">Congo</td>
+				<td class="pais" data-mort="113.34"> Rwanda</td>
+				<td class="pais" data-mort="77.5"> Senegal</td>
+				<td class="pais" data-mort="65.84"> Seychelles</td>
+			</tr>
+			<tr>
+				<td class="pais" data-mort="120.84">Sierra Leona</td>
+				<td class="pais" data-mort="120.84">Somalia</td>
+				<td class="pais" data-mort="97.5">Sudáfrica</td>
+				<td class="pais" data-mort="77.5">Sudán del Sur</td>
+				<td class="pais" data-mort="71.67">Sudán</td>
+			</tr>
+			<tr>
+				<td class="pais" data-mort="150">Swazilandia</td>
+				<td class="pais" data-mort="83.34">Tanzania</td>
+				<td class="pais" data-mort="63.34">Togo</td>
+				<td class="pais" data-mort="47.5">Túnez</td>
+				<td class="pais" data-mort="92.5">Uganda</td>
+			</tr>
+			<tr>
+				<td class="pais" data-mort="45.84">Sahara Occidental</td>
+				<td class="pais" data-mort="120.84">Zambia</td>
+				<td class="pais" data-mort="107.5">Zimbabwe</td>
+			</tr>
+		</table>
+	</div>
+		
+		
+		<div class="tabla tablaamerica">
+		<table class="america">
+			<tr>
+				<td class="pais" data-mort="27.5">Anguila</td>
+				<td class="pais" data-mort="45">Antigua y Barbuda</td>
+				<td class="pais" data-mort="65.84">Argentina</td>
+				<td class="pais" data-mort="51.67">Aruba</td>
+				<td class="pais" data-mort="66.67">Barbados</td>
+			</tr>
+			<tr>
+				<td class="pais" data-mort="33.34">Belice</td>
+				<td class="pais" data-mort="61.67">Bermuda</td>
+				<td class="pais" data-mort="60">Bolivia</td>
+				<td class="pais" data-mort="52.5">Brasil</td>
+				<td class="pais" data-mort="60.84">Canadá</td>
+			</tr>
+			<tr>
+				<td class="pais" data-mort="49.17">Chile</td>
+				<td class="pais" data-mort="48.34">Colombia</td>
+				<td class="pais" data-mort="34.17">Costa Rica</td>
+				<td class="pais" data-mort="64.17">Cuba</td>
+				<td class="pais" data-mort="65.84">Curação</td>
+			</tr>
+			<tr>
+				<td class="pais" data-mort="67.5">Dominica</td>
+				<td class="pais" data-mort="34.17">Ecuador</td>
+				<td class="pais" data-mort="57.5">El Salvador</td>
+				<td class="pais" data-mort="67.5">Estados Unidos</td>
+				<td class="pais" data-mort="67.5">Granada</td>
+			</tr>
+			<tr>
+				<td class="pais" data-mort="59.17">Guadalupe</td>
+				<td class="pais" data-mort="45">Guatemala</td>
+				<td class="pais" data-mort="65.84">Guyana</td>
+				<td class="pais" data-mort="25.84">Guyana Francesa</td>
+				<td class="pais" data-mort="72.5">Haití</td>
+			</tr>
+			<tr>
+				<td class="pais" data-mort="37.5">Honduras</td>
+				<td class="pais" data-mort="26.67">Islas Caimán</td>
+				<td class="pais" data-mort="19.17">Islas Turks y Caicos</td>
+				<td class="pais" data-mort="55">Jamaica</td>
+				<td class="pais" data-mort="57.5">Martinica</td>
+			</tr>
+			<tr>
+				<td class="pais" data-mort="41.67">México</td>
+				<td class="pais" data-mort="93.34">Montserrat</td>
+				<td class="pais" data-mort="38.34">Nicaragua</td>
+				<td class="pais" data-mort="36.67">Panamá</td>
+				<td class="pais" data-mort="45.84">Paraguay</td>
+			</tr>
+			<tr>
+				<td class="pais" data-mort="45.84">Perú</td>
+				<td class="pais" data-mort="66.67">Puerto Rico</td>
+				<td class="pais" data-mort="50.84">República Dominicana</td>
+				<td class="pais" data-mort="58.34">Saint Kitts y Nevis</td>
+				<td class="pais" data-mort="47.5">Saint Lucia</td>
+			</tr>
+			<tr>
+				<td class="pais" data-mort="73.34">Saint Pierre y Miquelon</td>
+				<td class="pais" data-mort="60">Saint Vincent y las Granadinas</td>
+				<td class="pais" data-mort="35">Sint Maarten</td>
+				<td class="pais" data-mort="52.5">Surinam</td>
+				<td class="pais" data-mort="64.17">Trinidad y Tobago</td>
+			</tr>
+			<tr>
+				<td class="pais" data-mort="82.5">Uruguay</td>
+				<td class="pais" data-mort="43.34">Venezuela</td>
+				<td class="pais" data-mort="55">Wallis y Futuna</td>
+			</tr>
+		</table>
+	</div>
+		
+		
+	<div class="tabla tablaasia">
+		<table class="asia">
+			<tr>
+				<td class="pais" data-mort="151.67">Afganistán</td>
+				<td class="pais" data-mort="32.5">Arabia Saudita</td>
+				<td class="pais" data-mort="49.17">Azerbaiyán</td>
+				<td class="pais" data-mort="16.67">Bahrein</td>
+				<td class="pais" data-mort="46.67">Bangladesh</td>
+			</tr>
+			<tr>
+				<td class="pais" data-mort="24.17">Brunei</td>
+				<td class="pais" data-mort="57.5">Bután</td>
+				<td class="pais" data-mort="67.5">Camboya</td>
+				<td class="pais" data-mort="59.17">China</td>
+				<td class="pais" data-mort="50.84">Egipto</td>
+			</tr>
+			<tr>
+				<td class="pais" data-mort="7.5">Emiratos Árabes Unidos</td>
+				<td class="pais" data-mort="41.67">Filipinas</td>
+				<td class="pais" data-mort="50">Hong Kong</td>
+				<td class="pais" data-mort="59.17">India</td>
+				<td class="pais" data-mort="52.5">Indonesia</td>
+			</tr>
+			<tr>
+				<td class="pais" data-mort="35">Irak</td>
+				<td class="pais" data-mort="49.17">Irán</td>
+				<td class="pais" data-mort="44.17">Israel</td>
+				<td class="pais" data-mort="82.5">Japón</td>
+				<td class="pais" data-mort="58.34">Jordania</td>
+			</tr>
+			<tr>
+				<td class="pais" data-mort="72.5">Kazajistán</td>
+				<td class="pais" data-mort="54.17">Kirguistán</td>
+				<td class="pais" data-mort="75">Korea del Norte</td>
+				<td class="pais" data-mort="42.5">Korea del Sur</td>
+				<td class="pais" data-mort="15">Kuwait</td>
+			</tr>
+			<tr>
+				<td class="pais" data-mort="64.17">Laos</td>
+				<td class="pais" data-mort="48.34">Líbano</td>
+				<td class="pais" data-mort="28.34">Macao</td>
+				<td class="pais" data-mort="40">Malasia</td>
+				<td class="pais" data-mort="25">Mayotte</td>
+			</tr>
+			<tr>
+				<td class="pais" data-mort="57.5">Mongolia</td>
+				<td class="pais" data-mort="65">Nepal</td>
+				<td class="pais" data-mort="27.5">Omán</td>
+				<td class="pais" data-mort="60.84">Pakistán</td>
+				<td class="pais" data-mort="33.34">Palestina</td>
+			</tr>
+			<tr>
+				<td class="pais" data-mort="9.17">Qatar</td>
+				<td class="pais" data-mort="37.5">Singapur</td>
+				<td class="pais" data-mort="25.84">Siria</td>
+				<td class="pais" data-mort="49.17">Sri Lanka</td>
+				<td class="pais" data-mort="35.84">Tadjikistán</td>
+			</tr>
+			<tr>
+				<td class="pais" data-mort="54.17">Tailandia</td>
+				<td class="pais" data-mort="55">Taiwan</td>
+				<td class="pais" data-mort="76.67">Timor Oriental</td>
+				<td class="pais" data-mort="43.34">Turkmenistan</td>
+				<td class="pais" data-mort="52.5">Turquía</td>
+			</tr>
+			<tr>
+				<td class="pais" data-mort="41.67">Uzbekistán</td>
+				<td class="pais" data-mort="57.5">Vietnam</td>
+				<td class="pais" data-mort="67.5">Yemen</td>
+			</tr>
+		</table>
+	</div>
+
+	<div class="tabla tablaeuropa">
+		<table class="europa">
+			<tr>
+				<td class="pais" data-mort="57.5">Albania</td>
+				<td class="pais" data-mort="86.67">Alemania</td>
+				<td class="pais" data-mort="29.17">Andorra</td>
+				<td class="pais" data-mort="71.67">Armenia</td>
+				<td class="pais" data-mort="75.84">Austria</td>
+			</tr>
+			<tr>
+				<td class="pais" data-mort="80">Bélgica</td>
+				<td class="pais" data-mort="119.17">Bielorrusia</td>
+				<td class="pais" data-mort="76.67">Bosnia y Herzegovina</td>
+				<td class="pais" data-mort="122.5">Bulgaria</td>
+				<td class="pais" data-mort="54.17">Chipre</td>
+			</tr>
+			<tr>
+				<td class="pais" data-mort="96.67">Croacia</td>
+				<td class="pais" data-mort="78.34">Dinamarca</td>
+				<td class="pais" data-mort="80">Eslovaquia</td>
+				<td class="pais" data-mort="75.84">Eslovenia</td>
+				<td class="pais" data-mort="70">España</td>
+			</tr>
+			<tr>
+				<td class="pais" data-mort="95">Estonia</td>
+				<td class="pais" data-mort="78.34">Finlandia</td>
+				<td class="pais" data-mort="71.67">Francia</td>
+				<td class="pais" data-mort="92.5">Georgia</td>
+				<td class="pais" data-mort="67.5">Gibraltar</td>
+			</tr>
+			<tr>
+				<td class="pais" data-mort="80">Grecia</td>
+				<td class="pais" data-mort="69.17">Groenlandia</td>
+				<td class="pais" data-mort="67.5">Holanda</td>
+				<td class="pais" data-mort="107.5">Hungría</td>
+				<td class="pais" data-mort="52.5">Irlanda</td>
+			</tr>
+			<tr>
+				<td class="pais" data-mort="82.5">Isla de Man</td>
+				<td class="pais" data-mort="51.67">Islandia</td>
+				<td class="pais" data-mort="62.5">Islas Faroe</td>
+				<td class="pais" data-mort="80.84">Italia</td>
+				<td class="pais" data-mort="35">Kosovo</td>
+			</tr>
+			<tr>
+				<td class="pais" data-mort="115.84">Letonia</td>
+				<td class="pais" data-mort="56.67">Liechtenstein</td>
+				<td class="pais" data-mort="112.5">Lituania</td>
+				<td class="pais" data-mort="61.67">Luxemburgo</td>
+				<td class="pais" data-mort="79.17">Macedonia</td>
+			</tr>
+			<tr>
+				<td class="pais" data-mort="65.84">Malta</td>
+				<td class="pais" data-mort="91.67">Moldavia</td>
+				<td class="pais" data-mort="126.67">Mónaco</td>
+				<td class="pais" data-mort="77.5">Montenegro</td>
+				<td class="pais" data-mort="70">Noruega</td>
+			</tr>
+			<tr>
+				<td class="pais" data-mort="81.67">Polonia</td>
+				<td class="pais" data-mort="80.84">Portugal</td>
+				<td class="pais" data-mort="73.34">Reino Unido</td>
+				<td class="pais" data-mort="85">República Checa</td>
+				<td class="pais" data-mort="98.34">Rumania</td>
+			</tr>
+			<tr>
+				<td class="pais" data-mort="112.5">Rusia</td>
+				<td class="pais" data-mort="57.5">San Marino</td>
+				<td class="pais" data-mort="118.34">Serbia</td>
+				<td class="pais" data-mort="79.17">Suecia</td>
+				<td class="pais" data-mort="65">Suiza</td>
+			</tr>
+			<tr>
+				<td class="pais" data-mort="120.84">Ucrania</td>
+			</tr>
+		</table>
+	</div>
+		
+	<div class="tabla tablaoceania">
+		<table class="oceania">
+			<tr>
+				<td class="pais" data-mort="54.17">Australia</td>
+				<td class="pais" data-mort="48.34">E. F. de Micronesia</td>
+				<td class="pais" data-mort="62.5">Fiji</td>
+				<td class="pais" data-mort="43.34">Guam</td>
+				<td class="pais" data-mort="70">Guernsey</td>
+			</tr>
+			<tr>
+				<td class="pais" data-mort="60.84">Islas Cook</td>
+				<td class="pais" data-mort="27.5">Islas Marianas</td>
+				<td class="pais" data-mort="48.34">Islas Marshall</td>
+				<td class="pais" data-mort="102.5">Islas Pitcairn</td>
+				<td class="pais" data-mort="61.67">Islas Salomón</td>
+			</tr>
+			<tr>
+				<td class="pais" data-mort="29.17">Islas Vírgenes británicas</td>
+				<td class="pais" data-mort="61.67">Islas Vírgenes de EE.UU.</td>
+				<td class="pais" data-mort="68.34">Jersey</td>
+				<td class="pais" data-mort="69.17">Kiribati</td>
+				<td class="pais" data-mort="74.17">Nauru</td>
+			</tr>
+			<tr>
+				<td class="pais" data-mort="80.84">Niue</td>
+				<td class="pais" data-mort="40">Nueva Caledonia</td>
+				<td class="pais" data-mort="55.84">Nueva Zelanda</td>
+				<td class="pais" data-mort="64.17">Palau</td>
+				<td class="pais" data-mort="80">Papúa Nueva Guinea</td>
+			</tr>
+			<tr>
+				<td class="pais" data-mort="39.17">Polinesia Francesa</td>
+				<td class="pais" data-mort="53.34">Saint Barthelemy</td>
+				<td class="pais" data-mort="42.5">Samoa</td>
+				<td class="pais" data-mort="37.5">Samoa Americana</td>
+				<td class="pais" data-mort="63.34">Tokelau</td>
+			</tr>
+			<tr>
+				<td class="pais" data-mort="55">Tonga</td>
+				<td class="pais" data-mort="75">Tuvalu</td>
+				<td class="pais" data-mort="44.17">Vanuatu</td>
+			</tr>
+		</table>
+	</div>
+	
+</body>
+</html>

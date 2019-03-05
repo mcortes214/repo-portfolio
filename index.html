@@ -1,62 +1,127 @@
 <!DOCTYPE html>
 <html lang="es-AR">
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width,initial-scale=1">
-		
-		<meta name="author" content="Maximiliano Cortés">
-		<!-- <meta name="description" content=""> -->
-		<meta name="keywords" content="Artes Electrónicas, programación web">
-		
-		<title>Maximiliano Cortés</title>
-		
-		<!-- faviconit.com -->
-		<link rel="shortcut icon" href="/favicon.ico">
-		<link rel="icon" sizes="16x16 32x32 64x64" href="img/favicon/favicon.ico">
-		<link rel="icon" type="image/png" sizes="196x196" href="img/favicon/favicon-192.png">
-		<link rel="icon" type="image/png" sizes="160x160" href="img/favicon/favicon-160.png">
-		<link rel="icon" type="image/png" sizes="96x96" href="img/favicon/favicon-96.png">
-		<link rel="icon" type="image/png" sizes="64x64" href="img/favicon/favicon-64.png">
-		<link rel="icon" type="image/png" sizes="32x32" href="img/favicon/favicon-32.png">
-		<link rel="icon" type="image/png" sizes="16x16" href="img/favicon/favicon-16.png">
-		<link rel="apple-touch-icon" href="img/favicon/favicon-57.png">
-		<link rel="apple-touch-icon" sizes="114x114" href="img/favicon/favicon-114.png">
-		<link rel="apple-touch-icon" sizes="72x72" href="img/favicon/favicon-72.png">
-		<link rel="apple-touch-icon" sizes="144x144" href="img/favicon/favicon-144.png">
-		<link rel="apple-touch-icon" sizes="60x60" href="img/favicon/favicon-60.png">
-		<link rel="apple-touch-icon" sizes="120x120" href="img/favicon/favicon-120.png">
-		<link rel="apple-touch-icon" sizes="76x76" href="img/favicon/favicon-76.png">
-		<link rel="apple-touch-icon" sizes="152x152" href="img/favicon/favicon-152.png">
-		<link rel="apple-touch-icon" sizes="180x180" href="img/favicon/favicon-180.png">
-		<meta name="msapplication-TileColor" content="#FFFFFF">
-		<meta name="msapplication-TileImage" content="img/favicon/favicon-144.png">
-		<meta name="msapplication-config" content="img/favicon/browserconfig.xml">
-		
-		<link rel="canonical" href="https://www.maxicortes.com.ar/"/>
-		
-		<link href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-		<link rel="stylesheet" href="estilos.css" type="text/css">
-	</head>
-	<body>
-		<header>
-			<div class="titulo">
-				<img class="header__logo" src="img/logo.svg"/>
-				<h1 class="header__titulo">Maximiliano Cortés</h1>
-			</div>
-		</header>
-		<main>
-		<div class="l-panelDerecha">
-			<div class="l-panelDerSup">
-				<h1>Sitio en construcción</h1>
-			</div>
-			<div class="l-panelDerInf">
-				<div class="contacto">
-					<p>Contactate conmigo:</p>
-					<p><b><a href="mailto:mcortes.na@gmail.com">contacto@maxicortes.com.ar</a></b></p>
-				</div>
-			</div>
-		</div>
-			
-		</main>
-	</body>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Diseño y programación front-end">
+    <meta name="author" content="Maximiliano Cortés">
+    <meta name="keywords" content="diseño, programación front-end">
+    <link rel="stylesheet" type="text/css" href="css/estilos.css">
+    <link rel="canonical" href="https://maxicortes.com.ar">
+    <title>Maximiliano Cortés</title>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+      <script type="text/javascript" src="js/jquery-momentum-scroll.js"></script>
+    </script>
+    <script type="text/javascript" src="js/funciones.js"></script>
+  </head>
+  <body>
+    <header class="header scrollHide">
+      <div class="container"><a class="titulo" href="#"><img class="logo" src="img/logo-150x150-color.svg">
+          <h1>Maximiliano Cortés</h1></a>
+        <nav class="mainNav">
+          <ul class="mainNav_list">
+            <li class="mainNav_item"><a class="mainNav_link" href="#proyectos">Proyectos</a></li>
+            <li class="mainNav_item"><a class="mainNav_link" href="#contacto">Contactame</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <div class="breadcrumbs"><a class="breadcrumbs_box" href="#home">
+        <div class="breadcrumbs_item ss_item" data-ss="#home"></div></a><a class="breadcrumbs_box" href="#sobreMi">
+        <div class="breadcrumbs_item ss_item" data-ss="#sobreMi"></div></a><a class="breadcrumbs_box" href="#proyectos">
+        <div class="breadcrumbs_item ss_item" data-ss="#proyectos"></div></a><a class="breadcrumbs_box" href="#contacto">
+        <div class="breadcrumbs_item ss_item" data-ss="#contacto"></div></a></div>
+    <section class="section-fullHeight" id="home">
+      <div class="container">
+        <div class="col col-50">
+          <div class="box v-center">
+            <div class="backgroundBlanco">
+              <p class="textoGigante">¡Hola!</p>
+              <p class="textoMediano">Me llamo Maxi.</p>
+              <p>Soy licenciado en Artes Electrónicas, y me interesan la programación y el diseño. Hago programación web front-end.</p>
+            </div><a class="btn btn-primary" href="#sobreMi">Conocé más</a>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="section-fullHeight" id="sobreMi">
+      <div class="container">
+        <div class="col col-50 h-right texto-derecha">
+          <div class="v-center">
+            <h3>Sobre mí</h3>
+            <p>Soy licenciado en Artes Electrónicas, y mis principales intereses son la programación, el arte y el diseño.</p>
+            <p>Durante varios años trabajé en un museo de arte, investigando y combinando tecnologías para facilitar el funcionamiento de exhibiciones. Desde entonces me gusta explorar distintos caminos y aprender nuevas herramientas con cada proyecto que realizo.</p>
+            <p>En los últimos dos años comencé a trabajar en sitios web de proyectos independientes en los que participé, y también en la creación de sitios para clientes en un equipo freelance.</p><a class="btn btn-primary" id="btn-verProyectos" href="#proyectos">Ver proyectos</a><a class="btn btn-secondary" id="btn-cv" href="docs/maximiliano-cortes.pdf">Descargar CV</a>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="proyectos">
+      <div class="container">
+        <div class="col col-100">
+          <h2 class="h-center">Proyectos</h2>
+        </div>
+        <div class="col col-100">
+          <div class="col-50">
+            <h3>Proyectos individuales</h3>
+            <div class="widgetProyecto">
+              <div class="widgetProyecto_contenedorImg"><a href="https://www.experienciaok.com" target="_blank"><img class="widgetProyecto_cover" src="img/screen-experienciaok-overlay.jpg"/></a><img class="widgetProyecto_img" src="img/screen-experienciaok.jpg"/></div>
+              <div class="widgetProyecto_contenedorTexto">
+                <h4>Experiencia OK</h4>
+                <p>2018-2019</p>
+                <p></p><a href="https://www.experienciaok.com" target="_blank">Ver sitio</a>
+              </div>
+            </div>
+            <div class="widgetProyecto">
+              <div class="widgetProyecto_contenedorImg"><a href="/webs/los-que-se-van/index.html" target="_blank"><img class="widgetProyecto_cover" src="img/screen-losquesevan-overlay.jpg"/></a><img class="widgetProyecto_img" src="img/screen-losquesevan.jpg"/></div>
+              <div class="widgetProyecto_contenedorTexto">
+                <h4>Los que se van</h4>
+                <p>2015</p>
+                <p></p><a href="/webs/los-que-se-van/index.html" target="_blank">Ver sitio</a>
+              </div>
+            </div>
+            <!--+widgetProyecto('Portfolio','2019') //este solo tiene sentido cuando haya casos de estudio-->
+          </div>
+          <div class="col-50 texto-derecha">
+            <h3>Proyectos grupales</h3>
+            <div class="widgetProyecto">
+              <div class="widgetProyecto_contenedorImg"><a href="https://plataformahormiguero.com.ar" target="_blank"><img class="widgetProyecto_cover" src="img/screen-hormiguero-overlay.jpg"/></a><img class="widgetProyecto_img" src="img/screen-hormiguero.jpg"/></div>
+              <div class="widgetProyecto_contenedorTexto">
+                <h4>Plataforma Hormiguero</h4>
+                <p>2016-2019</p>
+                <p></p><a href="https://plataformahormiguero.com.ar" target="_blank">Ver sitio</a>
+              </div>
+            </div>
+            <div class="widgetProyecto">
+              <div class="widgetProyecto_contenedorImg"><a href="https://www.miriamhecht.com.ar" target="_blank"><img class="widgetProyecto_cover" src="img/screen-miriamhecht-overlay.jpg"/></a><img class="widgetProyecto_img" src="img/screen-miriamhecht.jpg"/></div>
+              <div class="widgetProyecto_contenedorTexto">
+                <h4>Miriam Hecht</h4>
+                <p>2018</p>
+                <p></p><a href="https://www.miriamhecht.com.ar" target="_blank">Ver sitio</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <svg class="backgroundFlecha" viewbox="0 0 100 100" preserveAspectRatio="none">
+        <path d="M0 0 V 100 H 100 V 0 L50 50 Z" fill="#fafafa" stroke="transparent"></path>
+      </svg>
+    </section>
+    <section class="section-fullHeight" id="contacto">
+      <div class="container">
+        <div class="box v-center h-center contenedorFormulario">
+          <h3 class="texto-centrado">Contactame</h3>
+          <p class="texto-centrado">Si querés comunicarte conmigo, podés enviarme un mail a <b>contacto@maxicortes.com.ar</b> o dejarme un mensaje acá abajo:</p>
+          <form id="formularioContacto" method="POST" action="#">
+            <label for="nombre">Nombre</label>
+            <input id="nombre" type="text">
+            <label for="mail">Correo electrónico</label>
+            <input id="mail" type="email">
+            <label for="#mensaje">Tu mensaje:</label>
+            <textarea style="resize: none"></textarea>
+            <input class="btn btn-primary" type="submit" value="Enviar">
+          </form>
+        </div>
+      </div>
+    </section>
+  </body>
 </html>
