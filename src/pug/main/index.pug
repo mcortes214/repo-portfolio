@@ -3,6 +3,7 @@ include ../parts/_mixins.pug
 doctype html
 html(lang="es-AR")
   head
+    meta(charset="utf-8")
     meta(name="viewport" content="width=device-width, initial-scale=1")
     meta(name='description' content= 'Diseño y programación front-end')
     meta(name='author' content= 'Maximiliano Cortés')
@@ -11,7 +12,6 @@ html(lang="es-AR")
     link(rel="canonical" href= 'https://maxicortes.com.ar')
     title Maximiliano Cortés
     script(type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js')
-      script(type='text/javascript', src='js/jquery-momentum-scroll.js')
     script(type='text/javascript', src='js/funciones.js')
     
   body
@@ -25,7 +25,7 @@ html(lang="es-AR")
             li.mainNav_item
               a.mainNav_link(href="#proyectos") Proyectos
             li.mainNav_item
-              a.mainNav_link(href="#contacto") Contactame
+              a.mainNav_link(href="#contacto") Contacto
         
     .breadcrumbs
       a.breadcrumbs_box(href="#home")
@@ -38,7 +38,7 @@ html(lang="es-AR")
         .breadcrumbs_item.ss_item(data-ss='#contacto')
     
     section#home.section-fullHeight
-      .container
+      .container.container-padding
         .col.col-50
           .box.v-center
             .backgroundBlanco
@@ -48,7 +48,7 @@ html(lang="es-AR")
             a.btn.btn-primary(href="#sobreMi") Conocé más
       
     section#sobreMi.section-fullHeight
-      .container
+      .container.container-padding
         .col.col-50.h-right.texto-derecha
           .v-center
             h3 Sobre mí
@@ -59,7 +59,7 @@ html(lang="es-AR")
             a.btn.btn-secondary#btn-cv(href="docs/maximiliano-cortes.pdf") Descargar CV
             
     section#proyectos
-      .container
+      .container.container-padding
         .col.col-100
           h2.h-center Proyectos
         .col.col-100
@@ -76,7 +76,7 @@ html(lang="es-AR")
         path(d='M0 0 V 100 H 100 V 0 L50 50 Z',fill="#fafafa",stroke="transparent")
             
     section#contacto.section-fullHeight
-      .container
+      .container.container-padding
         .box.v-center.h-center.contenedorFormulario
           h3.texto-centrado Contactame
           p.texto-centrado Si querés comunicarte conmigo, podés enviarme un mail a #[b contacto@maxicortes.com.ar] o dejarme un mensaje acá abajo:

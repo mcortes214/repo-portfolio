@@ -57,6 +57,14 @@ p {
   margin-bottom: 1em;
 }
 
+p.display {
+  font-size: 8em;
+  font-weight: bold;
+  color: #0a516d;
+  width: 100%;
+  margin-bottom: 0;
+}
+
 a {
   text-decoration: none;
   font-weight: bold;
@@ -75,6 +83,15 @@ a {
   margin-bottom: 0.4em;
 }
 
+.h1-large {
+  font-size: 3em;
+  margin-bottom: 1em;
+}
+
+.color-sec {
+  color: #f77754;
+}
+
 .texto-derecha {
   text-align: right;
 }
@@ -84,12 +101,11 @@ a {
 }
 
 section {
-  min-height: 100vh;
   position: relative;
 }
 
 .section-fullHeight {
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .container {
@@ -103,6 +119,16 @@ section {
   .container {
     width: 74%;
     margin: 0 13%;
+  }
+}
+
+.container-padding {
+  padding-top: 15vh;
+}
+@media screen and (max-width: 850px) {
+  .container-padding {
+    padding-top: 0;
+    padding-bottom: 15vh;
   }
 }
 
@@ -158,6 +184,11 @@ section {
     margin: 50px auto 0 auto;
   }
 }
+@media screen and (max-width: 850px) and (max-width: 850px) {
+  section#home .btn {
+    margin: 25px auto 0 auto;
+  }
+}
 
 @media screen and (max-width: 530px) {
   section#sobreMi {
@@ -171,7 +202,6 @@ section {
 }
 
 section#proyectos {
-  padding-top: 80px;
   padding-bottom: 30vh;
 }
 
@@ -292,6 +322,11 @@ section#sobreMi .container {
   z-index: 1;
   width: 100%;
   padding-top: 10px;
+}
+@media screen and (max-width: 850px) {
+  .header {
+    border-bottom: 1px solid #fafafa;
+  }
 }
 
 .header .mainNav {
