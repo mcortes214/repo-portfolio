@@ -80,7 +80,7 @@ html(lang="es-AR")
         .box.v-center.h-center.contenedorFormulario
           h3.texto-centrado Contactame
           p.texto-centrado Si querés comunicarte conmigo, podés enviarme un mail a #[b contacto@maxicortes.com.ar] o dejarme un mensaje acá abajo:
-          form(id="formularioContacto", method="POST", data-netlify="true", netlify-honeypot="bot-field", name="formularioContacto")
+          form(id="formularioContacto", method="POST", data-netlify="true", netlify-honeypot="bot-field", name="formularioContacto", action="/success.html")
             label(for="nombre") Nombre
             input(id="nombre", name="nombre", type="text")
             input(name="bot-field", id="honeypot")
