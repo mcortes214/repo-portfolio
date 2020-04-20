@@ -11,15 +11,21 @@
   <title>Document</title>
 </head>
 <body>
-  
+
   <form action="">
-    <label for="fecha">Fecha y hora:</label>
-    <input type="text|" name="fecha-hora" id="fecha-hora">
-    <label for="fecha">Precio de compra (formato: $xx,xx):</label>
-    $&nbsp;<input type="text" name="precio-compra" id="precio-compra" value="">
-    <label for="fecha">Precio de venta (formato: $xx,xx):</label>
-    $&nbsp;<input type="" name="precio-venta" id="precio-venta" value="">
-    <button type="button" name="siguiente" id="siguiente">Siguiente</button>
+    <div>
+      <label for="fecha">Fecha y hora:</label>
+      <input type="text|" name="fecha-hora" id="fecha-hora">
+    </div>
+    <div>
+      <label for="fecha">Precio de compra (formato: $xx,xx):</label>
+      <input type="text" name="precio-compra" id="precio-compra" value="$">
+    </div>
+    <div>
+      <label for="fecha">Precio de venta (formato: $xx,xx):</label>
+      <input type="" name="precio-venta" id="precio-venta" value="$">
+    </div>
+    <button type="button" name="siguiente" id="siguiente">Actualizar imagen</button>
 
     <canvas id="canvas" width="1080" height="1080">
 
