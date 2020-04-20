@@ -1,0 +1,11 @@
+html{
+  font-family: 'Lato', sans-serif;
+}
+
+img{
+  display: none;
+}
+
+canvas{
+  transform: scale(0.5,0.5);
+}
