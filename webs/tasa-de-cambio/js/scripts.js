@@ -65,7 +65,7 @@ function cargarTexto(){
 
   ctx.font = "500 49px Lato";
   ctx.fillStyle = "#FFFFFF";
-  ctx.fillText('Dólar blue al '+fecha, 80, 560);  //Fecha y hora
+  ctx.fillText('Dólar libre al '+fecha, 80, 560);  //Fecha y hora
   ctx.font = "900 75px Lato";
   ctx.fillText(compra, 390, 810);  //Compra
   ctx.fillText(venta, 320, 895);  //Venta
