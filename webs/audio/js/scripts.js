@@ -10,12 +10,18 @@ function reproducir(e){
 		audioElement1.play();
 		audioElement2.play();
 		audioElement3.play();
+		audioElement4.play();
+		audioElement5.play();
+		audioElement6.play();
 		e.dataset.playing = 'true';
 	// if track is playing pause it
 } else if (e.dataset.playing === 'true') {
 		audioElement1.pause();
 		audioElement2.pause();
 		audioElement3.pause();
+		audioElement4.pause();
+		audioElement5.pause();
+		audioElement6.pause();
 		e.dataset.playing = 'false';
 	}
 
@@ -34,9 +40,15 @@ const audioCtx = new AudioContext();
 const audioElement1 = document.getElementById('audio-01');
 const audioElement2 = document.getElementById('audio-02');
 const audioElement3 = document.getElementById('audio-03');
+const audioElement4 = document.getElementById('audio-04');
+const audioElement5 = document.getElementById('audio-05');
+const audioElement6 = document.getElementById('audio-06');
 const track1 = audioCtx.createMediaElementSource(audioElement1);
 const track2 = audioCtx.createMediaElementSource(audioElement2);
 const track3 = audioCtx.createMediaElementSource(audioElement3);
+const track4 = audioCtx.createMediaElementSource(audioElement4);
+const track5 = audioCtx.createMediaElementSource(audioElement5);
+const track6 = audioCtx.createMediaElementSource(audioElement6);
 
 const playButton = document.querySelector('.tape-controls-play');
 
@@ -62,6 +74,9 @@ audioElement1.addEventListener('ended', () => {
 const gainNode1 = audioCtx.createGain();
 const gainNode2 = audioCtx.createGain();
 const gainNode3 = audioCtx.createGain();
+const gainNode4 = audioCtx.createGain();
+const gainNode5 = audioCtx.createGain();
+const gainNode6 = audioCtx.createGain();
 
 const volumeControl1 = document.getElementById('volume-1');
 volumeControl1.addEventListener('input', function() {
@@ -76,6 +91,21 @@ volumeControl2.addEventListener('input', function() {
 const volumeControl3 = document.getElementById('volume-3');
 volumeControl3.addEventListener('input', function() {
 	gainNode3.gain.value = this.value;
+}, false);
+
+const volumeControl4 = document.getElementById('volume-4');
+volumeControl4.addEventListener('input', function() {
+	gainNode4.gain.value = this.value;
+}, false);
+
+const volumeControl5 = document.getElementById('volume-5');
+volumeControl5.addEventListener('input', function() {
+	gainNode5.gain.value = this.value;
+}, false);
+
+const volumeControl6 = document.getElementById('volume-6');
+volumeControl6.addEventListener('input', function() {
+	gainNode6.gain.value = this.value;
 }, false);
 
 
@@ -93,6 +123,9 @@ volumeControl3.addEventListener('input', function() {
 track1.connect(gainNode1).connect(audioCtx.destination);
 track2.connect(gainNode2).connect(audioCtx.destination);
 track3.connect(gainNode3).connect(audioCtx.destination);
+track4.connect(gainNode4).connect(audioCtx.destination);
+track5.connect(gainNode5).connect(audioCtx.destination);
+track6.connect(gainNode6).connect(audioCtx.destination);
 
 // const powerButton = document.querySelector('.control-power');
 //
