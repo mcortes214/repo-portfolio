@@ -7,10 +7,6 @@
     <link rel="stylesheet" href="css/estilos.css">
   </head>
 <body>
-  <button type="button" id="play" name="button">Botón</button>
-  <p>prueba</p>
-
-
 
 <!-- Ejemplo boombox: https://codepen.io/Rumyra/pen/qyMzqN/ -->
 
@@ -19,28 +15,45 @@
 	<div class="boombox-body">
 
 		<section class="master-controls">
-			<input type="range" id="volume" class="control-volume" min="0" max="2" value="1" list="gain-vals" step="0.01" data-action="volume" />
+
+			<input type="range" orient="vertical" id="volume-1" class="control-volume" min="0" max="2" value="1" list="gain-vals" step="0.01" data-action="volume" />
 			<datalist id="gain-vals">
 				<option value="0" label="min">
 				<option value="2" label="max">
 			</datalist>
-			<label for="volume">VOL</label>
+			<label for="volume">Track 1</label>
 
-			<input type="range" id="panner" class="control-panner" list="pan-vals" min="-1" max="1" value="0" step="0.01" data-action="panner" />
+			<input type="range" orient="vertical" id="volume-2" class="control-volume" min="0" max="2" value="1" list="gain-vals" step="0.01" data-action="volume" />
+			<datalist id="gain-vals">
+				<option value="0" label="min">
+				<option value="2" label="max">
+			</datalist>
+			<label for="volume">Track 2</label>
+
+			<input type="range" orient="vertical" id="volume-3" class="control-volume" min="0" max="2" value="1" list="gain-vals" step="0.01" data-action="volume" />
+			<datalist id="gain-vals">
+				<option value="0" label="min">
+				<option value="2" label="max">
+			</datalist>
+			<label for="volume">Track 3</label>
+
+			<!-- <input type="range" id="panner" class="control-panner" list="pan-vals" min="-1" max="1" value="0" step="0.01" data-action="panner" />
 			<datalist id="pan-vals">
 				<option value="-1" label="left">
 				<option value="1" label="right">
 			</datalist>
-			<label for="panner">PAN</label>
+			<label for="panner">PAN</label> -->
 
-			<button class="control-power" role="switch" aria-checked="false" data-power="on">
+			<!-- <button class="control-power" role="switch" aria-checked="false" data-power="on">
 				<span>On/Off</span>
-			</button>
+			</button> -->
 		</section>
 
 		<section class="tape">
 
-			<audio src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/858/outfoxing.mp3" crossorigin="anonymous"></audio>
+			<audio id="audio-01" src="audio/sonidos1.mp3" crossorigin="anonymous"></audio>
+			<audio id="audio-02" src="audio/sonidos2.mp3" crossorigin="anonymous"></audio>
+			<audio id="audio-03" src="audio/sonidos3.mp3" crossorigin="anonymous"></audio>
 
 <!-- 			type="audio/mpeg" -->
 

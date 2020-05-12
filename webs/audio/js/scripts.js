@@ -8,8 +8,12 @@ const audioCtx = new AudioContext();
 
 
 // load some sound
-const audioElement = document.querySelector('audio');
-const track = audioCtx.createMediaElementSource(audioElement);
+const audioElement1 = document.getElementById('audio-01');
+const audioElement2 = document.getElementById('audio-02');
+const audioElement3 = document.getElementById('audio-03');
+const track1 = audioCtx.createMediaElementSource(audioElement1);
+const track2 = audioCtx.createMediaElementSource(audioElement2);
+const track3 = audioCtx.createMediaElementSource(audioElement3);
 
 const playButton = document.querySelector('.tape-controls-play');
 
@@ -22,11 +26,15 @@ playButton.addEventListener('click', function() {
 	}
 
 	if (this.dataset.playing === 'false') {
-		audioElement.play();
+		audioElement1.play();
+		audioElement2.play();
+		audioElement3.play();
 		this.dataset.playing = 'true';
 	// if track is playing pause it
 	} else if (this.dataset.playing === 'true') {
-		audioElement.pause();
+		audioElement1.pause();
+		audioElement2.pause();
+		audioElement3.pause();
 		this.dataset.playing = 'false';
 	}
 
@@ -36,43 +44,60 @@ playButton.addEventListener('click', function() {
 }, false);
 
 // if track ends
-audioElement.addEventListener('ended', () => {
+//CONSERVAR TAL CUAL. VA A HABER 1 SOLO TRACK QUE SINCRONICE AL PLAYBACK DEL RESTO.
+audioElement1.addEventListener('ended', () => {
 	playButton.dataset.playing = 'false';
 	playButton.setAttribute( "aria-checked", "false" );
 }, false);
 
 // volume
-const gainNode = audioCtx.createGain();
+const gainNode1 = audioCtx.createGain();
+const gainNode2 = audioCtx.createGain();
+const gainNode3 = audioCtx.createGain();
 
-const volumeControl = document.querySelector('[data-action="volume"]');
-volumeControl.addEventListener('input', function() {
-	gainNode.gain.value = this.value;
+const volumeControl1 = document.getElementById('volume-1');
+volumeControl1.addEventListener('input', function() {
+	gainNode1.gain.value = this.value;
 }, false);
 
-// panning
-const pannerOptions = {pan: 0};
-const panner = new StereoPannerNode(audioCtx, pannerOptions);
-
-const pannerControl = document.querySelector('[data-action="panner"]');
-pannerControl.addEventListener('input', function() {
-	panner.pan.value = this.value;
+const volumeControl2 = document.getElementById('volume-2');
+volumeControl2.addEventListener('input', function() {
+	gainNode2.gain.value = this.value;
 }, false);
+
+const volumeControl3 = document.getElementById('volume-3');
+volumeControl3.addEventListener('input', function() {
+	gainNode3.gain.value = this.value;
+}, false);
+
+
+//
+// // panning
+// const pannerOptions = {pan: 0};
+// const panner = new StereoPannerNode(audioCtx, pannerOptions);
+//
+// const pannerControl = document.querySelector('[data-action="panner"]');
+// pannerControl.addEventListener('input', function() {
+// 	panner.pan.value = this.value;
+// }, false);
 
 // connect our graph
-track.connect(gainNode).connect(panner).connect(audioCtx.destination);
+track1.connect(gainNode1).connect(audioCtx.destination);
+track2.connect(gainNode2).connect(audioCtx.destination);
+track3.connect(gainNode3).connect(audioCtx.destination);
 
-const powerButton = document.querySelector('.control-power');
-
-powerButton.addEventListener('click', function() {
-	if (this.dataset.power === 'on') {
-		audioCtx.suspend();
-		this.dataset.power = 'off';
-	} else if (this.dataset.power === 'off') {
-		audioCtx.resume();
-		this.dataset.power = 'on';
-	}
-	this.setAttribute( "aria-checked", state ? "false" : "true" );
-	console.log(audioCtx.state);
-}, false);
+// const powerButton = document.querySelector('.control-power');
+//
+// powerButton.addEventListener('click', function() {
+// 	if (this.dataset.power === 'on') {
+// 		audioCtx.suspend();
+// 		this.dataset.power = 'off';
+// 	} else if (this.dataset.power === 'off') {
+// 		audioCtx.resume();
+// 		this.dataset.power = 'on';
+// 	}
+// 	this.setAttribute( "aria-checked", state ? "false" : "true" );
+// 	console.log(audioCtx.state);
+// }, false);
 
 // Track credit: Outfoxing the Fox by Kevin MacLeod under Creative Commons
