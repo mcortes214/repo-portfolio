@@ -1,5 +1,28 @@
 console.clear();
 
+function reproducir(e){
+	// check if context is in suspended state (autoplay policy)
+	if (audioCtx.state === 'suspended') {
+		audioCtx.resume();
+	}
+
+	if (e.dataset.playing === 'false') {
+		audioElement1.play();
+		audioElement2.play();
+		audioElement3.play();
+		e.dataset.playing = 'true';
+	// if track is playing pause it
+} else if (e.dataset.playing === 'true') {
+		audioElement1.pause();
+		audioElement2.pause();
+		audioElement3.pause();
+		e.dataset.playing = 'false';
+	}
+
+	let state = e.getAttribute('aria-checked') === "true" ? true : false;
+	e.setAttribute( 'aria-checked', state ? "false" : "true" );
+}
+
 // instigate our audio context
 
 // for cross browser
@@ -20,26 +43,7 @@ const playButton = document.querySelector('.tape-controls-play');
 // play pause audio
 playButton.addEventListener('click', function() {
 
-	// check if context is in suspended state (autoplay policy)
-	if (audioCtx.state === 'suspended') {
-		audioCtx.resume();
-	}
-
-	if (this.dataset.playing === 'false') {
-		audioElement1.play();
-		audioElement2.play();
-		audioElement3.play();
-		this.dataset.playing = 'true';
-	// if track is playing pause it
-	} else if (this.dataset.playing === 'true') {
-		audioElement1.pause();
-		audioElement2.pause();
-		audioElement3.pause();
-		this.dataset.playing = 'false';
-	}
-
-	let state = this.getAttribute('aria-checked') === "true" ? true : false;
-	this.setAttribute( 'aria-checked', state ? "false" : "true" );
+	reproducir(this);
 
 }, false);
 
@@ -48,6 +52,10 @@ playButton.addEventListener('click', function() {
 audioElement1.addEventListener('ended', () => {
 	playButton.dataset.playing = 'false';
 	playButton.setAttribute( "aria-checked", "false" );
+
+	//después de cortar la reproducción, volver a iniciarla
+	reproducir(playButton);
+
 }, false);
 
 // volume
