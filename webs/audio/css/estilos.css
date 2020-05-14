@@ -90,5 +90,9 @@ input[type=range]::-ms-thumb {
 }
 
 
+.elem-cancion-2{
+  display: none;
+}
+
 
 /* TRACK */
