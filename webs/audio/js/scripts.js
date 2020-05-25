@@ -12,58 +12,58 @@ var tiempoTranscurrido = 0;
 
 //Datos de canción
 
-// var reproductor = {
-// 	cancion1: {
-// 		tracks: {
-// 			track1: {
-// 				url: 'https://www.maxicortes.com.ar/webs/audio/audio/sonidos-1.mp3',
-// 				nombre: 'Track 1',
-// 			},
-// 			track2: {
-// 				url: 'https://www.maxicortes.com.ar/webs/audio/audio/sonidos-2.mp3',
-// 				nombre: 'Track 2',
-// 			},
-// 			track3: {
-// 				url: 'https://www.maxicortes.com.ar/webs/audio/audio/sonidos-3.mp3',
-// 				nombre: 'Track 3',
-// 			},
-// 			track4: {
-// 				url: 'https://www.maxicortes.com.ar/webs/audio/audio/sonidos-4.mp3',
-// 				nombre: 'Track 4',
-// 			},
-// 			track5: {
-// 				url: 'https://www.maxicortes.com.ar/webs/audio/audio/sonidos-5.mp3',
-// 				nombre: 'Track 5',
-// 			},
-// 			track6: {
-// 				url: 'https://www.maxicortes.com.ar/webs/audio/audio/sonidos-6.mp3',
-// 				nombre: 'Track 6',
-// 			},
-// 		},
-// 		bus: audioCtx.createGain(),
-// 		nombreCancion: 'jorgito',
-// 		activo: false,
-// 	},
-// 	cancion2: {
-// 		tracks: {
-// 			track1: {
-// 				url: 'https://www.maxicortes.com.ar/webs/audio/audio/sonidos-b1.mp3',
-// 				nombre: 'Track 1',
-// 			},
-// 			track2: {
-// 				url: 'https://www.maxicortes.com.ar/webs/audio/audio/sonidos-b2.mp3',
-// 				nombre: 'Track 2',
-// 			},
-// 			track3: {
-// 				url: 'https://www.maxicortes.com.ar/webs/audio/audio/sonidos-b3.mp3',
-// 				nombre: 'Track 3',
-// 			},
-// 		},
-// 		bus: audioCtx.createGain(),
-// 		nombreCancion: 'pepito',
-// 		activo: false,
-// 	},
-// };
+var reproductor = {
+	cancion1: {
+		tracks: {
+			track1: {
+				url: 'https://www.maxicortes.com.ar/webs/audio/audio/sonidos-1.mp3',
+				nombre: 'Track 1',
+			},
+			track2: {
+				url: 'https://www.maxicortes.com.ar/webs/audio/audio/sonidos-2.mp3',
+				nombre: 'Track 2',
+			},
+			track3: {
+				url: 'https://www.maxicortes.com.ar/webs/audio/audio/sonidos-3.mp3',
+				nombre: 'Track 3',
+			},
+			track4: {
+				url: 'https://www.maxicortes.com.ar/webs/audio/audio/sonidos-4.mp3',
+				nombre: 'Track 4',
+			},
+			track5: {
+				url: 'https://www.maxicortes.com.ar/webs/audio/audio/sonidos-5.mp3',
+				nombre: 'Track 5',
+			},
+			track6: {
+				url: 'https://www.maxicortes.com.ar/webs/audio/audio/sonidos-6.mp3',
+				nombre: 'Track 6',
+			},
+		},
+		bus: audioCtx.createGain(),
+		nombreCancion: 'jorgito',
+		activo: false,
+	},
+	cancion2: {
+		tracks: {
+			track1: {
+				url: 'https://www.maxicortes.com.ar/webs/audio/audio/sonidos-b1.mp3',
+				nombre: 'Track 1',
+			},
+			track2: {
+				url: 'https://www.maxicortes.com.ar/webs/audio/audio/sonidos-b2.mp3',
+				nombre: 'Track 2',
+			},
+			track3: {
+				url: 'https://www.maxicortes.com.ar/webs/audio/audio/sonidos-b3.mp3',
+				nombre: 'Track 3',
+			},
+		},
+		bus: audioCtx.createGain(),
+		nombreCancion: 'pepito',
+		activo: false,
+	},
+};
 
 //Canción activa
 
