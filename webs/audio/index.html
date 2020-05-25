@@ -4,7 +4,11 @@
     <meta charset="utf‐8">
     <title>Prueba audio</title>
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
+    <link rel="stylesheet" href="css/rangeslider.css">
+   <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/css/ion.rangeSlider.min.css"/> -->
     <link rel="stylesheet" href="css/estilos.css">
+    <script type="text/javascript" src="js/rangeslider.min.js"></script>
+   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/js/ion.rangeSlider.min.js"></script> -->
   </head>
 <body>
 
@@ -13,136 +17,86 @@
 
 <!-- Ejemplo boombox: https://codepen.io/Rumyra/pen/qyMzqN/ -->
 
-<div id="boombox">
+<div id="reproductor">
+  <div id="selectores-canciones"></div> <!-- Contenido dinámico -->
+  <div id="canales"></div> <!-- Contenido dinámico -->
+  <div id="controles-globales">
+    <!-- Master volume -->
+    <span class="global-control-tag">Master</span>
+    <input type="range" class="rangeslider" data-accion="volumen-master" id="volumen-master" min="0" max="2" value="1" step="0.001" data-orientation="horizontal">
 
-	<div class="boombox-body">
+    <!-- Delay -->
+    <span class="global-control-tag">Delay time</span>
+    <input type="range" class="rangeslider" data-accion="delay-time" id="delay-time" min="0" max="2" value="1" step="0.001" data-orientation="horizontal">
+    <span class="global-control-tag">Delay feedback</span>
+    <input type="range" class="rangeslider" data-accion="delay-feedback" id="delay-feedback" min="0" max="2" value="1" step="0.001" data-orientation="horizontal">
 
-    <button type="button" name="cancion1" class="boton-cancion" id="boton-cancion-1">Canción 1</button>
-    <button type="button" name="cancion2" class="boton-cancion" id="boton-cancion-2">Canción 2</button>
+    <!-- Reverb -->
+    <span class="global-control-tag">Reverb level</span>
+    <input type="range" class="rangeslider" data-accion="reverb-wet" id="reverb-wet" min="0" max="2" value="1" step="0.001" data-orientation="horizontal">
 
-		<section class="master-controls-a elem-cancion-1">
+    <!-- Playback -->
+    <button class="playback-control" id="play-button">Play</button>
+    <button class="playback-control" id="pause-button">Pause</button>
+    <button class="playback-control" id="stop-button">Stop</button>
 
-			<input type="range" orient="vertical" id="volume-a1" class="control-volume" min="0" max="2" value="1" list="gain-vals" step="0.01" data-action="volume" />
-			<datalist id="gain-vals">
-				<option value="0" label="min">
-				<option value="2" label="max">
-			</datalist>
-			<label for="volume">Track 1</label>
-
-			<input type="range" orient="vertical" id="volume-a2" class="control-volume" min="0" max="2" value="1" list="gain-vals" step="0.01" data-action="volume" />
-			<datalist id="gain-vals">
-				<option value="0" label="min">
-				<option value="2" label="max">
-			</datalist>
-			<label for="volume">Track 2</label>
-
-			<input type="range" orient="vertical" id="volume-a3" class="control-volume" min="0" max="2" value="1" list="gain-vals" step="0.01" data-action="volume" />
-			<datalist id="gain-vals">
-				<option value="0" label="min">
-				<option value="2" label="max">
-			</datalist>
-			<label for="volume">Track 3</label>
-
-			<input type="range" orient="vertical" id="volume-a4" class="control-volume" min="0" max="2" value="1" list="gain-vals" step="0.01" data-action="volume" />
-			<datalist id="gain-vals">
-				<option value="0" label="min">
-				<option value="2" label="max">
-			</datalist>
-			<label for="volume">Track 4</label>
-
-			<input type="range" orient="vertical" id="volume-a5" class="control-volume" min="0" max="2" value="1" list="gain-vals" step="0.01" data-action="volume" />
-			<datalist id="gain-vals">
-				<option value="0" label="min">
-				<option value="2" label="max">
-			</datalist>
-			<label for="volume">Track 5</label>
-
-			<input type="range" orient="vertical" id="volume-a6" class="control-volume" min="0" max="2" value="1" list="gain-vals" step="0.01" data-action="volume" />
-			<datalist id="gain-vals">
-				<option value="0" label="min">
-				<option value="2" label="max">
-			</datalist>
-			<label for="volume">Track 6</label>
-
-			<input type="range" orient="vertical" id="volume-master-a" class="control-volume" min="0" max="2" value="1" list="gain-vals" step="0.01" data-action="volume" />
-			<datalist id="gain-vals">
-				<option value="0" label="min">
-				<option value="2" label="max">
-			</datalist>
-			<label for="volume">Master</label>
-
-		</section>
-
-    <section class="master-controls-b elem-cancion-2">
-
-      <input type="range" orient="vertical" id="volume-b1" class="control-volume" min="0" max="2" value="1" list="gain-vals" step="0.01" data-action="volume" />
-      <datalist id="gain-vals">
-        <option value="0" label="min">
-        <option value="2" label="max">
-      </datalist>
-      <label for="volume">Track 1</label>
-
-      <input type="range" orient="vertical" id="volume-b2" class="control-volume" min="0" max="2" value="1" list="gain-vals" step="0.01" data-action="volume" />
-      <datalist id="gain-vals">
-        <option value="0" label="min">
-        <option value="2" label="max">
-      </datalist>
-      <label for="volume">Track 2</label>
-
-      <input type="range" orient="vertical" id="volume-b3" class="control-volume" min="0" max="2" value="1" list="gain-vals" step="0.01" data-action="volume" />
-      <datalist id="gain-vals">
-        <option value="0" label="min">
-        <option value="2" label="max">
-      </datalist>
-      <label for="volume">Track 3</label>
-
-      <input type="range" orient="vertical" id="volume-master-b" class="control-volume" min="0" max="2" value="1" list="gain-vals" step="0.01" data-action="volume" />
-      <datalist id="gain-vals">
-        <option value="0" label="min">
-        <option value="2" label="max">
-      </datalist>
-      <label for="volume">Master</label>
-
-    </section>
-
-		<section class="tape-a elem-cancion-1">
-
-			<audio id="audio-a01" src="audio/sonidos-1.mp3" crossorigin="anonymous"></audio>
-			<audio id="audio-a02" src="audio/sonidos-2.mp3" crossorigin="anonymous"></audio>
-			<audio id="audio-a03" src="audio/sonidos-3.mp3" crossorigin="anonymous"></audio>
-			<audio id="audio-a04" src="audio/sonidos-4.mp3" crossorigin="anonymous"></audio>
-			<audio id="audio-a05" src="audio/sonidos-5.mp3" crossorigin="anonymous"></audio>
-			<audio id="audio-a06" src="audio/sonidos-6.mp3" crossorigin="anonymous"></audio>
-
-<!-- 			type="audio/mpeg" -->
-
-			<button data-playing="false" class="tape-controls-play-a" role="switch" aria-checked="false">
-				<span>Play</span>
-			</button>
-			<button data-playing="false" class="tape-controls-pause-a" role="switch" aria-checked="false">
-				<span>Pause</span>
-			</button>
-		</section>
-
-		<section class="tape-b elem-cancion-2">
-
-			<audio id="audio-b01" src="audio/sonidos-b1.mp3" crossorigin="anonymous"></audio>
-			<audio id="audio-b02" src="audio/sonidos-b2.mp3" crossorigin="anonymous"></audio>
-			<audio id="audio-b03" src="audio/sonidos-b3.mp3" crossorigin="anonymous"></audio>
-
-<!-- 			type="audio/mpeg" -->
-
-			<button data-playing="false" class="tape-controls-play-b" role="switch" aria-checked="false">
-				<span>Play</span>
-			</button>
-
-			<button data-playing="false" class="tape-controls-pause-b" role="switch" aria-checked="false">
-				<span>Pause</span>
-			</button>
-		</section>
-
-	</div><!-- boombox-body -->
+  </div>
 </div>
+
+  <script>
+  var reproductor = {
+    cancion1: {
+      tracks: {
+        track1: {
+          url: 'https://www.maxicortes.com.ar/webs/audio/audio/sonidos-1.mp3',
+          nombre: 'Track 1',
+        },
+        track2: {
+          url: 'https://www.maxicortes.com.ar/webs/audio/audio/sonidos-2.mp3',
+          nombre: 'Track 2',
+        },
+        track3: {
+          url: 'https://www.maxicortes.com.ar/webs/audio/audio/sonidos-3.mp3',
+          nombre: 'Track 3',
+        },
+        track4: {
+          url: 'https://www.maxicortes.com.ar/webs/audio/audio/sonidos-4.mp3',
+          nombre: 'Track 4',
+        },
+        track5: {
+          url: 'https://www.maxicortes.com.ar/webs/audio/audio/sonidos-5.mp3',
+          nombre: 'Track 5',
+        },
+        track6: {
+          url: 'https://www.maxicortes.com.ar/webs/audio/audio/sonidos-6.mp3',
+          nombre: 'Track 6',
+        },
+      },
+      bus: audioCtx.createGain(),
+      nombreCancion: 'jorgito',
+      activo: false,
+    },
+    cancion2: {
+      tracks: {
+        track1: {
+          url: 'https://www.maxicortes.com.ar/webs/audio/audio/sonidos-b1.mp3',
+          nombre: 'Track 1',
+        },
+        track2: {
+          url: 'https://www.maxicortes.com.ar/webs/audio/audio/sonidos-b2.mp3',
+          nombre: 'Track 2',
+        },
+        track3: {
+          url: 'https://www.maxicortes.com.ar/webs/audio/audio/sonidos-b3.mp3',
+          nombre: 'Track 3',
+        },
+      },
+      bus: audioCtx.createGain(),
+      nombreCancion: 'pepito',
+      activo: false,
+    },
+  };
+  </script>
 
   <script type="text/javascript" src="js/scripts.js"></script>
 
