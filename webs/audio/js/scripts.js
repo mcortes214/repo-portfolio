@@ -41,7 +41,7 @@ var reproductor = {
 			},
 		},
 		bus: audioCtx.createGain(),
-		nombreCancion: 'jorgito',
+		nombreCancion: 'Canción 1',
 		activo: false,
 	},
 	cancion2: {
@@ -60,7 +60,7 @@ var reproductor = {
 			},
 		},
 		bus: audioCtx.createGain(),
-		nombreCancion: 'pepito',
+		nombreCancion: 'Canción 2',
 		activo: false,
 	},
 };
