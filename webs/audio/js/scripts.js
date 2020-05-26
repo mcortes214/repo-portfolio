@@ -90,6 +90,7 @@ $(document).ready(function(){
 	//Event binding. Hacerlo con delegación!
 
 	$('.boton-cancion').on('click', function () {
+		detener(reproductor['cancion'+cancionSeleccionada]);
 		var dataCancion = $(this).attr('data-cancion');
 		var selectorSeccionCancion = '.contenedor-cancion[data-cancion="'+ dataCancion +'"]';
 		var cancionSeleccionada = $(selectorSeccionCancion);
@@ -346,7 +347,7 @@ function reproducir(song){
 	intervaloSeek = setInterval(function(){
 		//reproduccion Seek
 		tiempoTranscurrido += 0.1;
-		console.log(tiempoTranscurrido);
+		// console.log(tiempoTranscurrido);
 	},100);
 }
 
