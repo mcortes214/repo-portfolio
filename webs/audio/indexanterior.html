@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+ <html>
+   <head>
+    <meta charset="utf‐8">
+    <title>Prueba audio</title>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
+    <link rel="stylesheet" href="css/rangeslider.css">
+   <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/css/ion.rangeSlider.min.css"/> -->
+    <link rel="stylesheet" href="css/estilos.css">
+    <script type="text/javascript" src="js/rangeslider.min.js"></script>
+   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/js/ion.rangeSlider.min.js"></script> -->
+  </head>
+<body>
+
+<!-- <h2>Paisaje sonoro</h2>
+<p>Cada uno de los siguientes deslizadores controla el volumen de una pista de audio. Los tres audios combinados generan un paisaje sonoro natural y relajante; el usuario puede modificar la composición de este paisaje en tiempo real a través de los controles de volumen (clickear el botón "Play/pause" para iniciar o detener la reproducción).</p> -->
+
+<!-- Ejemplo boombox: https://codepen.io/Rumyra/pen/qyMzqN/ -->
+
+<div id="reproductor">
+  <div id="selectores-canciones"></div> <!-- Contenido dinámico -->
+  <div id="canales"></div> <!-- Contenido dinámico -->
+  <div id="controles-globales">
+    <!-- Master volume -->
+    <span class="global-control-tag">Master</span>
+    <input type="range" class="rangeslider" data-accion="volumen-master" id="volumen-master" min="0" max="2" value="1" step="0.001" data-orientation="horizontal">
+
+    <!-- Delay -->
+    <span class="global-control-tag">Delay time</span>
+    <input type="range" class="rangeslider" data-accion="delay-time" id="delay-time" min="0" max="1" value="0.5" step="0.001" data-orientation="horizontal">
+    <span class="global-control-tag">Delay feedback</span>
+    <input type="range" class="rangeslider" data-accion="delay-feedback" id="delay-feedback" min="0" max="2" value="0.5" step="0.001" data-orientation="horizontal">
+
+    <!-- Reverb -->
+    <span class="global-control-tag">Reverb level</span>
+    <input type="range" class="rangeslider" data-accion="reverb-wet" id="reverb-wet" min="0" max="2" value="0.5" step="0.001" data-orientation="horizontal">
+
+    <!-- Playback -->
+    <button class="playback-control" id="play-button">Play</button>
+    <button class="playback-control" id="pause-button">Pause</button>
+    <button class="playback-control" id="stop-button">Stop</button>
+
+  </div>
+</div>
+
+
+
+
+
+
+
+
+<!-- JS -->
+
+
+
+
+
+
+<script type="text/javascript">
+
+  // console.clear();
+
+  // VARIABLES GLOBALES
+
+  var tiempoTranscurrido = 0;
+  var intervaloSeek;
+
+  var intervaloTestMetadata = {};
+
+
+  // Inicializar contexto de Audio Web API
+  	const AudioContext = window.AudioContext || window.webkitAudioContext;
+  	const audioCtx = new AudioContext();
+
+  //Datos de canción
+
+
+  var reproductor = {
+    cancion1: {
+      tracks: {
+        track1: {
+          url: 'audio/sonidos-1.mp3',
+          nombre: 'Track 1',
+        },
+        track2: {
+          url: 'audio/sonidos-2.mp3',
+          nombre: 'Track 2',
+        },
+        track3: {
+          url: 'audio/sonidos-3.mp3',
+          nombre: 'Track 3',
+        },
+        track4: {
+          url: 'audio/sonidos-4.mp3',
+          nombre: 'Track 4',
+        },
+        track5: {
+          url: 'audio/sonidos-5.mp3',
+          nombre: 'Track 5',
+        },
+        track6: {
+          url: 'audio/sonidos-6.mp3',
+          nombre: 'Track 6',
+        },
+      },
+      bus: audioCtx.createGain(),
+      nombreCancion: 'Canción 1',
+      activo: false,
+    },
+    cancion2: {
+      tracks: {
+        track1: {
+          url: 'audio/sonidos-b1.mp3',
+          nombre: 'Track 1',
+        },
+        track2: {
+          url: 'audio/sonidos-b2.mp3',
+          nombre: 'Track 2',
+        },
+        track3: {
+          url: 'audio/sonidos-b3.mp3',
+          nombre: 'Track 3',
+        },
+      },
+      bus: audioCtx.createGain(),
+      nombreCancion: 'Canción 2',
+      activo: false,
+    },
+  };
+  //Canción activa
+
+
+
+
+  //-----------------------------------------
+  // DOCUMENT READY (ejecución de código)
+
+  $(document).ready(function(){
+
+  	cancionActiva = reproductor.cancion1;
+  	//Generar markup HTML dinámico partir de los datos (interfaz y audios)
+  	generarCanciones();
+
+  	// Inicializar rangeslider (visualización de interfaz). Después de generar los sliders
+  	$('input[type="range"]:not(.seekbar)').rangeslider({
+  		polyfill: false,
+  		onSlide: function(){
+  			moverControl(this.$element[0]); //target del evento
+  		}
+  	});
+
+  	//Event binding
+
+  	$('.boton-cancion').on('click', function () {
+      detener(cancionActiva);
+  		var dataCancion = $(this).attr('data-cancion');
+  		var selectorSeccionCancion = '.contenedor-cancion[data-cancion="'+ dataCancion +'"]';
+  		var cancionSeleccionada = $(selectorSeccionCancion);
+  		$('.boton-cancion').removeClass('activo'); //eliminar el activo de todos los contenedores
+  		$(this).addClass('activo'); //agregarla a la canción seleccionada
+  		$('.contenedor-cancion').removeClass('activo'); //eliminar el activo de todos los contenedores
+  		cancionSeleccionada.addClass('activo'); //agregarla a la canción seleccionada
+
+  		cancionActiva = reproductor['cancion'+dataCancion];
+   	});
+
+  $('#play-button').on('click', function () {
+  	reproducir(cancionActiva);
+  });
+
+  $('#pause-button').on('click', function () {
+  	pausar(cancionActiva);
+  });
+
+  $('#stop-button').on('click', function () {
+  	detener(cancionActiva);
+  });
+
+
+
+
+
+
+  });
+
+  //-----------------------------------------
+
+  // FUNCIONES
+
+  //moverControl: esta función evalúa los atributos del slider,
+  //y decide el funcionamiento del control.
+
+  function moverControl(input) {
+  	var acc= $(input).data('accion');
+  	if(acc=='volumen-track'){
+  		var cancion = $(input).data('cancion');
+  		var track = $(input).data('track');
+  		reproductor['cancion'+cancion].tracks['track'+track].gainNode.gain.value = input.value;
+  	}
+  	else if(acc=='volumen-master'){
+  		gainNodeMaster.gain.value = input.value;
+  	}
+
+  	else if(acc=='delay-time'){
+  		delay.delayTime.value = input.value;
+  	}
+
+  	else if(acc=='delay-feedback'){
+  		feedback.gain.value = input.value;
+  	}
+
+  	else if(acc=='reverb-wet'){
+  		reverbGain.gain.value = input.value;
+  	}
+
+  	else if(acc=="seek"){
+      var cancion = $(input).data('cancion');
+      objCancion = reproductor['cancion'+cancion]
+      //obtener iD de cancion
+      saltarA(objCancion, parseInt(input.value));
+  	}
+
+
+  }
+
+
+
+
+  function generarCanciones(){
+  	//Acá metí básicamente todas las cosas que tengan que estar en un loop de canciones o de tracks.
+  	//Capaz pueda separar esto a futuro.
+
+  	// Primero identificar las canciones
+
+  	const elementoSelectores = $('#selectores-canciones')[0];
+  	var cantidadCanciones = Object.keys(reproductor).length;
+  	var primeraCancion = true;
+
+  	//Y por cada canción:
+  	for(var i=1; i<cantidadCanciones+1; i++){
+  		var cancionActual = reproductor['cancion'+i];
+
+  		//1- Generar un selector
+  		var nombreCancion = cancionActual.nombreCancion;
+
+  		if(primeraCancion){
+  			$(elementoSelectores).append(
+  				'<button type="button" class="boton-cancion activo" data-cancion="'+i+'">'+nombreCancion+'</button>'
+  			);
+
+  		}
+  		else{
+  			$(elementoSelectores).append(
+  				'<button type="button" class="boton-cancion" data-cancion="'+i+'">'+nombreCancion+'</button>'
+  			);
+  		}
+
+  		//2- Generar un contenedor
+  		const elementoCanales = $('#canales')[0];
+
+  		if(primeraCancion){
+  			$(elementoCanales).append(
+  				'<div class="contenedor-cancion activo" data-cancion="'+i+'" id="contenedor-cancion-'+i+'">'
+          +
+          '<div class="contenedor-canales" data-cancion="'+i+'" id="contenedor-canales-'+i+'"></div>'
+          +
+          '</div>'
+  			);
+  		}
+  		else {
+  			$(elementoCanales).append(
+  				'<div class="contenedor-cancion" data-cancion="'+i+'" id="contenedor-cancion-'+i+'">'
+          +
+          '<div class="contenedor-canales" data-cancion="'+i+'" id="contenedor-canales-'+i+'"></div>'
+          +
+          '</div>'
+  			);
+  		}
+
+
+  		//3- Y generar los canales dentro del contenedor (loop for)
+
+  		var elementoContenedorCancionActual = $('#contenedor-canales-'+i)[0];
+  		var cantidadTracks = Object.keys(cancionActual.tracks).length;
+
+  		for(var j=1; j<cantidadTracks+1; j++){
+
+  			//Primero el HTML (sliders y audios),
+  			var trackActual = cancionActual.tracks['track'+j];
+  			var linkTrackActual = trackActual.url;
+  			$(elementoContenedorCancionActual).append(
+  				'<input type="range" class="rangeslider" data-accion="volumen-track" data-cancion="'+i+'" data-track="'+j+'" id="volumen-cancion-'+i+'-track-'+j+'" min="0" max="2" value="1" step="0.001" data-orientation="vertical">'
+  				+
+  				'<audio id="audio-cancion-'+i+'-track-'+j+'" src="'+linkTrackActual+'" crossorigin="anonymous"></audio>'
+  			);
+
+  			//Después generar los Audio Nodes, y vincularlos a un bus
+  			trackActual['mediaElement'] = $('#audio-cancion-'+i+'-track-'+j)[0];
+  			trackActual['audioSourceNode'] = audioCtx.createMediaElementSource(trackActual.mediaElement);
+  			trackActual['gainNode'] = audioCtx.createGain();
+  			var asn = trackActual.audioSourceNode;
+  			var bus = cancionActual.bus;
+  			var gn = trackActual.gainNode;
+  			asn.connect(gn).connect(bus);
+
+  			//Y finalmente vincular el slider de cada track a los audio nodes (event binding)
+  			var volumeControl = $('#volumen-cancion-'+i+'-track-'+j)[0];
+
+  			volumeControl.addEventListener('ValueChange', function() {
+  			}, false);
+  		}
+
+    //Y generar el contenedor para el seek, y el control de seek
+
+    var elementoContenedorC = $('#contenedor-cancion-'+i)[0];
+    $(elementoContenedorC).append(
+      '<div class="contenedor-seek" id="contenedor-seek-'+i+'"></div>'
+    );
+    var elementoSeek = $('#contenedor-seek-'+i)[0];
+    $(elementoSeek).append(
+      '<input type="range" class="rangeslider seek-marker" data-accion="marcador-seek" data-cancion="'+i+'" id="seek-marker-'+i+'" min="0" max="2" value="0" step="0.001" data-orientation="horizontal">'
+    );
+    $(elementoSeek).append(
+      '<input type="range" class="rangeslider seek-control" data-accion="seek" data-cancion="'+i+'" id="seek-control-'+i+'" min="0" max="2" value="0" step="0.001" data-orientation="horizontal">'
+    );
+
+  	//Conectar los buses de canción al master gain:
+  	cancionActual.bus.connect(gainNodeMaster);
+
+    console.log('Asignación de loop:');
+    console.log(cancionActual);
+  	//Vincular un loop al evento de que el primer track termine
+      cancionActual.tracks.track1.mediaElement.addEventListener('ended',loopear.bind(null, cancionActual), false);
+
+  	primeraCancion = false; //reiniciar variable
+
+    //Y cambiar las duraciones del seek bar para esta canción
+    intervaloTestMetadata[i] = setInterval(chequearMetadata, 500, {a: cancionActual, b: i});
+
+    } // fin loop por cada canción
+  }
+
+
+
+  // Audio Nodes de controles master
+
+  //Master
+  const gainNodeMaster = audioCtx.createGain();
+
+  //Delay
+
+  const delay = audioCtx.createDelay();
+  const feedback = audioCtx.createGain();
+  feedback.gain.value = 0.2;
+  delay.delayTime.value = 0.2;
+
+  //Reverb
+  //Recuperar el archivo de audio por HTTP (así me devuelve un arraybuffer fácilmente)
+
+  let reverb = audioCtx.createConvolver();
+  let reverbGain = audioCtx.createGain();
+
+  var source = audioCtx.createBufferSource();
+  getData();
+
+  function getData() {
+    var request = new XMLHttpRequest();
+
+    request.open('GET', 'audio/reverb-ir.wav', true);
+    request.responseType = 'arraybuffer';
+
+
+    request.onload = function() {
+      var audioData = request.response;
+      audioCtx.decodeAudioData(audioData, function(buffer) {
+          source.buffer = buffer;
+  				reverb.buffer = source.buffer;
+          // source.connect(audioCtx.destination);
+          // source.loop = true;
+        },
+
+        function(e){ console.log("Error with decoding audio data" + e.err); });
+
+    }
+
+    request.send();
+  	console.log('Sending HTTP request...');
+  }
+
+
+  //ROUTEO
+
+  //Conectar todos los tracks de las canciones a sus buses
+  //PRIMERO BYPASSEAR TODO, SACAR EL SONIDO
+
+  gainNodeMaster.connect(audioCtx.destination);
+  gainNodeMaster.connect(delay);
+  delay.connect(feedback);
+  feedback.connect(delay);
+  delay.connect(audioCtx.destination);
+  gainNodeMaster.connect(reverb);
+  reverb.connect(reverbGain).connect(audioCtx.destination);
+
+
+  //FUNCIONES carga de metadata audios
+
+  function chequearMetadata(obj){
+    var canc = obj.a;
+    var ind = obj.b;
+    console.log('chequeando metadata canción '+ind+'...');
+    var audio = canc.tracks.track1.mediaElement;
+    if (audio.readyState > 0) {
+      audio.addEventListener('loadedmetadata', cambiarValoresSeek(canc, audio, ind));
+      console.log(audio);
+      clearInterval(intervaloTestMetadata[ind]);
+    }
+    else{
+      console.log('canción '+ind+' aún no lista.');
+    }
+  }
+
+  function cambiarValoresSeek(cancion, aud, indice){
+    // console.log(aud);
+    // console.log(aud.duration);
+    cancion['duracionCancion'] = aud.duration;
+    // console.log(cancion);
+    console.log('cargado');
+    //Actualizar valor máximo de los input
+    var objetoInput = $('#seek-control-'+indice);
+    var objetoMarcador = $('#seek-marker-'+indice);
+    cancion['controlSeek'] = objetoInput;
+    cancion['marcadorSeek'] = objetoMarcador;
+    console.log(objetoInput);
+    console.log(objetoMarcador);
+    objetoInput.attr('max', aud.duration);
+    objetoMarcador.attr('max', aud.duration);
+    objetoInput.rangeslider('update', true);
+    objetoMarcador.rangeslider('update', true);
+  }
+
+  // FUNCIONES de playback (toman un objeto de canción como argumento)
+
+  function loopear(canc) {
+  detener(canc);
+  console.log('loopeando: ');
+  console.log(canc);
+  reproducir(canc);
+  }
+
+  function reproducir(song){
+  	if (audioCtx.state === 'suspended') {
+  		audioCtx.resume();
+  	}
+  	var cantidadTracks = Object.keys(song.tracks).length;
+  	for(var i=1; i<cantidadTracks+1; i++){
+  		var track = song.tracks['track'+i].mediaElement;
+  		track.play();
+  	}
+  	intervaloSeek = setInterval(function(){
+  		//reproduccion Seek
+  		tiempoTranscurrido += 0.1;
+      console.log(tiempoTranscurrido);
+      song.marcadorSeek.val(tiempoTranscurrido).change();
+  	},100);
+  }
+
+  function pausar(song){
+  	var cantidadTracks = Object.keys(song.tracks).length;
+  	for(var i=1; i<cantidadTracks+1; i++){
+  		var track = song.tracks['track'+i].mediaElement;
+  		track.pause();
+      clearInterval(intervaloSeek);
+  	}
+  }
+
+  function detener(song){
+  	var cantidadTracks = Object.keys(song.tracks).length;
+  	for(var i=1; i<cantidadTracks+1; i++){
+  		var track = song.tracks['track'+i].mediaElement;
+  		track.pause();
+  		track.currentTime = 0;
+  		tiempoTranscurrido = 0;
+      song.marcadorSeek.val(tiempoTranscurrido).change();
+      clearInterval(intervaloSeek);
+  	}
+  }
+
+  function saltarA(song, segundos){
+  	var cantidadTracks = Object.keys(song.tracks).length;
+  	for(var i=1; i<cantidadTracks+1; i++){
+  		var track = song.tracks['track'+i].mediaElement;
+  		track.currentTime = segundos;
+  		tiempoTranscurrido = segundos;
+      song.marcadorSeek.val(tiempoTranscurrido).change();
+  	}
+  }
+
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>
