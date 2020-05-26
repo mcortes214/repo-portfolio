@@ -27,13 +27,13 @@
 
     <!-- Delay -->
     <span class="global-control-tag">Delay time</span>
-    <input type="range" class="rangeslider" data-accion="delay-time" id="delay-time" min="0" max="2" value="1" step="0.001" data-orientation="horizontal">
+    <input type="range" class="rangeslider" data-accion="delay-time" id="delay-time" min="0" max="1" value="0.5" step="0.001" data-orientation="horizontal">
     <span class="global-control-tag">Delay feedback</span>
-    <input type="range" class="rangeslider" data-accion="delay-feedback" id="delay-feedback" min="0" max="2" value="1" step="0.001" data-orientation="horizontal">
+    <input type="range" class="rangeslider" data-accion="delay-feedback" id="delay-feedback" min="0" max="2" value="0.5" step="0.001" data-orientation="horizontal">
 
     <!-- Reverb -->
     <span class="global-control-tag">Reverb level</span>
-    <input type="range" class="rangeslider" data-accion="reverb-wet" id="reverb-wet" min="0" max="2" value="1" step="0.001" data-orientation="horizontal">
+    <input type="range" class="rangeslider" data-accion="reverb-wet" id="reverb-wet" min="0" max="2" value="0.5" step="0.001" data-orientation="horizontal">
 
     <!-- Playback -->
     <button class="playback-control" id="play-button">Play</button>
@@ -59,12 +59,14 @@
 
 <script type="text/javascript">
 
-  console.clear();
+  // console.clear();
 
   // VARIABLES GLOBALES
 
-  var intervaloSeek = '';
   var tiempoTranscurrido = 0;
+  var intervaloSeek;
+
+  var intervaloTestMetadata = {};
 
 
   // Inicializar contexto de Audio Web API
@@ -141,14 +143,14 @@
   	generarCanciones();
 
   	// Inicializar rangeslider (visualización de interfaz). Después de generar los sliders
-  	$('input[type="range"]').rangeslider({
+  	$('input[type="range"]:not(.seekbar)').rangeslider({
   		polyfill: false,
   		onSlide: function(){
   			moverControl(this.$element[0]); //target del evento
   		}
   	});
 
-  	//Event binding. Hacerlo con delegación!
+  	//Event binding
 
   	$('.boton-cancion').on('click', function () {
       detener(cancionActiva);
@@ -190,7 +192,6 @@
   //y decide el funcionamiento del control.
 
   function moverControl(input) {
-
   	var acc= $(input).data('accion');
   	if(acc=='volumen-track'){
   		var cancion = $(input).data('cancion');
@@ -201,23 +202,26 @@
   		gainNodeMaster.gain.value = input.value;
   	}
 
-  	else if(acc='delay-time'){
+  	else if(acc=='delay-time'){
   		delay.delayTime.value = input.value;
   	}
 
-  	else if(acc='delay-feedback'){
+  	else if(acc=='delay-feedback'){
   		feedback.gain.value = input.value;
   	}
 
-  	else if(acc='reverb-wet'){
+  	else if(acc=='reverb-wet'){
   		reverbGain.gain.value = input.value;
   	}
 
-  	else if(acc="seek"){
-  		// próximamente
+  	else if(acc=="seek"){
+      var cancion = $(input).data('cancion');
+      objCancion = reproductor['cancion'+cancion]
+      //obtener iD de cancion
+      saltarA(objCancion, parseInt(input.value));
   	}
 
-  	console.log(acc);
+
   }
 
 
@@ -257,19 +261,27 @@
 
   		if(primeraCancion){
   			$(elementoCanales).append(
-  				'<div class="contenedor-cancion activo" data-cancion="'+i+'" id="contenedor-cancion-'+i+'"></div>'
+  				'<div class="contenedor-cancion activo" data-cancion="'+i+'" id="contenedor-cancion-'+i+'">'
+          +
+          '<div class="contenedor-canales" data-cancion="'+i+'" id="contenedor-canales-'+i+'"></div>'
+          +
+          '</div>'
   			);
   		}
   		else {
   			$(elementoCanales).append(
-  				'<div class="contenedor-cancion" data-cancion="'+i+'" id="contenedor-cancion-'+i+'"></div>'
+  				'<div class="contenedor-cancion" data-cancion="'+i+'" id="contenedor-cancion-'+i+'">'
+          +
+          '<div class="contenedor-canales" data-cancion="'+i+'" id="contenedor-canales-'+i+'"></div>'
+          +
+          '</div>'
   			);
   		}
 
 
   		//3- Y generar los canales dentro del contenedor (loop for)
 
-  		var elementoContenedorCancionActual = $('#contenedor-cancion-'+i)[0];
+  		var elementoContenedorCancionActual = $('#contenedor-canales-'+i)[0];
   		var cantidadTracks = Object.keys(cancionActual.tracks).length;
 
   		for(var j=1; j<cantidadTracks+1; j++){
@@ -296,36 +308,37 @@
   			var volumeControl = $('#volumen-cancion-'+i+'-track-'+j)[0];
 
   			volumeControl.addEventListener('ValueChange', function() {
-  				console.log('movimiento');
-  				console.log('trackActual');
   			}, false);
   		}
+
+    //Y generar el contenedor para el seek, y el control de seek
+
+    var elementoContenedorC = $('#contenedor-cancion-'+i)[0];
+    $(elementoContenedorC).append(
+      '<div class="contenedor-seek" id="contenedor-seek-'+i+'"></div>'
+    );
+    var elementoSeek = $('#contenedor-seek-'+i)[0];
+    $(elementoSeek).append(
+      '<input type="range" class="rangeslider seek-marker" data-accion="marcador-seek" data-cancion="'+i+'" id="seek-marker-'+i+'" min="0" max="2" value="0" step="0.001" data-orientation="horizontal">'
+    );
+    $(elementoSeek).append(
+      '<input type="range" class="rangeslider seek-control" data-accion="seek" data-cancion="'+i+'" id="seek-control-'+i+'" min="0" max="2" value="0" step="0.001" data-orientation="horizontal">'
+    );
 
   	//Conectar los buses de canción al master gain:
   	cancionActual.bus.connect(gainNodeMaster);
 
+    console.log('Asignación de loop:');
+    console.log(cancionActual);
   	//Vincular un loop al evento de que el primer track termine
-  	cancionActual.tracks.track1.mediaElement.addEventListener('ended', () => {
-  		detener(cancionActual);
-  		reproducir(cancionActual);
-  	}, false);
-
-  	//Y generar un seek bar para esta canción
-
-  	// var audio = cancionActual.tracks.track1.mediaElement;
-  	// $(audio).on('loadedmetadata', function(){
-  	// 	cancionActual['duracionCancion'] = 's';
-  	// 	console.log('cargado');
-  	// });
-
-  	// $(elementoContenedorCancionActual).append(
-  	// 	'<span class="global-control-tag">Seek bar</span>'
-  	// 	+
-  	// 	'<input type="range" id="seek-'+cancionActual+'" class="rangeslider" data-accion="seek" data-cancion="'+cancionActual+'" min="0" max="'+''+'" value="0" step="0.001"/>'
-  	// );
+      cancionActual.tracks.track1.mediaElement.addEventListener('ended',loopear.bind(null, cancionActual), false);
 
   	primeraCancion = false; //reiniciar variable
-  	}
+
+    //Y cambiar las duraciones del seek bar para esta canción
+    intervaloTestMetadata[i] = setInterval(chequearMetadata, 500, {a: cancionActual, b: i});
+
+    } // fin loop por cada canción
   }
 
 
@@ -359,7 +372,6 @@
 
 
     request.onload = function() {
-  		console.log('onload...');
       var audioData = request.response;
       audioCtx.decodeAudioData(audioData, function(buffer) {
           source.buffer = buffer;
@@ -391,45 +403,98 @@
   reverb.connect(reverbGain).connect(audioCtx.destination);
 
 
+  //FUNCIONES carga de metadata audios
 
+  function chequearMetadata(obj){
+    var canc = obj.a;
+    var ind = obj.b;
+    console.log('chequeando metadata canción '+ind+'...');
+    var audio = canc.tracks.track1.mediaElement;
+    if (audio.readyState > 0) {
+      audio.addEventListener('loadedmetadata', cambiarValoresSeek(canc, audio, ind));
+      console.log(audio);
+      clearInterval(intervaloTestMetadata[ind]);
+    }
+    else{
+      console.log('canción '+ind+' aún no lista.');
+    }
+  }
+
+  function cambiarValoresSeek(cancion, aud, indice){
+    // console.log(aud);
+    // console.log(aud.duration);
+    cancion['duracionCancion'] = aud.duration;
+    // console.log(cancion);
+    console.log('cargado');
+    //Actualizar valor máximo de los input
+    var objetoInput = $('#seek-control-'+indice);
+    var objetoMarcador = $('#seek-marker-'+indice);
+    cancion['controlSeek'] = objetoInput;
+    cancion['marcadorSeek'] = objetoMarcador;
+    console.log(objetoInput);
+    console.log(objetoMarcador);
+    objetoInput.attr('max', aud.duration);
+    objetoMarcador.attr('max', aud.duration);
+    objetoInput.rangeslider('update', true);
+    objetoMarcador.rangeslider('update', true);
+  }
 
   // FUNCIONES de playback (toman un objeto de canción como argumento)
+
+  function loopear(canc) {
+  detener(canc);
+  console.log('loopeando: ');
+  console.log(canc);
+  reproducir(canc);
+  }
 
   function reproducir(song){
   	if (audioCtx.state === 'suspended') {
   		audioCtx.resume();
   	}
-  	var largoCancion = Object.keys(song.tracks).length;
-  	for(var i=1; i<largoCancion+1; i++){
+  	var cantidadTracks = Object.keys(song.tracks).length;
+  	for(var i=1; i<cantidadTracks+1; i++){
   		var track = song.tracks['track'+i].mediaElement;
   		track.play();
   	}
-
   	intervaloSeek = setInterval(function(){
   		//reproduccion Seek
   		tiempoTranscurrido += 0.1;
-  		// console.log(tiempoTranscurrido);
+      console.log(tiempoTranscurrido);
+      song.marcadorSeek.val(tiempoTranscurrido).change();
   	},100);
   }
 
   function pausar(song){
-  	var largoCancion = Object.keys(song.tracks).length;
-  	for(var i=1; i<largoCancion+1; i++){
+  	var cantidadTracks = Object.keys(song.tracks).length;
+  	for(var i=1; i<cantidadTracks+1; i++){
   		var track = song.tracks['track'+i].mediaElement;
   		track.pause();
+      clearInterval(intervaloSeek);
   	}
   }
 
   function detener(song){
-  	var largoCancion = Object.keys(song.tracks).length;
-  	for(var i=1; i<largoCancion+1; i++){
+  	var cantidadTracks = Object.keys(song.tracks).length;
+  	for(var i=1; i<cantidadTracks+1; i++){
   		var track = song.tracks['track'+i].mediaElement;
   		track.pause();
   		track.currentTime = 0;
   		tiempoTranscurrido = 0;
+      song.marcadorSeek.val(tiempoTranscurrido).change();
+      clearInterval(intervaloSeek);
   	}
   }
 
+  function saltarA(song, segundos){
+  	var cantidadTracks = Object.keys(song.tracks).length;
+  	for(var i=1; i<cantidadTracks+1; i++){
+  		var track = song.tracks['track'+i].mediaElement;
+  		track.currentTime = segundos;
+  		tiempoTranscurrido = segundos;
+      song.marcadorSeek.val(tiempoTranscurrido).change();
+  	}
+  }
 
   </script>
 
