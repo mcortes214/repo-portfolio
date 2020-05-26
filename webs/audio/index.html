@@ -877,7 +877,14 @@
 
 <script type="text/javascript">
 
+var variableIframe = '';
 
+function variable(value) {
+        variableIframe = value;
+}
+
+  console.log('iframe test 01:');
+  console.log(variableIframe);
   // VARIABLES GLOBALES
 
   var tiempoTranscurrido = 0;
@@ -897,7 +904,7 @@
     cancion1: {
       tracks: {
         track1: {
-          url: 'http://sitio.archivovilla20.com.ar/wp-content/uploads/2020/05/sonidos-1.mp3',
+          url: 'audio/sonidos-1.mp3',
           nombre: 'Track 1',
         },
         track2: {
