@@ -879,12 +879,37 @@
 
 window.addEventListener("message", receiveMessage, false);
 
+/*--- TEMPORAL ---*/
+
+var canciones = {
+cancion_1: {
+  track_1: 'http://sitio.archivovilla20.com.ar/wp-content/uploads/2020/05/sonidos-1.mp3',
+  track_2: 'http://sitio.archivovilla20.com.ar/wp-content/uploads/2020/05/sonidos-2.mp3',
+  track_3: 'http://sitio.archivovilla20.com.ar/wp-content/uploads/2020/05/sonidos-3.mp3',
+  track_4: 'http://sitio.archivovilla20.com.ar/wp-content/uploads/2020/05/sonidos-4.mp3',
+  track_5: 'http://sitio.archivovilla20.com.ar/wp-content/uploads/2020/05/sonidos-5.mp3',
+  track_6: 'http://sitio.archivovilla20.com.ar/wp-content/uploads/2020/05/sonidos-6.mp3',
+},
+cancion2: {
+  track_1: 'http://sitio.archivovilla20.com.ar/wp-content/uploads/2020/05/sonidos-b1.mp3',
+  track_2: 'http://sitio.archivovilla20.com.ar/wp-content/uploads/2020/05/sonidos-b2.mp3',
+  track_3: 'http://sitio.archivovilla20.com.ar/wp-content/uploads/2020/05/sonidos-b3.mp3',
+},
+};
+
+/*--- TEMPORAL ---*/
+
 function receiveMessage(event) {
-  console.log(event);
   console.log('mensaje recibido');
+  // var objetoDatos = event.data; //descomentar esto al final del test
+  var objetoDatos = canciones;
+
+  //loopear por el objeto de datos para cargar la información en el objeto "reproductor"
+
+  console.log(objetoDatos);
 }
 
-  console.log('iframe test 08:');
+  console.log('iframe test 09:');
 
   // VARIABLES GLOBALES
 
