@@ -877,8 +877,10 @@
 
 <script type="text/javascript">
 
-function variable(value) {
-        variableIframe = value;
+window.addEventListener("message", receiveMessage, false);
+
+function receiveMessage(event) {
+  console.log(event);
 }
 
   console.log('iframe test 03:');
