@@ -879,105 +879,166 @@
 
 window.addEventListener("message", receiveMessage, false);
 
+console.log('iframe test 10:');
+
+// VARIABLES GLOBALES
+
+var tiempoTranscurrido = 0;
+var intervaloSeek;
+
+var intervaloTestMetadata = {};
+
+var audioReverb;
+
+// Inicializar contexto de Audio Web API
+  const AudioContext = window.AudioContext || window.webkitAudioContext;
+  const audioCtx = new AudioContext();
+
+
 /*--- TEMPORAL ---*/
+
+// var canciones = {
+// tracks: {
+//   'Canción 1': {
+//     track_1: 'http://sitio.archivovilla20.com.ar/wp-content/uploads/2020/05/sonidos-1.mp3',
+//     track_2: 'http://sitio.archivovilla20.com.ar/wp-content/uploads/2020/05/sonidos-2.mp3',
+//     track_3: 'http://sitio.archivovilla20.com.ar/wp-content/uploads/2020/05/sonidos-3.mp3',
+//     track_4: 'http://sitio.archivovilla20.com.ar/wp-content/uploads/2020/05/sonidos-4.mp3',
+//     track_5: 'http://sitio.archivovilla20.com.ar/wp-content/uploads/2020/05/sonidos-5.mp3',
+//     track_6: 'http://sitio.archivovilla20.com.ar/wp-content/uploads/2020/05/sonidos-6.mp3',
+//   },
+//   'Canción 2': {
+//     track_1: 'http://sitio.archivovilla20.com.ar/wp-content/uploads/2020/05/sonidos-b1.mp3',
+//     track_2: 'http://sitio.archivovilla20.com.ar/wp-content/uploads/2020/05/sonidos-b2.mp3',
+//     track_3: 'http://sitio.archivovilla20.com.ar/wp-content/uploads/2020/05/sonidos-b3.mp3',
+//   },
+// },
+// reverb: 'http://sitio.archivovilla20.com.ar/wp-content/uploads/2020/05/reverb-ir.wav',
+// };
+
 
 var canciones = {
-cancion_1: {
-  track_1: 'http://sitio.archivovilla20.com.ar/wp-content/uploads/2020/05/sonidos-1.mp3',
-  track_2: 'http://sitio.archivovilla20.com.ar/wp-content/uploads/2020/05/sonidos-2.mp3',
-  track_3: 'http://sitio.archivovilla20.com.ar/wp-content/uploads/2020/05/sonidos-3.mp3',
-  track_4: 'http://sitio.archivovilla20.com.ar/wp-content/uploads/2020/05/sonidos-4.mp3',
-  track_5: 'http://sitio.archivovilla20.com.ar/wp-content/uploads/2020/05/sonidos-5.mp3',
-  track_6: 'http://sitio.archivovilla20.com.ar/wp-content/uploads/2020/05/sonidos-6.mp3',
+tracks: {
+  'Canción 1': {
+    track_1: 'audio/sonidos-1.mp3',
+    track_2: 'audio/sonidos-2.mp3',
+    track_3: 'audio/sonidos-3.mp3',
+    track_4: 'audio/sonidos-4.mp3',
+    track_5: 'audio/sonidos-5.mp3',
+    track_6: 'audio/sonidos-6.mp3',
+  },
+  'Canción 2': {
+    track_1: 'audio/sonidos-b1.mp3',
+    track_2: 'audio/sonidos-b2.mp3',
+    track_3: 'audio/sonidos-b3.mp3',
+  },
 },
-cancion2: {
-  track_1: 'http://sitio.archivovilla20.com.ar/wp-content/uploads/2020/05/sonidos-b1.mp3',
-  track_2: 'http://sitio.archivovilla20.com.ar/wp-content/uploads/2020/05/sonidos-b2.mp3',
-  track_3: 'http://sitio.archivovilla20.com.ar/wp-content/uploads/2020/05/sonidos-b3.mp3',
-},
+reverb: 'audio/reverb-ir.wav',
 };
 
-/*--- TEMPORAL ---*/
+
+/*--- FIN TEMPORAL ---*/
 
 function receiveMessage(event) {
   console.log('mensaje recibido');
-  // var objetoDatos = event.data; //descomentar esto al final del test
-  var objetoDatos = canciones;
-
-  //loopear por el objeto de datos para cargar la información en el objeto "reproductor"
-
-  console.log(objetoDatos);
+  gestionarMensaje();
 }
 
-  console.log('iframe test 09:');
-
-  // VARIABLES GLOBALES
-
-  var tiempoTranscurrido = 0;
-  var intervaloSeek;
-
-  var intervaloTestMetadata = {};
+var reproductor = {
+}; //Este objeto va a representar el reproductor generado
+  //a partir de los datos. Si todo sale bien, uso "reproductor"
 
 
-  // Inicializar contexto de Audio Web API
-  	const AudioContext = window.AudioContext || window.webkitAudioContext;
-  	const audioCtx = new AudioContext();
+
+gestionarMensaje(); //eliminar esto al final del test
+
+
+function gestionarMensaje(){
+  var objetoDatos = canciones.tracks;
+  var reverb = canciones.reverb;
+
+  audioReverb = reverb;
+  // var objetoDatos = event.data; //descomentar esto al final del test
+
+  //loopear por el objeto de datos para cargar la información en el objeto "reproductor"
+  console.log(objetoDatos);
+
+  for(var i=0; i < Object.keys(objetoDatos).length; i++){
+    var key = Object.keys(objetoDatos)[i];
+    var tracks = Object.keys(objetoDatos[key]);
+    console.log(tracks);
+    reproductor['cancion'+(i+1)] = {
+      nombreCancion: key,
+      bus: audioCtx.createGain(),
+      tracks: {}
+    }; //generar objeto vacío de canción
+
+    for (var j = 0; j < tracks.length; j++) {
+      var trackKey = tracks[j];
+      reproductor['cancion'+(i+1)].tracks['track'+(j+1)] = {
+        url: objetoDatos[key][trackKey],
+      };
+    }
+
+  }
+}
+
 
   //Datos de canción
 
-
-  var reproductor = {
-    cancion1: {
-      tracks: {
-        track1: {
-          url: 'audio/sonidos-1.mp3',
-          nombre: 'Track 1',
-        },
-        track2: {
-          url: 'audio/sonidos-2.mp3',
-          nombre: 'Track 2',
-        },
-        track3: {
-          url: 'audio/sonidos-3.mp3',
-          nombre: 'Track 3',
-        },
-        track4: {
-          url: 'audio/sonidos-4.mp3',
-          nombre: 'Track 4',
-        },
-        track5: {
-          url: 'audio/sonidos-5.mp3',
-          nombre: 'Track 5',
-        },
-        track6: {
-          url: 'audio/sonidos-6.mp3',
-          nombre: 'Track 6',
-        },
-      },
-      bus: audioCtx.createGain(),
-      nombreCancion: 'Canción 1',
-      activo: false,
-    },
-    cancion2: {
-      tracks: {
-        track1: {
-          url: 'audio/sonidos-b1.mp3',
-          nombre: 'Track 1',
-        },
-        track2: {
-          url: 'audio/sonidos-b2.mp3',
-          nombre: 'Track 2',
-        },
-        track3: {
-          url: 'audio/sonidos-b3.mp3',
-          nombre: 'Track 3',
-        },
-      },
-      bus: audioCtx.createGain(),
-      nombreCancion: 'Canción 2',
-      activo: false,
-    },
-  };
+  //
+  // var reproductor = {
+  //   cancion1: {
+  //     tracks: {
+  //       track1: {
+  //         url: 'audio/sonidos-1.mp3',
+  //         nombre: 'Track 1',
+  //       },
+  //       track2: {
+  //         url: 'audio/sonidos-2.mp3',
+  //         nombre: 'Track 2',
+  //       },
+  //       track3: {
+  //         url: 'audio/sonidos-3.mp3',
+  //         nombre: 'Track 3',
+  //       },
+  //       track4: {
+  //         url: 'audio/sonidos-4.mp3',
+  //         nombre: 'Track 4',
+  //       },
+  //       track5: {
+  //         url: 'audio/sonidos-5.mp3',
+  //         nombre: 'Track 5',
+  //       },
+  //       track6: {
+  //         url: 'audio/sonidos-6.mp3',
+  //         nombre: 'Track 6',
+  //       },
+  //     },
+  //     bus: audioCtx.createGain(),
+  //     nombreCancion: 'Canción 1',
+  //     activo: false,
+  //   },
+  //   cancion2: {
+  //     tracks: {
+  //       track1: {
+  //         url: 'audio/sonidos-b1.mp3',
+  //         nombre: 'Track 1',
+  //       },
+  //       track2: {
+  //         url: 'audio/sonidos-b2.mp3',
+  //         nombre: 'Track 2',
+  //       },
+  //       track3: {
+  //         url: 'audio/sonidos-b3.mp3',
+  //         nombre: 'Track 3',
+  //       },
+  //     },
+  //     bus: audioCtx.createGain(),
+  //     nombreCancion: 'Canción 2',
+  //     activo: false,
+  //   },
+  // };
   //Canción activa
 
 
@@ -990,7 +1051,7 @@ function receiveMessage(event) {
 
   	cancionActiva = reproductor.cancion1;
   	//Generar markup HTML dinámico partir de los datos (interfaz y audios)
-  	// generarCanciones();
+  	generarCanciones();
 
   	// Inicializar rangeslider (visualización de interfaz). Después de generar los sliders
   	$('input[type="range"]:not(.seekbar)').rangeslider({
@@ -1091,6 +1152,9 @@ function receiveMessage(event) {
   	for(var i=1; i<cantidadCanciones+1; i++){
   		var cancionActual = reproductor['cancion'+i];
 
+      console.log('Canción actual:');
+      console.log(cancionActual);
+
   		//1- Generar un selector
   		var nombreCancion = cancionActual.nombreCancion;
 
@@ -1138,6 +1202,8 @@ function receiveMessage(event) {
 
   			//Primero el HTML (sliders y audios),
   			var trackActual = cancionActual.tracks['track'+j];
+        console.log('Canción actual:');
+        console.log(cancionActual.tracks['track'+j]);
   			var linkTrackActual = trackActual.url;
   			$(elementoContenedorCancionActual).append(
   				'<input type="range" class="rangeslider" data-accion="volumen-track" data-cancion="'+i+'" data-track="'+j+'" id="volumen-cancion-'+i+'-track-'+j+'" min="0" max="2" value="1" step="0.001" data-orientation="vertical">'
