@@ -917,31 +917,31 @@ var audioReverb;
 // };
 
 
-var canciones = {
-tracks: {
-  'Canción 1': {
-    track_1: 'audio/sonidos-1.mp3',
-    track_2: 'audio/sonidos-2.mp3',
-    track_3: 'audio/sonidos-3.mp3',
-    track_4: 'audio/sonidos-4.mp3',
-    track_5: 'audio/sonidos-5.mp3',
-    track_6: 'audio/sonidos-6.mp3',
-  },
-  'Canción 2': {
-    track_1: 'audio/sonidos-b1.mp3',
-    track_2: 'audio/sonidos-b2.mp3',
-    track_3: 'audio/sonidos-b3.mp3',
-  },
-},
-reverb: 'audio/reverb-ir.wav',
-};
+// var canciones = {
+// tracks: {
+//   'Canción 1': {
+//     track_1: 'audio/sonidos-1.mp3',
+//     track_2: 'audio/sonidos-2.mp3',
+//     track_3: 'audio/sonidos-3.mp3',
+//     track_4: 'audio/sonidos-4.mp3',
+//     track_5: 'audio/sonidos-5.mp3',
+//     track_6: 'audio/sonidos-6.mp3',
+//   },
+//   'Canción 2': {
+//     track_1: 'audio/sonidos-b1.mp3',
+//     track_2: 'audio/sonidos-b2.mp3',
+//     track_3: 'audio/sonidos-b3.mp3',
+//   },
+// },
+// reverb: 'audio/reverb-ir.wav',
+// };
 
 
 /*--- FIN TEMPORAL ---*/
 
 function receiveMessage(event) {
   console.log('mensaje recibido');
-  gestionarMensaje();
+  gestionarMensaje(event.data);
 }
 
 var reproductor = {
@@ -950,12 +950,12 @@ var reproductor = {
 
 
 
-gestionarMensaje(); //eliminar esto al final del test
+// gestionarMensaje(); //eliminar esto al final del test
 
 
-function gestionarMensaje(){
-  var objetoDatos = canciones.tracks;
-  var reverb = canciones.reverb;
+function gestionarMensaje(datos){
+  var objetoDatos = datos.tracks;
+  var reverb = datos.reverb;
 
   audioReverb = reverb;
   // var objetoDatos = event.data; //descomentar esto al final del test
@@ -981,6 +981,59 @@ function gestionarMensaje(){
     }
 
   }
+
+
+  //-----------------------------------------
+  // DOCUMENT READY (ejecución de código)
+
+  $(document).ready(function(){
+
+  	cancionActiva = reproductor.cancion1;
+  	//Generar markup HTML dinámico partir de los datos (interfaz y audios)
+  	generarCanciones();
+
+  	// Inicializar rangeslider (visualización de interfaz). Después de generar los sliders
+  	$('input[type="range"]:not(.seekbar)').rangeslider({
+  		polyfill: false,
+  		onSlide: function(){
+  			moverControl(this.$element[0]); //target del evento
+  		}
+  	});
+
+  	//Event binding
+
+  	$('.boton-cancion').on('click', function () {
+      detener(cancionActiva);
+  		var dataCancion = $(this).attr('data-cancion');
+  		var selectorSeccionCancion = '.contenedor-cancion[data-cancion="'+ dataCancion +'"]';
+  		var cancionSeleccionada = $(selectorSeccionCancion);
+  		$('.boton-cancion').removeClass('activo'); //eliminar el activo de todos los contenedores
+  		$(this).addClass('activo'); //agregarla a la canción seleccionada
+  		$('.contenedor-cancion').removeClass('activo'); //eliminar el activo de todos los contenedores
+  		cancionSeleccionada.addClass('activo'); //agregarla a la canción seleccionada
+
+  		cancionActiva = reproductor['cancion'+dataCancion];
+   	});
+
+  $('#play-button').on('click', function () {
+  	reproducir(cancionActiva);
+  });
+
+  $('#pause-button').on('click', function () {
+  	pausar(cancionActiva);
+  });
+
+  $('#stop-button').on('click', function () {
+  	detener(cancionActiva);
+  });
+
+  //Reverb
+  getData();
+
+  });
+
+  //-----------------------------------------
+
 }
 
 
@@ -1044,58 +1097,7 @@ function gestionarMensaje(){
 
 
 
-  //-----------------------------------------
-  // DOCUMENT READY (ejecución de código)
 
-  $(document).ready(function(){
-
-  	cancionActiva = reproductor.cancion1;
-  	//Generar markup HTML dinámico partir de los datos (interfaz y audios)
-  	generarCanciones();
-
-  	// Inicializar rangeslider (visualización de interfaz). Después de generar los sliders
-  	$('input[type="range"]:not(.seekbar)').rangeslider({
-  		polyfill: false,
-  		onSlide: function(){
-  			moverControl(this.$element[0]); //target del evento
-  		}
-  	});
-
-  	//Event binding
-
-  	$('.boton-cancion').on('click', function () {
-      detener(cancionActiva);
-  		var dataCancion = $(this).attr('data-cancion');
-  		var selectorSeccionCancion = '.contenedor-cancion[data-cancion="'+ dataCancion +'"]';
-  		var cancionSeleccionada = $(selectorSeccionCancion);
-  		$('.boton-cancion').removeClass('activo'); //eliminar el activo de todos los contenedores
-  		$(this).addClass('activo'); //agregarla a la canción seleccionada
-  		$('.contenedor-cancion').removeClass('activo'); //eliminar el activo de todos los contenedores
-  		cancionSeleccionada.addClass('activo'); //agregarla a la canción seleccionada
-
-  		cancionActiva = reproductor['cancion'+dataCancion];
-   	});
-
-  $('#play-button').on('click', function () {
-  	reproducir(cancionActiva);
-  });
-
-  $('#pause-button').on('click', function () {
-  	pausar(cancionActiva);
-  });
-
-  $('#stop-button').on('click', function () {
-  	detener(cancionActiva);
-  });
-
-
-
-
-
-
-  });
-
-  //-----------------------------------------
 
   // FUNCIONES
 
@@ -1278,7 +1280,7 @@ function gestionarMensaje(){
   let reverbGain = audioCtx.createGain();
 
   var source = audioCtx.createBufferSource();
-  getData();
+
 
   function getData() {
     var request = new XMLHttpRequest();
