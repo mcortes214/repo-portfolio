@@ -23,6 +23,9 @@ $(document).ready(function(){
   $('#generar').click(function(){
     var input = $('input[name="test"]').val();
     console.log(input);
+    $('.overlay-formulario').css({
+      'display': 'none'
+    });
   });
 
 });

@@ -48,29 +48,113 @@ table {
 }
 
 
+:root{
+	--gris-claro: #ddd;
+	--gris: #aaa;
+	--gris-oscuro: #555;
+	--color-primario: #09d;
+	--color-oscuro: #05a;
+	--espacio-1: 15px;
+	--espacio-2: 30px;
+	--espacio-3: 45px;
+}
 
-body{
-  background-color: #ffd;
+body {
+    background-color: #fff;
+		font-family: 'Open Sans', sans-serif;
+		font-size: 0.9em;
 }
 
 .overlay-formulario{
-  display: none;
   background-color: white;
   position: absolute;
   z-index: 1;
   border: 1px solid black;
   width: 100vw;
   height: 100vh;
+	opacity: 0.95;
 }
 
-.encabezado-hoja{
-  border: 1px solid red;
-  display: flex;
-  justify-content: space-between;
+form section{
+	padding: 20px 0;
+	border-bottom: 1px solid var(--gris-claro);
 }
 
-.resumen-cotizacion{
-  border: 1px solid blue;
+.section-label{
+	font-size: 1.5em;
+	margin-bottom: 1em;
+}
+
+.contenedor-datos-personales{
+	display: flex;
+}
+
+.item-campos-datos-personales {
+    width: 33%;
+		box-sizing: border-box;
+		padding: 10px;
+}
+textarea {
+    width: 100%;
+		margin-top: 10px;
+}
+
+.row-secciones-poliza{
+	display: flex;
+}
+
+.seccion-poliza{
+	width: 50%;
+}
+
+label{
+	padding: 5px;
+}
+
+section.seccion-generar-form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+button.boton-generar-pagina {
+    border-radius: 0;
+    border: navajowhite;
+    background: var(--gris-oscuro);
+    padding: 15px;
+    font-size: 1.2em;
+    color: white;
+		cursor: pointer;
+}
+
+/* ------ Hoja ------ */
+
+.encabezado-hoja {
+    display: flex;
+    justify-content: space-between;
+    padding: var(--espacio-2) 0;
+    border-bottom: 1px solid var(--gris-claro);
+}
+.logo-empresa .logo {
+    width: 100px;
+}
+.datos-empresa{
+	color: var(--gris);
+}
+.primera-linea-datos-empresa{
+	color: var(--gris-oscuro);
+	font-weight: bold;
+}
+.resumen-cotizacion {
+    color: var(--gris);
+    padding: var(--espacio-1) 0;
+}
+span.titulo-resumen {
+    font-weight: bold;
+    font-size: 1.2em;
+    color: var(--color-primario);
+    padding-bottom: var(--espacio-1);
+    display: block;
 }
 .row-resumen-cotizacion{
   display: flex;
@@ -78,12 +162,89 @@ body{
 }
 .col-resumen{
   width: 33%;
-  height: 200px;
+  height: 100px;
+}
+.vigencia-poliza-resumen{
+	color: var(--gris);
 }
 
-.poliza{
-  border: 1px solid green;
+.row-poliza-costo {
+    display: flex;
 }
-.costo{
-  border: 1px solid yellow;
+.poliza {
+    width: 80%;
+}
+.encabezado-poliza {
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--gris-claro);
+}
+span.titulo-poliza {
+    font-weight: bold;
+    font-size: 1.6em;
+    margin-right: var(--espacio-1);
+    color: var(--gris-oscuro);
+}
+.vigencia-poliza{
+	color: var(--gris);
+}
+.iconos-poliza {
+    display: flex;
+    justify-content: space-between;
+    padding-top: var(--espacio-1);
+    padding-bottom: var(--espacio-2);
+}
+.contenedor-icono {
+    display: flex;
+    align-items: center;
+}
+img.icono {
+    width: 30px;
+    height: 30px;
+    display: block;
+    border: 2px solid var(--gris);
+    border-radius: 25px;
+    margin-right: var(--espacio-1);
+		font-size: 0;
+}
+.contenedor-descripcion-icono {
+    display: flex;
+    flex-direction: column;
+}
+span.titulo-icono {
+    font-weight: bold;
+}
+span.descripcion-icono {
+    color: var(--gris);
+}
+.terminos-poliza {
+    padding-bottom: var(--espacio-3);
+}
+
+
+.costo {
+    width: 20%;
+    padding: var(--espacio-2);
+    font-weight: bold;
+    font-size: 2.8em;
+    color: var(--gris-oscuro);
+    display: flex;
+    justify-content: flex-end;
+}
+
+.pie-de-pagina {
+    color: var(--gris);
+    padding: var(--espacio-1) 0;
+    border-top: 1px solid var(--gris-claro);
+		display: flex;
+		align-items: center;
+		font-size: 0.9em;
+}
+.notice{
+	width: 66%;
+}
+.ssn{
+	width: 33%;
+}
+.logo-ssn{
+	width: 100%;
 }
