@@ -65,14 +65,15 @@ body {
 		font-size: 0.9em;
 }
 
+
 .overlay-formulario{
   background-color: white;
   position: absolute;
   z-index: 1;
-  border: 1px solid black;
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
 	opacity: 0.95;
+	padding: 15px;
 }
 
 form section{
@@ -140,7 +141,7 @@ button.boton-generar-pagina {
     border-bottom: 1px solid var(--gris-claro);
 }
 .logo-empresa .logo {
-    width: 100px;
+    width: 200px;
 }
 .datos-empresa{
 	color: var(--gris);

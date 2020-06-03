@@ -15,36 +15,32 @@
   <div class="overlay-formulario">
     <form class="formulario">
       <section class="datos-personales">
-        <p class="section-label">Datos personales</p>
+        <p class="section-label">Datos particulares</p>
         <div class="contenedor-datos-personales">
           <div class="item-campos-datos-personales">
-            <label for="campo-1-datos-personales">Campo 1</label>
-            <textarea name="campo-1-datos-personales" rows="8" cols="80"></textarea>
+            <label for="campo-1-datos-personales">Datos personales</label>
+            <textarea name="campo-1-datos-personales" rows="8" cols="80">[Nombre, DNI, código postal]</textarea>
           </div>
           <div class="item-campos-datos-personales">
-            <label for="campo-2-datos-personales">Campo 2</label>
-            <textarea name="campo-2-datos-personales" rows="8" cols="80"></textarea>
+            <label for="campo-2-datos-personales">Información del auto</label>
+            <textarea name="campo-2-datos-personales" rows="8" cols="80">[descripción, marca, modelo, año, valor]</textarea>
           </div>
           <div class="item-campos-datos-personales">
-            <label for="campo-3-datos-personales">Campo 3</label>
+            <label for="campo-3-datos-personales">Accesorios</label>
             <textarea name="campo-3-datos-personales" rows="8" cols="80"></textarea>
           </div>
         </div>
       </section>
       <section class="seccion-iconos-form">
-        <p class="section-label">Íconos</p>
-        <label for="campo-1-datos-personales">Ícono 1</label>
+        <p class="section-label">Coberturas</p>
         <input type="checkbox" name="icono-1" value="">
-        <label for="campo-1-datos-personales">Ícono 2</label>
+        <label for="campo-1-datos-personales">Responsabilidad Civil</label>
         <input type="checkbox" name="icono-2" value="">
-        <label for="campo-1-datos-personales">Ícono 3</label>
+        <label for="campo-1-datos-personales">Robo</label>
         <input type="checkbox" name="icono-3" value="">
-        <label for="campo-1-datos-personales">Ícono 4</label>
+        <label for="campo-1-datos-personales">Incendio</label>
         <input type="checkbox" name="icono-4" value="">
-        <label for="campo-1-datos-personales">Ícono 5</label>
-        <input type="checkbox" name="icono-5" value="">
-        <label for="campo-1-datos-personales">Ícono 6</label>
-        <input type="checkbox" name="icono-6" value="">
+        <label for="campo-1-datos-personales">Destrucción total</label>
       </section>
       <section class="seccion-poliza-form">
         <p class="section-label">Selección de póliza</p>
@@ -71,6 +67,17 @@
         </div>
 
       </section>
+      <section class="seccion-vigencia-form">
+        <p class="section-label">Vigencia</p>
+        <label for="vigencia">Seleccionar vigencia:</label>
+        <select class="" name="vigencia">
+          <option value="">Mensual</option>
+          <option value="">Trimestral</option>
+          <option value="">Cuatrimestral</option>
+          <option value="">Semestral</option>
+          <option value="">Anual</option>
+        </select>
+      </section>
       <section class="seccion-generar-form">
         <button class="boton-generar-pagina" id="generar" type="button" name="generar">Generar página</button>
       </section>
@@ -87,12 +94,14 @@
   <div class="contenedor-hoja">
     <div class="encabezado-hoja">
       <div class="logo-empresa">
-        <img class="logo" src="img/logo-win-ar.png" alt="Logo">
+        <img class="logo" src="img/logo-ec-brokers.png" alt="Logo">
       </div>
       <div class="datos-empresa">
-        <p class="primera-linea-datos-empresa">Productor</p>
-        <p>INDUSTRIAL ASESORES DE SEGUROS</p>
-        <p>52380210</p>
+        <p class="primera-linea-datos-empresa">PRODUCTOR:</p>
+        <p>EC Brokers Asesores en Seguros</p>
+        <p>15-6382-3457</p>
+        <p>15-5886-4298</p>
+        <p>contacto@segurosec.com.ar</p>
       </div>
     </div>
     <div class="resumen-cotizacion">
