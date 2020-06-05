@@ -194,13 +194,15 @@ span.titulo-poliza {
 }
 .iconos-poliza {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     padding-top: var(--espacio-1);
     padding-bottom: var(--espacio-2);
+		font-size: 0.9em;
 }
 .contenedor-icono {
     display: flex;
     align-items: center;
+		width: 25%;
 }
 img.icono {
     width: 30px;
@@ -220,20 +222,26 @@ span.titulo-icono {
 }
 span.descripcion-icono {
     color: var(--gris);
+		font-size: 0.8em;
 }
 .terminos-poliza {
     padding-bottom: var(--espacio-3);
 }
 
-
 .costo {
     width: 20%;
-    padding: var(--espacio-2);
-    font-weight: bold;
-    font-size: 2.8em;
-    color: var(--gris-oscuro);
+    padding: var(--espacio-2) 0 var(--espacio-2) var(--espacio-2);
+    color: var(--gris);
     display: flex;
-    justify-content: flex-end;
+    align-items: flex-end;
+    flex-direction: column;
+		font-size: 0.8em;
+}
+
+.costo-poliza{
+	font-size: 2.8em;
+	font-weight: bold;
+	color: var(--gris-oscuro);
 }
 
 .pie-de-pagina {
@@ -242,13 +250,13 @@ span.descripcion-icono {
     border-top: 1px solid var(--gris-claro);
 		display: flex;
 		align-items: center;
-		font-size: 0.9em;
+		font-size: 0.7em;
 }
 .notice{
-	width: 66%;
+	width: 75%;
 }
 .ssn{
-	width: 33%;
+	width: 25%;
 }
 .logo-ssn{
 	width: 100%;

@@ -19,27 +19,27 @@
         <div class="contenedor-datos-personales">
           <div class="item-campos-datos-personales">
             <label for="campo-1-datos-personales">Datos personales</label>
-            <textarea name="campo-1-datos-personales" rows="8" cols="80">[Nombre, DNI, código postal]</textarea>
+            <textarea class="campo-datos-personales" name="campo-1-datos-personales" rows="8" cols="80">[Nombre, DNI, código postal]</textarea>
           </div>
           <div class="item-campos-datos-personales">
             <label for="campo-2-datos-personales">Información del auto</label>
-            <textarea name="campo-2-datos-personales" rows="8" cols="80">[descripción, marca, modelo, año, valor]</textarea>
+            <textarea class="campo-info-auto" name="campo-2-datos-personales" rows="8" cols="80">[descripción, marca, modelo, año, valor]</textarea>
           </div>
           <div class="item-campos-datos-personales">
             <label for="campo-3-datos-personales">Accesorios</label>
-            <textarea name="campo-3-datos-personales" rows="8" cols="80"></textarea>
+            <textarea class="campo-accesorios-auto" name="campo-3-datos-personales" rows="8" cols="80"></textarea>
           </div>
         </div>
       </section>
       <section class="seccion-iconos-form">
         <p class="section-label">Coberturas</p>
-        <input type="checkbox" name="icono-1" value="">
+        <input type="checkbox" name="icono-1" class="checkbox-RC" value="">
         <label for="campo-1-datos-personales">Responsabilidad Civil</label>
-        <input type="checkbox" name="icono-2" value="">
+        <input type="checkbox" name="icono-2" class="checkbox-robo" value="">
         <label for="campo-1-datos-personales">Robo</label>
-        <input type="checkbox" name="icono-3" value="">
+        <input type="checkbox" name="icono-3" class="checkbox-incendio" value="">
         <label for="campo-1-datos-personales">Incendio</label>
-        <input type="checkbox" name="icono-4" value="">
+        <input type="checkbox" name="icono-4" class="checkbox-destruccion" value="">
         <label for="campo-1-datos-personales">Destrucción total</label>
       </section>
       <section class="seccion-poliza-form">
@@ -47,21 +47,13 @@
         <div class="row-secciones-poliza">
           <div class="seccion-poliza">
             <label for="compania">Seleccionar compañía:</label>
-            <select class="" name="compania">
-              <option value="">Asociart</option>
-              <option value="">Fianzas y Crédito</option>
-              <option value="">Mercantil Andina</option>
-              <option value="">Federación Patronal</option>
-              <option value="">Providencia Seguros</option>
-              <option value="">Seguros Rivadavia</option>
+            <select class="seleccion-compania" name="compania">
+              <option value="">--Seleccionar--</option>
             </select>
           </div>
           <div class="seccion-poliza">
             <label for="poliza">Seleccionar póliza:</label>
-            <select class="" name="poliza">
-              <option value="">Póliza 1</option>
-              <option value="">Póliza 2</option>
-              <option value="">Póliza 3</option>
+            <select class="seleccion-poliza" name="poliza">
             </select>
           </div>
         </div>
@@ -70,16 +62,35 @@
       <section class="seccion-vigencia-form">
         <p class="section-label">Vigencia</p>
         <label for="vigencia">Seleccionar vigencia:</label>
-        <select class="" name="vigencia">
-          <option value="">Mensual</option>
-          <option value="">Trimestral</option>
-          <option value="">Cuatrimestral</option>
-          <option value="">Semestral</option>
-          <option value="">Anual</option>
+        <select class="seleccion-vigencia" name="vigencia">
+          <option value="Mensual">Mensual</option>
+          <option value="Trimestral">Trimestral</option>
+          <option value="Cuatrimestral">Cuatrimestral</option>
+          <option value="Semestral">Semestral</option>
+          <option value="Anual">Anual</option>
         </select>
       </section>
+      <section class="seccion-vigencia-form">
+        <p class="section-label">Cuotas</p>
+        <select class="seleccion-cantidad-cuotas" name="cantidad-cuotas">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+          <option value="11">11</option>
+          <option value="12">12</option>
+        </select>
+        <span class="texto-cuotas">cuotas de $</span>
+        <input type="text" class="precio-cuotas" name="precio-cuotas" value="">
+      </section>
       <section class="seccion-generar-form">
-        <button class="boton-generar-pagina" id="generar" type="button" name="generar">Generar página</button>
+        <button class="boton-generar-pagina" id="generar" type="button" name="generar">Generar cotización</button>
       </section>
 
       <!-- <input type="text" name="test" value="prueba">
@@ -108,68 +119,71 @@
       <span class="titulo-resumen">Resumen de cotización</span>
       <div class="row-resumen-cotizacion">
         <div class="col-resumen col-datos">
-          <p>Oscar Marcelo Dalmau</p>
         </div>
         <div class="col-resumen col-auto">
-          <p>Ford Ecosport</p>
         </div>
-        <div class="col-resumen col-adicional">
-          <p>Vehículo usado</p>
+        <div class="col-resumen col-accesorios">
         </div>
       </div>
-      <span class="vigencia-poliza-resumen">Vigencia:</span>
+      <span class="vigencia-poliza-resumen">Vigencia: </span>
     </div>
 
 <div class="row-poliza-costo">
   <div class="poliza">
 
     <div class="encabezado-poliza">
-      <span class="titulo-poliza">Automóvil C+</span>
-      <span class="vigencia-poliza">Vigencia:</span>
+      <span class="titulo-poliza"></span>
+      <span class="vigencia-poliza">Vigencia: </span>
     </div>
 
     <div class="iconos-poliza">
-      <div class="contenedor-icono">
-        <img class="icono" src="" alt="Ícono">
+      <div class="contenedor-icono contenedor-icono-RC">
+        <img class="icono" src="img/icono-RC.svg" alt="Ícono">
         <div class="contenedor-descripcion-icono">
-          <span class="titulo-icono">Item 1</span>
-          <span class="descripcion-icono">Descripción item 1</span>
+          <span class="titulo-icono">Resp. Civil</span>
+          <span class="descripcion-icono">&nbsp;</span>
         </div>
       </div>
-      <div class="contenedor-icono">
-        <img class="icono" src="" alt="Ícono">
+      <div class="contenedor-icono contenedor-icono-robo">
+        <img class="icono" src="img/icono-robo.svg" alt="Ícono">
         <div class="contenedor-descripcion-icono">
-          <span class="titulo-icono">Item 2</span>
-          <span class="descripcion-icono">Descripción item 2</span>
+          <span class="titulo-icono">Robo</span>
+          <span class="descripcion-icono">Total o parcial</span>
         </div>
       </div>
-      <div class="contenedor-icono">
-        <img class="icono" src="" alt="Ícono">
+      <div class="contenedor-icono contenedor-icono-incendio">
+        <img class="icono" src="img/icono-incendio.svg" alt="Ícono">
         <div class="contenedor-descripcion-icono">
-          <span class="titulo-icono">Item 3</span>
-          <span class="descripcion-icono">Descripción item 3</span>
+          <span class="titulo-icono">Incendio</span>
+          <span class="descripcion-icono">Total o parcial</span>
+        </div>
+      </div>
+      <div class="contenedor-icono contenedor-icono-destruccion">
+        <img class="icono" src="img/icono-destruccion.svg" alt="Ícono">
+        <div class="contenedor-descripcion-icono">
+          <span class="titulo-icono">Destrucción</span>
+          <span class="descripcion-icono">Total</span>
         </div>
       </div>
 
     </div>
 
     <div class="terminos-poliza">
-      <p>Item 1</p>
-      <p>Item 2</p>
-      <p>Item 3</p>
-      <p>Item 4</p>
     </div>
 
   </div>
   <div class="costo">
-    <span class="costo-poliza">$4.444</span>
+    <span class="texto-anterior-cuotas"></span>
+    <span class="costo-poliza"></span>
+    <span class="precio-final-cuotas"></span>
   </div>
 </div>
 
 
 <div class="pie-de-pagina">
   <div class="notice">
-    <p>La presente cotización fue realizada por "INDUSTRIAL ASESORES DE SEGUROS"</p>
+    <p>La presente cotización fue realizada por "EC brokers Asesores en Seguros". Es estimada y tiene validez de limitada. Le sugerimos verificar con el/ella la vigencia de la misma a fin de ratificar conforme los parametros estipulados
+en nuestras condiciones generales de contratación. La información brindada por Ud. en la presente cotización, implica la prestación del consentimiento expreso dispuesto por la ley 25326 de datos personales.</p>
   </div>
   <div class="ssn">
     <img src="img/ssn.jpg" class="logo-ssn" alt="Superintendencia de Seguros de la Nación">
