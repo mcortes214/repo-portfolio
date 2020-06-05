@@ -70,10 +70,39 @@ body {
   background-color: white;
   position: absolute;
   z-index: 1;
-  width: 100vw;
+  width: 100%;
   min-height: 100vh;
-	opacity: 0.95;
 	padding: 15px;
+	box-sizing: border-box;
+}
+
+.contenedor-info-polizas{
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+}
+
+.info-polizas{
+	width: 80%;
+}
+
+button.cargar-archivo {
+    border-radius: 0;
+    border: navajowhite;
+    background: var(--gris-oscuro);
+    padding: 10px;
+    font-size: 0.9em;
+    color: white;
+    cursor: pointer;
+}
+
+h1 {
+    font-size: 2.3em;
+    font-weight: bold;
+    color: var(--gris-oscuro);
+    margin-bottom: 0.6em;
+    padding-bottom: 0.3em;
+    border-bottom: 1px solid var(--gris);
 }
 
 form section{

@@ -33,6 +33,21 @@ const obtenerListaPolizas = async file => {
     generarListaDeEmpresas();
 }
 
+function obtenerListaPolizasDesdeCajaDeTexto(){
+  var info = $('.info-polizas').val();
+  var splitted = info.split("--- DATOS DE PÓLIZAS ---");
+  console.log(splitted);
+  var listaPolizas = splitted[0].split(/\r\n|\n|\r/);
+  console.log(listaPolizas);
+  var datosPolizas = splitted[1].split(/\r\n|\n|\r/);
+  console.log(datosPolizas);
+  //Construir el objeto JSON basePolizas
+  parsearListaPolizas(listaPolizas);
+  parsearDatosPolizas(datosPolizas);
+
+  generarListaDeEmpresas();
+}
+
 function generarListaDeEmpresas() {
   console.log('Generando lista de empresas...');
   for (var i = 0; i < Object.keys(basePolizas).length; i++) {
@@ -59,14 +74,17 @@ function rellenarDocumento(poliza) {
 
 $(document).ready(function(){
 
-//Funciones
-
-  //generar el objeto de datos
-  obtenerListaPolizas('js/polizas.txt');
-
-
-
 //Eventos
+
+  //Al cargar un archivo
+
+  $('.cargar-archivo').click(function(){
+    // obtenerListaPolizas('js/polizas.txt');
+    obtenerListaPolizasDesdeCajaDeTexto();
+  });
+
+
+
 
   //Al seleccionar una empresa
   $('.seleccion-compania').on('input', function () {
@@ -165,9 +183,8 @@ function parsearListaPolizas(str){
   var empresaActiva = "";
 
   for (var i = 0; i < str.length; i++) {
-    var linea = str[i].substring(0, str[i].length - 1);
-    // console.log(linea);
-    // console.log(linea.length);
+    var linea = str[i].replace(/\n|\r|\r\n/g, "")
+
 
     if (linea == ""){
       continue;
@@ -219,7 +236,7 @@ function parsearDatosPolizas(str) {
   console.log("Parseando datos de pólizas...");
 
   for (var i = 0; i < str.length; i++) {
-    var linea = str[i].substring(0, str[i].length - 1);
+    var linea = str[i].replace(/\n|\r|\r\n/g, "")
 
     if (linea == ""){
       continue;
