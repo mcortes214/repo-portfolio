@@ -6,6 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <script type="text/javascript" src="js/papaparse.min.js"></script>
+  <script type="text/javascript" src="../datos/polizas.js"></script>
   <script type="text/javascript" src="js/scripts.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/estilos.css">
@@ -14,8 +15,8 @@
 <body>
   <div class="overlay-formulario">
     <form class="formulario">
-      <section class="carga-archivo-polizas">
-        <h1>Nueva cotización</h1>
+      <h1>Nueva cotización</h1>
+      <!-- <section class="carga-archivo-polizas">
         <p class="section-label">Carga de información de pólizas</p>
         <p>Cargue la información de las pólizas a utilizar:</p>
         <br>
@@ -23,7 +24,7 @@
           <textarea name="info-polizas" class="info-polizas" rows="8" cols="80"></textarea>
           <button type="button" class="cargar-archivo" name="cargar-archivo">Cargar información</button>
         </div>
-      </section>
+      </section> -->
       <section class="datos-personales">
         <p class="section-label">Datos particulares</p>
         <div class="contenedor-datos-personales">
@@ -43,14 +44,34 @@
       </section>
       <section class="seccion-iconos-form">
         <p class="section-label">Coberturas</p>
-        <input type="checkbox" name="icono-1" class="checkbox-RC" value="">
-        <label for="campo-1-datos-personales">Responsabilidad Civil</label>
-        <input type="checkbox" name="icono-2" class="checkbox-robo" value="">
-        <label for="campo-1-datos-personales">Robo</label>
-        <input type="checkbox" name="icono-3" class="checkbox-incendio" value="">
-        <label for="campo-1-datos-personales">Incendio</label>
-        <input type="checkbox" name="icono-4" class="checkbox-destruccion" value="">
-        <label for="campo-1-datos-personales">Destrucción total</label>
+        <div class="contenedor-items-checkbox">
+          <div class="item-checkbox">
+            <input type="checkbox" name="icono-1" class="checkbox-RC" value="" checked>
+            <label for="campo-1-datos-personales">Responsabilidad Civil</label>
+          </div>
+          <div class="item-checkbox">
+            <input type="checkbox" name="icono-2" class="checkbox-robo" value="" checked>
+            <label for="campo-1-datos-personales">Robo</label>
+          </div>
+          <div class="item-checkbox">
+            <input type="checkbox" name="icono-3" class="checkbox-incendio" value="" checked>
+            <label for="campo-1-datos-personales">Incendio</label>
+          </div>
+          <div class="item-checkbox">
+            <input type="checkbox" name="icono-4" class="checkbox-destruccion" value="" checked>
+            <label for="campo-1-datos-personales">Destrucción total</label>
+          </div>
+          <div class="item-checkbox">
+            <input type="checkbox" name="icono-5" class="checkbox-todo-riesgo" value="" checked>
+            <label for="campo-1-datos-personales">Todo Riesgo</label>
+          </div>
+          <div class="item-checkbox">
+            <input type="checkbox" name="icono-6" class="checkbox-franquicia" value="" checked>
+            <label for="campo-1-datos-personales">Franquicia</label>
+            $<input type="text" name="monto-franquicia" class="monto-franquicia" value="[Monto]">
+          </div>
+        </div>
+
       </section>
       <section class="seccion-poliza-form">
         <p class="section-label">Selección de póliza</p>
@@ -111,7 +132,8 @@
 
 <!-- ------------ HOJA ------------ -->
 
-
+<button type="button" class="boton-superior volver-atras" name="button">Volver al editor (se perderán los cambios)</button>
+<button type="button" class="boton-superior imprimir" name="button">Imprimir</button>
   <div class="contenedor-hoja">
     <div class="encabezado-hoja">
       <div class="logo-empresa">
@@ -135,13 +157,14 @@
         <div class="col-resumen col-accesorios">
         </div>
       </div>
-      <span class="vigencia-poliza-resumen">Vigencia: </span>
+      <!-- <span class="vigencia-poliza-resumen">Vigencia: </span> -->
     </div>
 
 <div class="row-poliza-costo">
   <div class="poliza">
 
     <div class="encabezado-poliza">
+      <img class="logo-compania" src="" alt="">
       <span class="titulo-poliza"></span>
       <span class="vigencia-poliza">Vigencia: </span>
     </div>
@@ -173,6 +196,20 @@
         <div class="contenedor-descripcion-icono">
           <span class="titulo-icono">Destrucción</span>
           <span class="descripcion-icono">Total</span>
+        </div>
+      </div>
+      <div class="contenedor-icono contenedor-icono-todo-riesgo">
+        <img class="icono" src="img/icono-todo-riesgo.svg" alt="Ícono">
+        <div class="contenedor-descripcion-icono">
+          <span class="titulo-icono">Todo riesgo</span>
+          <span class="descripcion-icono">&nbsp;</span>
+        </div>
+      </div>
+      <div class="contenedor-icono contenedor-icono-franquicia">
+        <img class="icono" src="img/icono-franquicia.svg" alt="Ícono">
+        <div class="contenedor-descripcion-icono">
+          <span class="titulo-icono">Franquicia</span>
+          <span class="descripcion-icono"></span>
         </div>
       </div>
 

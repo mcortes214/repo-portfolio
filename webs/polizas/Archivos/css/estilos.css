@@ -141,6 +141,20 @@ label{
 	padding: 5px;
 }
 
+.contenedor-items-checkbox {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.item-checkbox {
+    width: 25%;
+    margin: 3px;
+}
+
+input.monto-franquicia {
+    width: 30%;
+}
+
 section.seccion-generar-form {
     display: flex;
     align-items: center;
@@ -159,6 +173,29 @@ button.boton-generar-pagina {
 
 /* ------ Hoja ------ */
 
+button.boton-superior {
+    display: block;
+    width: 50%;
+    height: 50px;
+    background: var(--gris);
+    border: none;
+    color: white;
+    font-size: 1.2em;
+    font-weight: bold;
+    cursor: pointer;
+		position: absolute;
+}
+button.imprimir{
+	background-color: var(--color-primario);
+	right: 0;
+}
+
+@media print {
+	button.volver-atras {
+		display: none;
+	}
+}
+
 .contenedor-hoja{
 	padding: 1.5em;
 }
@@ -172,8 +209,9 @@ button.boton-generar-pagina {
 .logo-empresa .logo {
     width: 200px;
 }
-.datos-empresa{
-	color: var(--gris);
+.datos-empresa {
+    color: var(--gris);
+    font-size: 0.9em;
 }
 .primera-linea-datos-empresa{
 	color: var(--gris-oscuro);
@@ -211,6 +249,13 @@ span.titulo-resumen {
 .encabezado-poliza {
     padding-bottom: 15px;
     border-bottom: 1px solid var(--gris-claro);
+		display: flex;
+		align-items: center;
+}
+img.logo-compania {
+    max-height: 75px;
+		max-width: 200px;
+    margin-right: 20px;
 }
 span.titulo-poliza {
     font-weight: bold;
@@ -223,15 +268,17 @@ span.titulo-poliza {
 }
 .iconos-poliza {
     display: flex;
-    justify-content: space-around;
+    justify-content: flex-start;
     padding-top: var(--espacio-1);
     padding-bottom: var(--espacio-2);
-		font-size: 0.9em;
+    font-size: 0.9em;
+    flex-wrap: wrap;
 }
 .contenedor-icono {
     display: flex;
     align-items: center;
-		width: 25%;
+    width: 25%;
+    margin: 10px 0;
 }
 img.icono {
     width: 30px;
@@ -277,15 +324,19 @@ span.descripcion-icono {
     color: var(--gris);
     padding: var(--espacio-1) 0;
     border-top: 1px solid var(--gris-claro);
-		display: flex;
-		align-items: center;
-		font-size: 0.7em;
+    display: flex;
+    align-items: center;
+    font-size: 0.7em;
+    flex-direction: column;
+    text-align: center;
 }
+
 .notice{
 	width: 75%;
 }
 .ssn{
-	width: 25%;
+	width: 40%;
+	margin-top: 20px;
 }
 .logo-ssn{
 	width: 100%;

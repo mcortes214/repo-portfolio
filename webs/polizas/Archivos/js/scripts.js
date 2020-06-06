@@ -1,17 +1,17 @@
-console.log('test');
-
-var allText =[];
-var allTextLines = [];
-var Lines = [];
-
-var txtFile = new XMLHttpRequest();
-
-txtFile.open("GET", "datos-polizas.csv", true);
-txtFile.onreadystatechange = function()
-{
-    allText = txtFile.responseText;
-    allTextLines = allText.split(/\r\n|\n/);
-};
+// console.log('test');
+//
+// var allText =[];
+// var allTextLines = [];
+// var Lines = [];
+//
+// var txtFile = new XMLHttpRequest();
+//
+// txtFile.open("GET", "datos-polizas.csv", true);
+// txtFile.onreadystatechange = function()
+// {
+//     allText = txtFile.responseText;
+//     allTextLines = allText.split(/\r\n|\n/);
+// };
 
 // document.write(allTextLines);
 // document.write(allText);
@@ -35,6 +35,21 @@ const obtenerListaPolizas = async file => {
 
 function obtenerListaPolizasDesdeCajaDeTexto(){
   var info = $('.info-polizas').val();
+  var splitted = info.split("--- DATOS DE PÓLIZAS ---");
+  console.log(splitted);
+  var listaPolizas = splitted[0].split(/\r\n|\n|\r/);
+  console.log(listaPolizas);
+  var datosPolizas = splitted[1].split(/\r\n|\n|\r/);
+  console.log(datosPolizas);
+  //Construir el objeto JSON basePolizas
+  parsearListaPolizas(listaPolizas);
+  parsearDatosPolizas(datosPolizas);
+
+  generarListaDeEmpresas();
+}
+
+function obtenerListaPolizasDesdeJS(){
+  var info = archivoPolizas;
   var splitted = info.split("--- DATOS DE PÓLIZAS ---");
   console.log(splitted);
   var listaPolizas = splitted[0].split(/\r\n|\n|\r/);
@@ -74,16 +89,12 @@ function rellenarDocumento(poliza) {
 
 $(document).ready(function(){
 
-//Eventos
 
-  //Al cargar un archivo
-
-  $('.cargar-archivo').click(function(){
     // obtenerListaPolizas('js/polizas.txt');
-    obtenerListaPolizasDesdeCajaDeTexto();
-  });
+    obtenerListaPolizasDesdeJS();
 
 
+//Eventos
 
 
   //Al seleccionar una empresa
@@ -118,13 +129,14 @@ $(document).ready(function(){
     var poliza = $('.seleccion-poliza').children("option:selected").val();
     var objPoliza = basePolizas[empresa][poliza];
     var arrayTexto;
-    console.log(objPoliza);
     if(objPoliza.texto){
       arrayTexto = objPoliza.texto;
     }
     else{
       arrayTexto = [];
     }
+    var linkImagenEmpresa; // COMBAK: Reemplazar por elemento de objeto
+
     cantidadCuotas = $('.seleccion-cantidad-cuotas').children("option:selected").val();
     precioCuotas = $('.precio-cuotas').val();
 
@@ -141,6 +153,22 @@ $(document).ready(function(){
 
     //Título de la póliza
     $('.titulo-poliza').append(poliza);
+
+    //Logo de la empresa
+    try{
+      linkImagenEmpresa = '../datos/logos/'+empresa+'.jpg';
+      $('.logo-compania').attr('src', linkImagenEmpresa);
+    }
+    catch{
+      try{
+        linkImagenEmpresa = '../datos/logos/'+empresa+'.png';
+        $('.logo-compania').attr('src', linkImagenEmpresa);
+      }
+      catch{
+        return;
+      }
+    }
+    $('.logo-compania').attr('alt', empresa);
 
     //Datos de pago
     $('.texto-anterior-cuotas').append('Débito en '+cantidadCuotas+' cuotas de');
@@ -165,10 +193,32 @@ $(document).ready(function(){
     if (!$('input.checkbox-destruccion').is(':checked')) {
       $('.contenedor-icono-destruccion').css({'display':'none'});
     }
+    if (!$('input.checkbox-todo-riesgo').is(':checked')) {
+      $('.contenedor-icono-todo-riesgo').css({'display':'none'});
+    }
+    //franquicia
+    var montoFranquicia = $('.monto-franquicia').val();
+    if(montoFranquicia){
+      $('.contenedor-icono-franquicia .descripcion-icono').append(
+        '$'+montoFranquicia
+      );
+    }
+    if (!$('input.checkbox-franquicia').is(':checked')) {
+      $('.contenedor-icono-franquicia').css({'display':'none'});
+    }
 
   });
 
 
+  //Botón de Volver
+
+    $('.volver-atras').click(function(){
+        location.reload();
+    });
+
+    $('.imprimir').click(function(){
+        window.print();
+    });
 
 
 
@@ -257,7 +307,7 @@ function parsearDatosPolizas(str) {
       costo = true;
     }
 
-    else if (linea == "TEXTO:") {
+    else if (linea == "DETALLE DE COBERTURA:") {
       // console.log("texto!");
       texto = true;
     }
