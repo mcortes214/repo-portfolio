@@ -296,29 +296,12 @@
     /* INTERFACES GLOBALES */
 
     .playback-control {
+        margin: 15px 0 0 0;
+        border: 1px solid black;
+        padding: 10px 15px;
+        background-color: white;
         cursor: pointer;
-        font-size: 0;
-        background: none;
-        border: none;
-        width: 30px;
-        height: 30px;
-        margin: 30px 5px;
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: contain;
     }
-
-    #play-button{
-      background-image: url('img/boton-play.png');
-    }
-    #pause-button{
-      background-image: url('img/boton-pause.png');
-    }
-    #stop-button{
-      background-image: url('img/boton-stop.png');
-    }
-
-
 
     span.global-control-tag {
         display: block;
@@ -862,13 +845,13 @@
 
     <!-- Delay -->
     <span class="global-control-tag">Delay time</span>
-    <input type="range" class="rangeslider" data-accion="delay-time" id="delay-time" min="0" max="1" value="0" step="0.001" data-orientation="horizontal">
+    <input type="range" class="rangeslider" data-accion="delay-time" id="delay-time" min="0" max="1" value="0.5" step="0.001" data-orientation="horizontal">
     <span class="global-control-tag">Delay feedback</span>
-    <input type="range" class="rangeslider" data-accion="delay-feedback" id="delay-feedback" min="0" max="2" value="0" step="0.001" data-orientation="horizontal">
+    <input type="range" class="rangeslider" data-accion="delay-feedback" id="delay-feedback" min="0" max="2" value="0.5" step="0.001" data-orientation="horizontal">
 
     <!-- Reverb -->
     <span class="global-control-tag">Reverb level</span>
-    <input type="range" class="rangeslider" data-accion="reverb-wet" id="reverb-wet" min="0" max="2" value="0" step="0.001" data-orientation="horizontal">
+    <input type="range" class="rangeslider" data-accion="reverb-wet" id="reverb-wet" min="0" max="2" value="0.5" step="0.001" data-orientation="horizontal">
 
     <!-- Playback -->
     <button class="playback-control" id="play-button">Play</button>
@@ -934,31 +917,31 @@ var audioReverb;
 // };
 
 
-// var canciones = {
-// tracks: {
-//   'Canción 1': {
-//     track_1: 'audio/sonidos-1.mp3',
-//     track_2: 'audio/sonidos-2.mp3',
-//     track_3: 'audio/sonidos-3.mp3',
-//     track_4: 'audio/sonidos-4.mp3',
-//     track_5: 'audio/sonidos-5.mp3',
-//     track_6: 'audio/sonidos-6.mp3',
-//   },
-//   'Canción 2': {
-//     track_1: 'audio/sonidos-b1.mp3',
-//     track_2: 'audio/sonidos-b2.mp3',
-//     track_3: 'audio/sonidos-b3.mp3',
-//   },
-// },
-// reverb: 'audio/reverb-ir.wav',
-// };
+var canciones = {
+tracks: {
+  'Canción 1': {
+    track_1: 'audio/sonidos-1.mp3',
+    track_2: 'audio/sonidos-2.mp3',
+    track_3: 'audio/sonidos-3.mp3',
+    track_4: 'audio/sonidos-4.mp3',
+    track_5: 'audio/sonidos-5.mp3',
+    track_6: 'audio/sonidos-6.mp3',
+  },
+  'Canción 2': {
+    track_1: 'audio/sonidos-b1.mp3',
+    track_2: 'audio/sonidos-b2.mp3',
+    track_3: 'audio/sonidos-b3.mp3',
+  },
+},
+reverb: 'audio/reverb-ir.wav',
+};
 
 
 /*--- FIN TEMPORAL ---*/
 
 function receiveMessage(event) {
   console.log('mensaje recibido');
-  gestionarMensaje(event.data);
+  gestionarMensaje();
 }
 
 var reproductor = {
@@ -967,12 +950,12 @@ var reproductor = {
 
 
 
-// gestionarMensaje(); //eliminar esto al final del test
+gestionarMensaje(); //eliminar esto al final del test
 
 
-function gestionarMensaje(datos){
-  var objetoDatos = datos.tracks;
-  var reverb = datos.reverb;
+function gestionarMensaje(){
+  var objetoDatos = canciones.tracks;
+  var reverb = canciones.reverb;
 
   audioReverb = reverb;
   // var objetoDatos = event.data; //descomentar esto al final del test
@@ -998,59 +981,6 @@ function gestionarMensaje(datos){
     }
 
   }
-
-
-  //-----------------------------------------
-  // DOCUMENT READY (ejecución de código)
-
-  $(document).ready(function(){
-
-  	cancionActiva = reproductor.cancion1;
-  	//Generar markup HTML dinámico partir de los datos (interfaz y audios)
-  	generarCanciones();
-
-  	// Inicializar rangeslider (visualización de interfaz). Después de generar los sliders
-  	$('input[type="range"]:not(.seekbar)').rangeslider({
-  		polyfill: false,
-  		onSlide: function(){
-  			moverControl(this.$element[0]); //target del evento
-  		}
-  	});
-
-  	//Event binding
-
-  	$('.boton-cancion').on('click', function () {
-      detener(cancionActiva);
-  		var dataCancion = $(this).attr('data-cancion');
-  		var selectorSeccionCancion = '.contenedor-cancion[data-cancion="'+ dataCancion +'"]';
-  		var cancionSeleccionada = $(selectorSeccionCancion);
-  		$('.boton-cancion').removeClass('activo'); //eliminar el activo de todos los contenedores
-  		$(this).addClass('activo'); //agregarla a la canción seleccionada
-  		$('.contenedor-cancion').removeClass('activo'); //eliminar el activo de todos los contenedores
-  		cancionSeleccionada.addClass('activo'); //agregarla a la canción seleccionada
-
-  		cancionActiva = reproductor['cancion'+dataCancion];
-   	});
-
-  $('#play-button').on('click', function () {
-  	reproducir(cancionActiva);
-  });
-
-  $('#pause-button').on('click', function () {
-  	pausar(cancionActiva);
-  });
-
-  $('#stop-button').on('click', function () {
-  	detener(cancionActiva);
-  });
-
-  //Reverb
-  getData();
-
-  });
-
-  //-----------------------------------------
-
 }
 
 
@@ -1114,7 +1044,58 @@ function gestionarMensaje(datos){
 
 
 
+  //-----------------------------------------
+  // DOCUMENT READY (ejecución de código)
 
+  $(document).ready(function(){
+
+  	cancionActiva = reproductor.cancion1;
+  	//Generar markup HTML dinámico partir de los datos (interfaz y audios)
+  	generarCanciones();
+
+  	// Inicializar rangeslider (visualización de interfaz). Después de generar los sliders
+  	$('input[type="range"]:not(.seekbar)').rangeslider({
+  		polyfill: false,
+  		onSlide: function(){
+  			moverControl(this.$element[0]); //target del evento
+  		}
+  	});
+
+  	//Event binding
+
+  	$('.boton-cancion').on('click', function () {
+      detener(cancionActiva);
+  		var dataCancion = $(this).attr('data-cancion');
+  		var selectorSeccionCancion = '.contenedor-cancion[data-cancion="'+ dataCancion +'"]';
+  		var cancionSeleccionada = $(selectorSeccionCancion);
+  		$('.boton-cancion').removeClass('activo'); //eliminar el activo de todos los contenedores
+  		$(this).addClass('activo'); //agregarla a la canción seleccionada
+  		$('.contenedor-cancion').removeClass('activo'); //eliminar el activo de todos los contenedores
+  		cancionSeleccionada.addClass('activo'); //agregarla a la canción seleccionada
+
+  		cancionActiva = reproductor['cancion'+dataCancion];
+   	});
+
+  $('#play-button').on('click', function () {
+  	reproducir(cancionActiva);
+  });
+
+  $('#pause-button').on('click', function () {
+  	pausar(cancionActiva);
+  });
+
+  $('#stop-button').on('click', function () {
+  	detener(cancionActiva);
+  });
+
+
+
+
+
+
+  });
+
+  //-----------------------------------------
 
   // FUNCIONES
 
@@ -1297,7 +1278,7 @@ function gestionarMensaje(datos){
   let reverbGain = audioCtx.createGain();
 
   var source = audioCtx.createBufferSource();
-
+  getData();
 
   function getData() {
     var request = new XMLHttpRequest();
