@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+ <html>
+   <head>
+    <meta charset="utf‐8">
+    <title>Prueba audio</title>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
+    <script type="text/javascript" src="js/scripts.js"></script>
+  </head>
+<body>
+
+<!-- HTML REPRODUCTOR -->
+
+<!-- <h2>Paisaje sonoro</h2>
+<p>Cada uno de los siguientes deslizadores controla el volumen de una pista de audio. Los tres audios combinados generan un paisaje sonoro natural y relajante; el usuario puede modificar la composición de este paisaje en tiempo real a través de los controles de volumen (clickear el botón "Play/pause" para iniciar o detener la reproducción).</p> -->
+
+<!-- Ejemplo boombox: https://codepen.io/Rumyra/pen/qyMzqN/ -->
+
+<div id="reproductor">
+  <div id="selectores-canciones"></div> <!-- Contenido dinámico -->
+  <div id="canales"></div> <!-- Contenido dinámico -->
+  <div id="controles-globales">
+    <!-- Master volume -->
+    <span class="global-control-tag">Master</span>
+    <input type="range" class="rangeslider" data-accion="volumen-master" id="volumen-master" min="0" max="1" value="0.5" step="0.001" data-orientation="horizontal">
+
+    <!-- Delay -->
+    <span class="global-control-tag">Delay time</span>
+    <input type="range" class="rangeslider" data-accion="delay-time" id="delay-time" min="0" max="1" value="0" step="0.001" data-orientation="horizontal">
+    <span class="global-control-tag">Delay feedback</span>
+    <input type="range" class="rangeslider" data-accion="delay-feedback" id="delay-feedback" min="0" max="2" value="0" step="0.001" data-orientation="horizontal">
+
+    <!-- Reverb -->
+    <span class="global-control-tag">Reverb level</span>
+    <input type="range" class="rangeslider" data-accion="reverb-wet" id="reverb-wet" min="0" max="2" value="0" step="0.001" data-orientation="horizontal">
+
+    <!-- Playback -->
+    <button class="playback-control" id="play-button">Play</button>
+    <button class="playback-control" id="pause-button">Pause</button>
+    <button class="playback-control" id="stop-button">Stop</button>
+
+  </div>
+</div>
+
+<!-- JAVASCRIPT - SCRIPTS.JS -->
+
+<script type="text/javascript">
+
+
+
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>

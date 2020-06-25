@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Prueba de embed - Reproductor Howler/WAD</title>
+  </head>
+  <body>
+
+
+<!-- EN ESTE DOCUMENTO SIMULO EL POST DEL SITIO DE NICO.
+ACÁ VAN EL EMBED, Y EL SCRIPT.
+NADA MAS. -->
+
+
+<iframe id="player" src="reproductorWP.html" width="700px" height="700px"></iframe>
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
+
+<script>
+/*-----------------CANCIONES------------------*/
+var canciones = {
+  tracks: {
+    'NOMBRE DE CANCIÓN 1': {
+      track_1: '/audio/sonidos-b1.mp3',
+      track_2: '/audio/sonidos-b2.mp3',
+      track_3: '/audio/sonidos-b3.mp3',
+    },
+    'NOMBRE DE CANCIÓN 2': {
+      track_1: '/audio/sonidos-1.mp3',
+      track_2: '/audio/sonidos-2.mp3',
+      track_3: '/audio/sonidos-3.mp3',
+      track_4: '/audio/sonidos-4.mp3',
+      track_5: '/audio/sonidos-5.mp3',
+      track_6: '/audio/sonidos-6.mp3',
+    },
+  },
+  reverb: 'audio/reverb-ir.wav',
+};
+
+/*--------------------------------------------*/
+console.log(document.getElementById("player").contentWindow);
+document.getElementById("player").onload = function(){
+  document.getElementById("player").contentWindow.postMessage(canciones, "*");
+  console.log('mensaje enviado');
+}
+
+$('iframe').mouseenter(function(event){
+  console.log('min');
+  $('iframe').trigger( "mouseup" );
+  event.preventDefault();
+});
+
+</script>
+
+
+
+  </body>
+</html>

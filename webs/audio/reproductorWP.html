@@ -344,13 +344,13 @@
     }
 
     #play-button{
-      background-image: url('img/boton-play.png');
+      background-image: url('https://www.maxicortes.com.ar/webs/audio/img/boton-play.png');
     }
     #pause-button{
-      background-image: url('img/boton-pause.png');
+      background-image: url('https://www.maxicortes.com.ar/webs/audio/img/boton-pause.png');
     }
     #stop-button{
-      background-image: url('img/boton-stop.png');
+      background-image: url('https://www.maxicortes.com.ar/webs/audio/img/boton-stop.png');
     }
 
 
@@ -1159,8 +1159,8 @@ function gestionarMensaje(datos){
             <input type="range" class="rangeslider" data-accion="volumen-track" data-cancion="`+i+`" data-track="`+j+`" id="volumen-cancion-`+i+`-track-`+j+`" min="0" max="2" value="1" step="0.001" data-orientation="vertical">
             <audio id="audio-cancion-`+i+`-track-`+j+`" src="`+linkTrackActual+`" crossorigin="anonymous"></audio>
             <div class="contenedor-controles-canal">
-              <div class="boton-mute-canal" id="mute-cancion-`+i+`-track-`+j+`">M</div>
-              <div class="boton-solo-canal" id="solo-cancion-`+i+`-track-`+j+`">S</div>
+              <div class="boton-mute-canal" data-cancion="`+i+`" data-track="`+j+`" id="mute-cancion-`+i+`-track-`+j+`">M</div>
+              <div class="boton-solo-canal" data-cancion="`+i+`" data-track="`+j+`" id="solo-cancion-`+i+`-track-`+j+`">S</div>
             </div>
           </div>
           `
@@ -1170,16 +1170,45 @@ function gestionarMensaje(datos){
   			trackActual['mediaElement'] = $('#audio-cancion-'+i+'-track-'+j)[0];
   			trackActual['audioSourceNode'] = audioCtx.createMediaElementSource(trackActual.mediaElement);
   			trackActual['gainNode'] = audioCtx.createGain();
+  			trackActual['muteSoloGainNode'] = audioCtx.createGain();
   			var asn = trackActual.audioSourceNode;
   			var bus = cancionActual.bus;
   			var gn = trackActual.gainNode;
-  			asn.connect(gn).connect(bus);
+  			var msgn = trackActual.gainNode;
+  			asn.connect(gn).connect(msgn).connect(bus);
 
-  			//Y finalmente vincular el slider de cada track a los audio nodes (event binding)
+        //generar una variable de estado de mute/solo:
+        trackActual['estadoMuteSolo'] = 0;
+        //0: sin M ni S. 1: muteado. 2: solo.
+
+  			//Y finalmente vincular el slider y los botones de cada track a los audio nodes (event binding)
   			var volumeControl = $('#volumen-cancion-'+i+'-track-'+j)[0];
+        var muteButton = $('#mute-cancion-'+i+'-track-'+j)[0];
+        var soloButton = $('#solo-cancion-'+i+'-track-'+j)[0];
 
   			volumeControl.addEventListener('ValueChange', function() {
   			}, false);
+
+        muteButton.addEventListener('click', function(){
+          var trackBoton = $(this).data('track');
+          var cancionBoton = $(this).data('cancion');
+          console.log('Track '+trackBoton+' de canción '+cancionBoton+' MUTEADO');
+
+          //funcionalidad
+          $(this).toggleClass('activo');
+          var estadoMS = reproductor['cancion'+cancionBoton].tracks['track'+trackBoton].estadoMuteSolo;
+          estadoMS = 1;
+
+        }, false);
+
+        soloButton.addEventListener('click', function(){
+          var trackBoton = $(this).data('track');
+          var cancionBoton = $(this).data('cancion');
+          console.log('Track '+trackBoton+' de canción '+cancionBoton+' en SOLO');
+
+          $(this).toggleClass('activo');
+        }, false);
+
   		}
 
     //Y generar el contenedor para el seek, y el control de seek
