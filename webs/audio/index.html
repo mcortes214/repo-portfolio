@@ -14,6 +14,8 @@ NADA MAS. -->
 
 <iframe id="player" src="reproductorWP.html" width="700px" height="700px"></iframe>
 
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
+
 <script>
 /*-----------------CANCIONES------------------*/
 var canciones = {
@@ -41,6 +43,13 @@ document.getElementById("player").onload = function(){
   document.getElementById("player").contentWindow.postMessage(canciones, "*");
   console.log('mensaje enviado');
 }
+
+$('iframe').mouseenter(function(event){
+  console.log('min');
+  $('iframe').trigger( "mouseup" );
+  event.preventDefault();
+});
+
 </script>
 
 

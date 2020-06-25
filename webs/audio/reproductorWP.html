@@ -171,6 +171,10 @@
       justify-content: space-around;
     }
 
+    div.contenedor-canal {
+      display: flex;
+    }
+
 
     div.contenedor-seek{
       height: 60px;
@@ -222,7 +226,34 @@
       display: none;
     }
 
+    /* Controles de canal */
 
+    /* Mute/solo */
+
+    .contenedor-controles-canal {
+        width: 20px;
+        margin-left: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+    }
+
+    .boton-mute-canal,
+    .boton-solo-canal{
+      width: 20px;
+      height: 20px;
+      margin: 10px 0 0 0;
+      border: 1px solid black;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .boton-mute-canal.activo,
+    .boton-solo-canal.activo{
+      background-color: #ddd;
+    }
 
 
     /* Horizontal */
@@ -266,6 +297,10 @@
 
     /* Seek */
 
+    .visor-tiempo-seek{
+      margin-bottom: 10px;
+    }
+
     input.seek-control + .rangeslider--horizontal {
         height: 8px;
         border-radius: 0;
@@ -300,8 +335,8 @@
         font-size: 0;
         background: none;
         border: none;
-        width: 30px;
-        height: 30px;
+        width: 20px;
+        height: 20px;
         margin: 30px 5px;
         background-repeat: no-repeat;
         background-position: center;
@@ -847,6 +882,8 @@
   </head>
 <body>
 
+<!-- HTML REPRODUCTOR -->
+
 <!-- <h2>Paisaje sonoro</h2>
 <p>Cada uno de los siguientes deslizadores controla el volumen de una pista de audio. Los tres audios combinados generan un paisaje sonoro natural y relajante; el usuario puede modificar la composición de este paisaje en tiempo real a través de los controles de volumen (clickear el botón "Play/pause" para iniciar o detener la reproducción).</p> -->
 
@@ -858,7 +895,7 @@
   <div id="controles-globales">
     <!-- Master volume -->
     <span class="global-control-tag">Master</span>
-    <input type="range" class="rangeslider" data-accion="volumen-master" id="volumen-master" min="0" max="2" value="1" step="0.001" data-orientation="horizontal">
+    <input type="range" class="rangeslider" data-accion="volumen-master" id="volumen-master" min="0" max="1" value="0.5" step="0.001" data-orientation="horizontal">
 
     <!-- Delay -->
     <span class="global-control-tag">Delay time</span>
@@ -885,7 +922,7 @@
 
 
 
-<!-- JS -->
+<!-- JAVASCRIPT - SCRIPTS.JS -->
 
 
 
@@ -912,60 +949,13 @@ var audioReverb;
   const audioCtx = new AudioContext();
 
 
-/*--- TEMPORAL ---*/
-
-// var canciones = {
-// tracks: {
-//   'Canción 1': {
-//     track_1: 'http://sitio.archivovilla20.com.ar/wp-content/uploads/2020/05/sonidos-1.mp3',
-//     track_2: 'http://sitio.archivovilla20.com.ar/wp-content/uploads/2020/05/sonidos-2.mp3',
-//     track_3: 'http://sitio.archivovilla20.com.ar/wp-content/uploads/2020/05/sonidos-3.mp3',
-//     track_4: 'http://sitio.archivovilla20.com.ar/wp-content/uploads/2020/05/sonidos-4.mp3',
-//     track_5: 'http://sitio.archivovilla20.com.ar/wp-content/uploads/2020/05/sonidos-5.mp3',
-//     track_6: 'http://sitio.archivovilla20.com.ar/wp-content/uploads/2020/05/sonidos-6.mp3',
-//   },
-//   'Canción 2': {
-//     track_1: 'http://sitio.archivovilla20.com.ar/wp-content/uploads/2020/05/sonidos-b1.mp3',
-//     track_2: 'http://sitio.archivovilla20.com.ar/wp-content/uploads/2020/05/sonidos-b2.mp3',
-//     track_3: 'http://sitio.archivovilla20.com.ar/wp-content/uploads/2020/05/sonidos-b3.mp3',
-//   },
-// },
-// reverb: 'http://sitio.archivovilla20.com.ar/wp-content/uploads/2020/05/reverb-ir.wav',
-// };
-
-
-// var canciones = {
-// tracks: {
-//   'Canción 1': {
-//     track_1: 'audio/sonidos-1.mp3',
-//     track_2: 'audio/sonidos-2.mp3',
-//     track_3: 'audio/sonidos-3.mp3',
-//     track_4: 'audio/sonidos-4.mp3',
-//     track_5: 'audio/sonidos-5.mp3',
-//     track_6: 'audio/sonidos-6.mp3',
-//   },
-//   'Canción 2': {
-//     track_1: 'audio/sonidos-b1.mp3',
-//     track_2: 'audio/sonidos-b2.mp3',
-//     track_3: 'audio/sonidos-b3.mp3',
-//   },
-// },
-// reverb: 'audio/reverb-ir.wav',
-// };
-
-
-/*--- FIN TEMPORAL ---*/
-
 function receiveMessage(event) {
   console.log('mensaje recibido');
   gestionarMensaje(event.data);
 }
 
 var reproductor = {
-}; //Este objeto va a representar el reproductor generado
-  //a partir de los datos. Si todo sale bien, uso "reproductor"
-
-
+}; //Se rellena automáticamente con los datos del embed
 
 // gestionarMensaje(); //eliminar esto al final del test
 
@@ -1006,6 +996,7 @@ function gestionarMensaje(datos){
   $(document).ready(function(){
 
   	cancionActiva = reproductor.cancion1;
+
   	//Generar markup HTML dinámico partir de los datos (interfaz y audios)
   	generarCanciones();
 
@@ -1052,68 +1043,6 @@ function gestionarMensaje(datos){
   //-----------------------------------------
 
 }
-
-
-  //Datos de canción
-
-  //
-  // var reproductor = {
-  //   cancion1: {
-  //     tracks: {
-  //       track1: {
-  //         url: 'audio/sonidos-1.mp3',
-  //         nombre: 'Track 1',
-  //       },
-  //       track2: {
-  //         url: 'audio/sonidos-2.mp3',
-  //         nombre: 'Track 2',
-  //       },
-  //       track3: {
-  //         url: 'audio/sonidos-3.mp3',
-  //         nombre: 'Track 3',
-  //       },
-  //       track4: {
-  //         url: 'audio/sonidos-4.mp3',
-  //         nombre: 'Track 4',
-  //       },
-  //       track5: {
-  //         url: 'audio/sonidos-5.mp3',
-  //         nombre: 'Track 5',
-  //       },
-  //       track6: {
-  //         url: 'audio/sonidos-6.mp3',
-  //         nombre: 'Track 6',
-  //       },
-  //     },
-  //     bus: audioCtx.createGain(),
-  //     nombreCancion: 'Canción 1',
-  //     activo: false,
-  //   },
-  //   cancion2: {
-  //     tracks: {
-  //       track1: {
-  //         url: 'audio/sonidos-b1.mp3',
-  //         nombre: 'Track 1',
-  //       },
-  //       track2: {
-  //         url: 'audio/sonidos-b2.mp3',
-  //         nombre: 'Track 2',
-  //       },
-  //       track3: {
-  //         url: 'audio/sonidos-b3.mp3',
-  //         nombre: 'Track 3',
-  //       },
-  //     },
-  //     bus: audioCtx.createGain(),
-  //     nombreCancion: 'Canción 2',
-  //     activo: false,
-  //   },
-  // };
-  //Canción activa
-
-
-
-
 
 
   // FUNCIONES
@@ -1225,9 +1154,16 @@ function gestionarMensaje(datos){
         console.log(cancionActual.tracks['track'+j]);
   			var linkTrackActual = trackActual.url;
   			$(elementoContenedorCancionActual).append(
-  				'<input type="range" class="rangeslider" data-accion="volumen-track" data-cancion="'+i+'" data-track="'+j+'" id="volumen-cancion-'+i+'-track-'+j+'" min="0" max="2" value="1" step="0.001" data-orientation="vertical">'
-  				+
-  				'<audio id="audio-cancion-'+i+'-track-'+j+'" src="'+linkTrackActual+'" crossorigin="anonymous"></audio>'
+          `
+          <div class="contenedor-canal">
+            <input type="range" class="rangeslider" data-accion="volumen-track" data-cancion="`+i+`" data-track="`+j+`" id="volumen-cancion-`+i+`-track-`+j+`" min="0" max="2" value="1" step="0.001" data-orientation="vertical">
+            <audio id="audio-cancion-`+i+`-track-`+j+`" src="`+linkTrackActual+`" crossorigin="anonymous"></audio>
+            <div class="contenedor-controles-canal">
+              <div class="boton-mute-canal" id="mute-cancion-`+i+`-track-`+j+`">M</div>
+              <div class="boton-solo-canal" id="solo-cancion-`+i+`-track-`+j+`">S</div>
+            </div>
+          </div>
+          `
   			);
 
   			//Después generar los Audio Nodes, y vincularlos a un bus
@@ -1252,7 +1188,11 @@ function gestionarMensaje(datos){
     $(elementoContenedorC).append(
       '<div class="contenedor-seek" id="contenedor-seek-'+i+'"></div>'
     );
+    $(elementoContenedorC).append(
+      '<div class="visor-tiempo-seek"><span class="seek-minutos">00</span>:<span class="seek-segundos">00</span></div>'
+    );
     var elementoSeek = $('#contenedor-seek-'+i)[0];
+
     $(elementoSeek).append(
       '<input type="range" class="rangeslider seek-marker" data-accion="marcador-seek" data-cancion="'+i+'" id="seek-marker-'+i+'" min="0" max="2" value="0" step="0.001" data-orientation="horizontal">'
     );
@@ -1287,8 +1227,8 @@ function gestionarMensaje(datos){
 
   const delay = audioCtx.createDelay();
   const feedback = audioCtx.createGain();
-  feedback.gain.value = 0.2;
-  delay.delayTime.value = 0.2;
+  feedback.gain.value = 0;
+  delay.delayTime.value = 0;
 
   //Reverb
   //Recuperar el archivo de audio por HTTP (así me devuelve un arraybuffer fácilmente)
@@ -1384,6 +1324,33 @@ function gestionarMensaje(datos){
   reproducir(canc);
   }
 
+function actualizarVisorSeek(){
+  var segundosParaVisor = Math.trunc(tiempoTranscurrido) % 60;
+  var minutosParaVisor = Math.trunc(tiempoTranscurrido/60);
+
+  // segundos
+  if(segundosParaVisor<10){
+    $('.seek-segundos').html('0'+segundosParaVisor);
+    if(segundosParaVisor==0){
+      $('.seek-segundos').html('00');
+    }
+  }
+  else{
+    $('.seek-segundos').html(segundosParaVisor);
+  }
+
+  // minutos
+  if(minutosParaVisor<10){
+    $('.seek-minutos').html('0'+minutosParaVisor);
+    if(minutosParaVisor==0){
+      $('.seek-minutos').html('00');
+    }
+  }
+  else{
+    $('.seek-minutos').html(MinutosParaVisor);
+  }
+}
+
   function reproducir(song){
   	if (audioCtx.state === 'suspended') {
   		audioCtx.resume();
@@ -1397,7 +1364,12 @@ function gestionarMensaje(datos){
   		//reproduccion Seek
   		tiempoTranscurrido += 0.1;
       console.log(tiempoTranscurrido);
+
+      actualizarVisorSeek();
+
       song.marcadorSeek.val(tiempoTranscurrido).change();
+
+
   	},100);
   }
 
@@ -1407,6 +1379,8 @@ function gestionarMensaje(datos){
   		var track = song.tracks['track'+i].mediaElement;
   		track.pause();
       clearInterval(intervaloSeek);
+      actualizarVisorSeek();
+
   	}
   }
 
@@ -1419,6 +1393,8 @@ function gestionarMensaje(datos){
   		tiempoTranscurrido = 0;
       song.marcadorSeek.val(tiempoTranscurrido).change();
       clearInterval(intervaloSeek);
+      actualizarVisorSeek();
+
   	}
   }
 
@@ -1429,6 +1405,8 @@ function gestionarMensaje(datos){
   		track.currentTime = segundos;
   		tiempoTranscurrido = segundos;
       song.marcadorSeek.val(tiempoTranscurrido).change();
+      actualizarVisorSeek();
+
   	}
   }
 
