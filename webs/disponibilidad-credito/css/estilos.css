@@ -1,0 +1,47 @@
+html{
+  font-family: 'Lato', sans-serif;
+}
+
+img{
+  display: none;
+}
+
+canvas{
+  width: 300px;
+  height: 300px;
+}
+
+form {
+    width: 80%;
+    margin: auto;
+    margin-top: 50px;
+}
+
+form div {
+    margin: 10px 0;
+}
+
+form input {
+    display: block;
+    width: 100%;
+    margin: 15px 0;
+    height: 25px;
+}
+
+button {
+    display: block;
+    margin: 40px auto;
+    padding: 15px;
+    background-color: #07a;
+    border: navajowhite;
+    color: white;
+    font-size: 1.1em;
+    cursor: pointer;
+}
+
+canvas {
+    width: 80%;
+    height: auto;
+    display: block;
+    margin: auto;
+}

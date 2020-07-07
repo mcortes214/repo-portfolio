@@ -194,6 +194,9 @@ button.imprimir{
 	button.volver-atras {
 		display: none;
 	}
+	button.imprimir{
+		display: none;
+	}
 }
 
 .contenedor-hoja{
@@ -332,7 +335,8 @@ span.descripcion-icono {
 }
 
 .notice{
-	width: 75%;
+	width: 100%;
+	/* font-size: 1em; */
 }
 .ssn{
 	width: 40%;

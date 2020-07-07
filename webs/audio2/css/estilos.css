@@ -1,0 +1,187 @@
+body{
+  font-family: sans-serif;
+}
+
+button.tape-controls-play {
+    margin-top: 30px;
+}
+
+button.tape-controls-play {
+    margin-top: 30px;
+    background: transparent;
+    border: 1px solid black;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.elem-cancion-2{
+  display: none;
+}
+
+
+/* CONTENEDORES DE CANCIÓN */
+
+div.contenedor-cancion {
+    display: none;
+    width: 100%;
+    flex-direction: column;
+}
+
+div.contenedor-cancion.activo{
+  display: flex;
+}
+
+div.contenedor-canales{
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+}
+
+
+div.contenedor-seek{
+  height: 60px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+
+/* RANGE SLIDERS */
+
+/* Vertical */
+
+.rangeslider--vertical {
+    width: 2px;
+    background: #ddd;
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
+}
+
+.rangeslider--vertical .rangeslider__handle {
+    width: 20px;
+    height: 20px;
+    left: -10px;
+    box-shadow: none;
+    background-color: black;
+    border: 3px solid white;
+}
+
+.rangeslider--vertical .rangeslider__fill {
+    bottom: 0;
+    width: 100%;
+    background-color: white;
+    box-shadow: 0 0 0 1px black inset;
+}
+
+.rangeslider--vertical .rangeslider__handle {
+    width: 10px;
+    height: 10px;
+    left: -4px;
+    box-shadow: none;
+    background-color: black;
+    border: none;
+}
+
+.rangeslider--vertical .rangeslider__handle::after{
+  display: none;
+}
+
+
+
+
+/* Horizontal */
+
+.rangeslider--horizontal {
+    height: 2px;
+    background: #ddd;
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
+}
+
+.rangeslider--horizontal .rangeslider__handle {
+    width: 20px;
+    height: 20px;
+    left: -10px;
+    box-shadow: none;
+    background-color: black;
+    border: 3px solid white;
+}
+
+.rangeslider--horizontal .rangeslider__fill {
+    bottom: 0;
+    width: 100%;
+    background-color: white;
+    box-shadow: 0 0 0 1px black inset;
+}
+
+.rangeslider--horizontal .rangeslider__handle {
+    width: 10px;
+    height: 10px;
+    top: -4px;
+    box-shadow: none;
+    background-color: black;
+    border: none;
+}
+
+.rangeslider--horizontal .rangeslider__handle::after{
+  display: none;
+}
+
+/* Seek */
+
+input.seek-control + .rangeslider--horizontal {
+    height: 8px;
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
+    cursor: pointer;
+    opacity: 0;
+    position: absolute;
+}
+
+input.seek-marker + .rangeslider--horizontal {
+    height: 8px;
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
+}
+
+input.seek-marker + .rangeslider--horizontal .rangeslider__handle{
+  top: -3px;
+  width: 14px;
+  height: 14px;
+}
+
+input.seek-marker + .rangeslider--horizontal .rangeslider__fill{
+  background-color: black;
+}
+
+/* INTERFACES GLOBALES */
+
+.playback-control {
+    margin: 15px 0 0 0;
+    border: 1px solid black;
+    padding: 10px 15px;
+    background-color: white;
+    cursor: pointer;
+}
+
+span.global-control-tag {
+    display: block;
+    margin: 20px 0 10px 0;
+}
+
+button.boton-cancion {
+    border: 1px solid black;
+    background: none;
+    padding: 10px 15px;
+    margin: 10px 10px 30px 10px;
+    cursor: pointer;
+}
+
+button.boton-cancion.activo {
+  background-color: #f0f0f0;
+}

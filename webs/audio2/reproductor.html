@@ -2,20 +2,22 @@
  <html>
    <head>
     <meta charset="utf‐8">
-    <title>Prueba audio</title>
+    <title>Reproductor Howler/WAD</title>
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
+    <link rel="stylesheet" href="css/estilos.css">
+    <link rel="stylesheet" href="css/rangeslider.css">
+    <script type="text/javascript" src="js/howler.min.js"></script>
+    <script type="text/javascript" src="js/jquery.knob.min.js"></script>
+    <script type="text/javascript" src="js/rangeslider.min.js"></script>
+    <script type="text/javascript" src="js/tuna-min.js"></script>
     <script type="text/javascript" src="js/scripts.js"></script>
   </head>
 <body>
 
-<!-- HTML REPRODUCTOR -->
-
-<!-- <h2>Paisaje sonoro</h2>
-<p>Cada uno de los siguientes deslizadores controla el volumen de una pista de audio. Los tres audios combinados generan un paisaje sonoro natural y relajante; el usuario puede modificar la composición de este paisaje en tiempo real a través de los controles de volumen (clickear el botón "Play/pause" para iniciar o detener la reproducción).</p> -->
-
 <!-- Ejemplo boombox: https://codepen.io/Rumyra/pen/qyMzqN/ -->
 
 <div id="reproductor">
+  <button type="button" name="button" class="boton-prueba">Botón de prueba</button>
   <div id="selectores-canciones"></div> <!-- Contenido dinámico -->
   <div id="canales"></div> <!-- Contenido dinámico -->
   <div id="controles-globales">
@@ -41,25 +43,5 @@
   </div>
 </div>
 
-<!-- JAVASCRIPT - SCRIPTS.JS -->
-
-<script type="text/javascript">
-
-
-
-  </script>
-
-
-
-
-
-
-
-
-
-
-
-
 </body>
-
 </html>
