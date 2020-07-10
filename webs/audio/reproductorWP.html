@@ -330,6 +330,30 @@
 
     /* INTERFACES GLOBALES */
 
+    .contenedor-on-off{
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      margin: 20px 0 10px 0;
+    }
+    .contenedor-on-off span.global-control-tag {
+      margin: 0;
+    }
+
+    .efecto-on-off {
+      height: 15px;
+      width: 15px;
+      font-size: 0;
+      border: 1px solid black;
+      border-radius: 0;
+      background: transparent;
+      cursor: pointer;
+      margin-left: 10px;
+    }
+    .efecto-on-off.activo{
+      background-color: black;
+    }
+
     .playback-control {
         cursor: pointer;
         font-size: 0;
@@ -343,10 +367,10 @@
         background-size: contain;
     }
 
-    #play-button{
+    #play-pause-button{
       background-image: url('https://www.maxicortes.com.ar/webs/audio/img/boton-play.png');
     }
-    #pause-button{
+    #play-pause-button.reproduciendo{
       background-image: url('https://www.maxicortes.com.ar/webs/audio/img/boton-pause.png');
     }
     #stop-button{
@@ -884,9 +908,6 @@
 
 <!-- HTML REPRODUCTOR -->
 
-<!-- <h2>Paisaje sonoro</h2>
-<p>Cada uno de los siguientes deslizadores controla el volumen de una pista de audio. Los tres audios combinados generan un paisaje sonoro natural y relajante; el usuario puede modificar la composición de este paisaje en tiempo real a través de los controles de volumen (clickear el botón "Play/pause" para iniciar o detener la reproducción).</p> -->
-
 <!-- Ejemplo boombox: https://codepen.io/Rumyra/pen/qyMzqN/ -->
 
 <div id="reproductor">
@@ -898,18 +919,27 @@
     <input type="range" class="rangeslider" data-accion="volumen-master" id="volumen-master" min="0" max="1" value="0.5" step="0.001" data-orientation="horizontal">
 
     <!-- Delay -->
+    <div class="contenedor-on-off">
+      <span class="global-control-tag">Delay on/off:</span>
+      <button type="button" id="delay-on-off" class="efecto-on-off"></button>
+    </div>
     <span class="global-control-tag">Delay time</span>
     <input type="range" class="rangeslider" data-accion="delay-time" id="delay-time" min="0" max="1" value="0" step="0.001" data-orientation="horizontal">
     <span class="global-control-tag">Delay feedback</span>
-    <input type="range" class="rangeslider" data-accion="delay-feedback" id="delay-feedback" min="0" max="2" value="0" step="0.001" data-orientation="horizontal">
+    <input type="range" class="rangeslider" data-accion="delay-feedback" id="delay-feedback" min="0" max="1" value="0" step="0.001" data-orientation="horizontal">
 
     <!-- Reverb -->
+    <div class="contenedor-on-off">
+      <span class="global-control-tag">Reverb on/off:</span>
+      <button type="button" id="reverb-on-off" class="efecto-on-off"></button>
+    </div>
     <span class="global-control-tag">Reverb level</span>
     <input type="range" class="rangeslider" data-accion="reverb-wet" id="reverb-wet" min="0" max="2" value="0" step="0.001" data-orientation="horizontal">
 
     <!-- Playback -->
-    <button class="playback-control" id="play-button">Play</button>
-    <button class="playback-control" id="pause-button">Pause</button>
+    <button class="playback-control" id="play-pause-button">Play/pause</button>
+    <!-- <button class="playback-control" id="play-button">Play</button>
+    <button class="playback-control" id="pause-button">Pause</button> -->
     <button class="playback-control" id="stop-button">Stop</button>
 
   </div>
@@ -925,15 +955,11 @@
 <!-- JAVASCRIPT - SCRIPTS.JS -->
 
 
-
-
-
-
 <script type="text/javascript">
 
 window.addEventListener("message", receiveMessage, false);
 
-console.log('iframe test 12:');
+console.log('iframe test 13:');
 
 // VARIABLES GLOBALES
 
@@ -964,9 +990,9 @@ var reproductor = {
 
 function gestionarMensaje(datos){
   var objetoDatos = datos.tracks;
-  var reverb = datos.reverb;
+  var reverbAudio = datos.reverb;
 
-  audioReverb = reverb;
+  audioReverb = reverbAudio;
   // var objetoDatos = event.data; //descomentar esto al final del test
 
   //loopear por el objeto de datos para cargar la información en el objeto "reproductor"
@@ -1025,12 +1051,48 @@ function gestionarMensaje(datos){
   		cancionActiva = reproductor['cancion'+dataCancion];
    	});
 
-  $('#play-button').on('click', function () {
-  	reproducir(cancionActiva);
-  });
+    $('#delay-on-off').on('click', function () {
+    	$(this).toggleClass('activo');
 
-  $('#pause-button').on('click', function () {
-  	pausar(cancionActiva);
+      if($(this).hasClass('activo')){ //si se activó
+        delay.connect(audioCtx.destination);
+      }
+      else{
+        delay.disconnect(audioCtx.destination);
+      }
+    });
+
+    $('#reverb-on-off').on('click', function () {
+    	$(this).toggleClass('activo');
+
+      if($(this).hasClass('activo')){ //si se activó
+        // reverb.connect(reverbGain); //DESCOMM
+        reverb.connect(reverbGain);
+      }
+      else{
+        // reverb.disconnect(reverbGain); //DESCOMM
+        reverb.disconnect(reverbGain);
+      }
+    });
+
+
+  // $('#play-button').on('click', function () {
+  // 	reproducir(cancionActiva);
+  // });
+  //
+  // $('#pause-button').on('click', function () {
+  // 	pausar(cancionActiva);
+  // });
+
+  $('#play-pause-button').on('click', function () {
+    $(this).toggleClass('reproduciendo');
+
+    if($(this).hasClass('reproduciendo')){
+      reproducir(cancionActiva);
+    }
+    else{
+      pausar(cancionActiva);
+    }
   });
 
   $('#stop-button').on('click', function () {
@@ -1158,7 +1220,7 @@ function gestionarMensaje(datos){
   			$(elementoContenedorCancionActual).append(
           `
           <div class="contenedor-canal">
-            <input type="range" class="rangeslider" data-accion="volumen-track" data-cancion="`+i+`" data-track="`+j+`" id="volumen-cancion-`+i+`-track-`+j+`" min="0" max="2" value="1" step="0.001" data-orientation="vertical">
+            <input type="range" class="rangeslider" data-accion="volumen-track" data-cancion="`+i+`" data-track="`+j+`" id="volumen-cancion-`+i+`-track-`+j+`" min="0" max="1" value="0.5" step="0.001" data-orientation="vertical">
             <audio id="audio-cancion-`+i+`-track-`+j+`" src="`+linkTrackActual+`" crossorigin="anonymous"></audio>
             <div class="contenedor-controles-canal">
               <div class="boton-mute-canal" data-cancion="`+i+`" data-track="`+j+`" id="mute-cancion-`+i+`-track-`+j+`">M</div>
@@ -1176,7 +1238,7 @@ function gestionarMensaje(datos){
   			var asn = trackActual.audioSourceNode;
   			var bus = cancionActual.bus;
   			var gn = trackActual.gainNode;
-  			var msgn = trackActual.gainNode;
+  			var msgn = trackActual.muteSoloGainNode;
   			asn.connect(gn).connect(msgn).connect(bus);
 
         //generar una variable de estado de mute/solo:
@@ -1300,14 +1362,15 @@ function gestionarMensaje(datos){
 
   //Conectar todos los tracks de las canciones a sus buses
   //PRIMERO BYPASSEAR TODO, SACAR EL SONIDO
-
   gainNodeMaster.connect(audioCtx.destination);
   gainNodeMaster.connect(delay);
   delay.connect(feedback);
   feedback.connect(delay);
-  delay.connect(audioCtx.destination);
+  //El delay está afectado por el on/off.
+  //Por default está apagado.
   gainNodeMaster.connect(reverb);
-  reverb.connect(reverbGain).connect(audioCtx.destination);
+  reverbGain.connect(audioCtx.destination);
+  //El on/off conecta y desconecta la reverb de su gain.
 
 
   //FUNCIONES carga de metadata audios
@@ -1348,6 +1411,11 @@ function gestionarMensaje(datos){
 
   // FUNCIONES de playback (toman un objeto de canción como argumento)
 
+  //esto sirve solamente para prevenir clipping al pausar/detener
+  playbackGain = audioCtx.createGain();
+  playbackGain.value = 1;
+
+
   function loopear(canc) {
   detener(canc);
   console.log('loopeando: ');
@@ -1378,18 +1446,24 @@ function actualizarVisorSeek(){
     }
   }
   else{
-    $('.seek-minutos').html(MinutosParaVisor);
+    $('.seek-minutos').html(minutosParaVisor);
   }
 }
 
   function reproducir(song){
+    console.log('reproduciendo');
   	if (audioCtx.state === 'suspended') {
   		audioCtx.resume();
   	}
   	var cantidadTracks = Object.keys(song.tracks).length;
+
+    //deshabilitar la prevención de clipping (playback gain)
+    playbackGain.value = 1;
+
   	for(var i=1; i<cantidadTracks+1; i++){
   		var track = song.tracks['track'+i].mediaElement;
   		track.play();
+      console.log('trackplay');
   	}
   	intervaloSeek = setInterval(function(){
   		//reproduccion Seek
@@ -1408,6 +1482,7 @@ function actualizarVisorSeek(){
   	var cantidadTracks = Object.keys(song.tracks).length;
   	for(var i=1; i<cantidadTracks+1; i++){
   		var track = song.tracks['track'+i].mediaElement;
+      playbackGain.value = 0.01;
   		track.pause();
       clearInterval(intervaloSeek);
       actualizarVisorSeek();
@@ -1419,12 +1494,18 @@ function actualizarVisorSeek(){
   	var cantidadTracks = Object.keys(song.tracks).length;
   	for(var i=1; i<cantidadTracks+1; i++){
   		var track = song.tracks['track'+i].mediaElement;
+      playbackGain.value = 0.01;
   		track.pause();
   		track.currentTime = 0;
   		tiempoTranscurrido = 0;
       song.marcadorSeek.val(tiempoTranscurrido).change();
       clearInterval(intervaloSeek);
       actualizarVisorSeek();
+
+      //si el botón estaba reproduciendo, ponerlo en no reproduciendo
+      if($('#play-pause-button').hasClass('reproduciendo')){
+        $('#play-pause-button').toggleClass('reproduciendo');
+      }
 
   	}
   }

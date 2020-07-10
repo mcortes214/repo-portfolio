@@ -1,10 +1,8 @@
 console.log('iframe test Howler - 1.0');
 
 /*
-Tecnologías usadas:
+Dependencias:
 JQuery                  -- DOM
-Howler                  -- Gestión de audio
-Tuna                    -- Efectos de audio
 RangeSlider             -- Interfaz - Sliders
 Anthony Terrien Knobs   -- Interfaz - Knobs
 */
@@ -57,24 +55,29 @@ var iframe = {
 
   escucharMensaje: function () {
     return new Promise(function(resolve, reject){
+
       window.addEventListener("message", receiveMessage, false);
 
       function receiveMessage(event) {
         console.log('mensaje recibido desde el iframe');
-        //capturar los datos recibidos y parsearlos
+        //capturar los datos recibidos y parsearlos (tracks e IR de reverb)
         datosDeCanciones = event.data;
         canciones.parsearCanciones(datosDeCanciones);
         fx.parsearReverb(datosDeCanciones);
-        //esta línea de prueba comprueba que la promesa no espera a que se
-        //termine de declarar la función; sino realmente a que se termine
-        //de ejecutar, siempre y cuando el resolve() esté dentro de la misma.
-        // setTimeout(function(){resolve();},2000);
         resolve();
       }
+
     });
   }
 
 }
+
+
+
+
+
+
+
 
 
 
@@ -90,7 +93,6 @@ var doc = {
   ready: function () {
     return new Promise(function(resolve, reject){
       $(document).ready(function() {
-        //código
         resolve();
       });
     });
@@ -122,7 +124,7 @@ var canciones = {
     //Loopear a través de las canciones
     var cantidadCanciones = Object.keys(objetoTracks).length;
     for(var i=0; i < cantidadCanciones; i++){
-      var nombreCancion = Object.keys(objetoTracks)[i];        //Nombre de la canción
+      var nombreCancion = Object.keys(objetoTracks)[i];  //Nombre de la canción
       //generar canción vacía
       reproductor['cancion'+(i+1)] = {
         nombreCancion: nombreCancion,
@@ -310,42 +312,8 @@ iframe.escucharMensaje()
 .then(canciones.generarCanciones);
 
 
-
-
-// Test howler
-
-var cancion1 = {
-  track1: new Howl({
-    src: 'audio/sonidos-1.mp3',
-  }),
-  track2: new Howl({
-    src: 'audio/sonidos-2.mp3',
-  }),
-  track3: new Howl({
-    src: 'audio/sonidos-3.mp3',
-  }),
-  track4: new Howl({
-    src: 'audio/sonidos-4.mp3',
-  }),
-  track5: new Howl({
-    src: 'audio/sonidos-5.mp3',
-  }),
-  track6: new Howl({
-    src: 'audio/sonidos-6.mp3',
-  }),
-}
-
-function reproducirCancion1() {
-  var listaTracksCancion1 = Object.keys(cancion1);
-  var cantidadTracksCancion1 = listaTracksCancion1.length;
-
-  for (var i = 1; i < cantidadTracksCancion1+1; i++) {
-    cancion1['track'+i].play();
-  }
-}
-
-$('.boton-prueba').click(function(){
-  console.log('click prueba');
+$(document).ready(function(){
+  $('.boton-prueba').click(function(){
+    console.log('click prueba');
+  });
 });
-
-// reproducirCancion1();
