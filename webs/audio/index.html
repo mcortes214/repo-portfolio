@@ -51,10 +51,8 @@ document.getElementById("player").onload = function(){
   console.log('mensaje enviado');
 }
 
-$('iframe').mouseenter(function(event){
-  console.log('min');
-  $('iframe').trigger( "mouseup" );
-  event.preventDefault();
+$(window).mouseup(function() {
+  document.getElementById("player").contentWindow.postMessage('mouseup', "*");
 });
 
 </script>

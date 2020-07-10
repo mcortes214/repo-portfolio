@@ -977,7 +977,13 @@ var audioReverb;
 
 function receiveMessage(event) {
   console.log('mensaje recibido');
-  gestionarMensaje(event.data);
+  if(event.data!=='mouseup'){
+    gestionarMensaje(event.data);
+  }
+  else{
+    console.log('triggering mouseup');
+    $(document).mouseup();
+  }
 }
 
 
