@@ -1072,11 +1072,9 @@ function gestionarMensaje(datos){
     	$(this).toggleClass('activo');
 
       if($(this).hasClass('activo')){ //si se activó
-        // reverb.connect(reverbGain); //DESCOMM
         reverb.connect(reverbGain);
       }
       else{
-        // reverb.disconnect(reverbGain); //DESCOMM
         reverb.disconnect(reverbGain);
       }
     });
@@ -1524,7 +1522,6 @@ function actualizarVisorSeek(){
   		tiempoTranscurrido = segundos;
       song.marcadorSeek.val(tiempoTranscurrido).change();
       actualizarVisorSeek();
-
   	}
   }
 
