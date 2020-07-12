@@ -959,7 +959,7 @@
 
 window.addEventListener("message", receiveMessage, false);
 
-console.log('iframe test 2.0:');
+console.log('iframe test 2.1:');
 
 // VARIABLES GLOBALES
 
@@ -1243,6 +1243,14 @@ function gestionarMensaje(datos){
   			var bus = cancionActual.bus;
   			var gn = trackActual.gainNode;
   			var msgn = trackActual.muteSoloGainNode;
+        console.log('asn:');
+        console.log(asn);
+        console.log('gn:');
+        console.log(gn);
+        console.log('msgn:');
+        console.log(msgn);
+        console.log('bus:');
+        console.log(bus);
   			asn.connect(gn).connect(msgn).connect(bus);
 
         //generar una variable de estado de mute/solo:
