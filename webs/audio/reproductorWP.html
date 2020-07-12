@@ -1251,7 +1251,12 @@ function gestionarMensaje(datos){
         console.log(msgn);
         console.log('bus:');
         console.log(bus);
-  			asn.connect(gn).connect(msgn).connect(bus);
+  			try{
+          asn.connect(gn).connect(msgn).connect(bus);
+        }
+        catch(e){
+          console.log(e);
+        }
 
         //generar una variable de estado de mute/solo:
         trackActual['estadoMuteSolo'] = 0;
