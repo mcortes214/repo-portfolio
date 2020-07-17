@@ -1020,12 +1020,12 @@ function gestionarMensaje(datos){
   // var objetoDatos = event.data; //descomentar esto al final del test
 
   //loopear por el objeto de datos para cargar la información en el objeto "reproductor"
-  console.log(objetoDatos);
+  // console.log(objetoDatos);
 
   for(var i=0; i < Object.keys(objetoDatos).length; i++){
     var key = Object.keys(objetoDatos)[i];
     var tracks = Object.keys(objetoDatos[key]);
-    console.log(tracks);
+    // console.log(tracks);
     reproductor['cancion'+(i+1)] = {
       nombreCancion: key,
       bus: audioCtx.createGain(),
@@ -1170,7 +1170,18 @@ function gestionarMensaje(datos){
   }
 
 
+function cargado(){
+  console.log('cargado');
+  console.log(this);
+}
 
+function canPlay() {
+  console.log('canplay');
+}
+
+function canPlayThrough() {
+  console.log('canPlayThrough');
+}
 
   function generarCanciones(){
   	//Acá metí básicamente todas las cosas que tengan que estar en un loop de canciones o de tracks.
@@ -1186,8 +1197,8 @@ function gestionarMensaje(datos){
   	for(var i=1; i<cantidadCanciones+1; i++){
   		var cancionActual = reproductor['cancion'+i];
 
-      console.log('Canción actual:');
-      console.log(cancionActual);
+      // console.log('Canción actual:');
+      // console.log(cancionActual);
 
   		//1- Generar un selector
   		var nombreCancion = cancionActual.nombreCancion;
@@ -1236,14 +1247,14 @@ function gestionarMensaje(datos){
 
   			//Primero el HTML (sliders y audios),
   			var trackActual = cancionActual.tracks['track'+j];
-        console.log('Canción actual:');
-        console.log(cancionActual.tracks['track'+j]);
+        // console.log('Canción actual:');
+        // console.log(cancionActual.tracks['track'+j]);
   			var linkTrackActual = trackActual.url;
   			$(elementoContenedorCancionActual).append(
           `
           <div class="contenedor-canal">
             <input type="range" class="rangeslider" data-accion="volumen-track" data-cancion="`+i+`" data-track="`+j+`" id="volumen-cancion-`+i+`-track-`+j+`" min="0" max="1" value="0.5" step="0.001" data-orientation="vertical">
-            <audio id="audio-cancion-`+i+`-track-`+j+`" src="`+linkTrackActual+`" crossorigin="anonymous"></audio>
+            <audio onloadstart="cargado()" oncanplay="canPlay()" oncanplaythrough="canPlayThrough()" id="audio-cancion-`+i+`-track-`+j+`" src="`+linkTrackActual+`" crossorigin="anonymous"></audio>
             <div class="contenedor-controles-canal">
               <div class="boton-mute-canal" data-cancion="`+i+`" data-track="`+j+`" id="mute-cancion-`+i+`-track-`+j+`">M</div>
               <div class="boton-solo-canal" data-cancion="`+i+`" data-track="`+j+`" id="solo-cancion-`+i+`-track-`+j+`">S</div>
@@ -1251,6 +1262,13 @@ function gestionarMensaje(datos){
           </div>
           `
   			);
+
+        // //Asignar eventos de carga a los audios
+        //
+        // $(document).on('loadstart', 'audio', function(){
+        //   console.log('loadstart');
+        //   console.log(this);
+        // });
 
   			//Después generar los Audio Nodes, y vincularlos a un bus
   			trackActual['mediaElement'] = $('#audio-cancion-'+i+'-track-'+j)[0];
@@ -1261,14 +1279,14 @@ function gestionarMensaje(datos){
   			var bus = cancionActual.bus;
   			var gn = trackActual.gainNode;
   			var msgn = trackActual.muteSoloGainNode;
-        console.log('asn:');
-        console.log(asn);
-        console.log('gn:');
-        console.log(gn);
-        console.log('msgn:');
-        console.log(msgn);
-        console.log('bus:');
-        console.log(bus);
+        // console.log('asn:');
+        // console.log(asn);
+        // console.log('gn:');
+        // console.log(gn);
+        // console.log('msgn:');
+        // console.log(msgn);
+        // console.log('bus:');
+        // console.log(bus);
   			try{
           asn.connect(gn).connect(msgn).connect(bus);
         }
@@ -1291,7 +1309,7 @@ function gestionarMensaje(datos){
         muteButton.addEventListener('click', function(){
           var trackBoton = $(this).data('track');
           var cancionBoton = $(this).data('cancion');
-          console.log('Track '+trackBoton+' de canción '+cancionBoton+' MUTEADO');
+          // console.log('Track '+trackBoton+' de canción '+cancionBoton+' MUTEADO');
 
           //funcionalidad
           $(this).toggleClass('activo');
@@ -1303,7 +1321,7 @@ function gestionarMensaje(datos){
         soloButton.addEventListener('click', function(){
           var trackBoton = $(this).data('track');
           var cancionBoton = $(this).data('cancion');
-          console.log('Track '+trackBoton+' de canción '+cancionBoton+' en SOLO');
+          // console.log('Track '+trackBoton+' de canción '+cancionBoton+' en SOLO');
 
           $(this).toggleClass('activo');
         }, false);
@@ -1331,8 +1349,8 @@ function gestionarMensaje(datos){
   	//Conectar los buses de canción al master gain:
   	cancionActual.bus.connect(gainNodeMaster);
 
-    console.log('Asignación de loop:');
-    console.log(cancionActual);
+    // console.log('Asignación de loop:');
+    // console.log(cancionActual);
   	//Vincular un loop al evento de que el primer track termine
       cancionActual.tracks.track1.mediaElement.addEventListener('ended',loopear.bind(null, cancionActual), false);
 
@@ -1417,7 +1435,7 @@ function gestionarMensaje(datos){
     var audio = canc.tracks.track1.mediaElement;
     if (audio.readyState > 0) {
       audio.addEventListener('loadedmetadata', cambiarValoresSeek(canc, audio, ind));
-      console.log(audio);
+      // console.log(audio);
       clearInterval(intervaloTestMetadata[ind]);
     }
     else{
@@ -1430,14 +1448,14 @@ function gestionarMensaje(datos){
     // console.log(aud.duration);
     cancion['duracionCancion'] = aud.duration;
     // console.log(cancion);
-    console.log('cargado');
+    // console.log('cargado');
     //Actualizar valor máximo de los input
     var objetoInput = $('#seek-control-'+indice);
     var objetoMarcador = $('#seek-marker-'+indice);
     cancion['controlSeek'] = objetoInput;
     cancion['marcadorSeek'] = objetoMarcador;
-    console.log(objetoInput);
-    console.log(objetoMarcador);
+    // console.log(objetoInput);
+    // console.log(objetoMarcador);
     objetoInput.attr('max', aud.duration);
     objetoMarcador.attr('max', aud.duration);
     objetoInput.rangeslider('update', true);
@@ -1453,7 +1471,7 @@ function gestionarMensaje(datos){
 
   function loopear(canc) {
   detener(canc);
-  console.log('loopeando: ');
+  // console.log('loopeando: ');
   console.log(canc);
   reproducir(canc);
   }
@@ -1486,7 +1504,7 @@ function actualizarVisorSeek(){
 }
 
   function reproducir(song){
-    console.log('reproduciendo');
+    // console.log('reproduciendo');
   	if (audioCtx.state === 'suspended') {
   		audioCtx.resume();
   	}
@@ -1498,7 +1516,7 @@ function actualizarVisorSeek(){
   	for(var i=1; i<cantidadTracks+1; i++){
   		var track = song.tracks['track'+i].mediaElement;
   		track.play();
-      console.log('trackplay');
+      // console.log('trackplay');
   	}
   	intervaloSeek = setInterval(function(){
   		//reproduccion Seek
