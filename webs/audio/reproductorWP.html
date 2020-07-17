@@ -1170,6 +1170,9 @@ function gestionarMensaje(datos){
   }
 
 
+var contadorTracks = 0;  //usado para medir la precarga
+var tracksCargados = 0;
+
 function cargado(){
   console.log('cargado');
   console.log(this);
@@ -1181,6 +1184,11 @@ function canPlay() {
 
 function canPlayThrough() {
   console.log('canPlayThrough');
+  tracksCargados++;
+  console.log(tracksCargados);
+  // if(tracksCargados>=contadorTracks){
+  //   console.log('todos los audios cargados');
+  // }
 }
 
   function generarCanciones(){
@@ -1325,6 +1333,10 @@ function canPlayThrough() {
 
           $(this).toggleClass('activo');
         }, false);
+
+        //Finalmente, agregar 1 al contador de canales.
+        contadorTracks++;
+        console.log(contadorTracks);
 
   		}
 
