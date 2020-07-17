@@ -119,7 +119,15 @@ h3.titulo-año {
 
 .monto-cheques {
     color: black;
+    position: absolute;
+    bottom: 0;
+    right: 0;
 }
+
+@media print {
+	button.imprimir {
+		display: none;
+	}
 
 span.monto{
   font-weight: bold;
