@@ -5,6 +5,14 @@
     <title>Prueba audio</title>
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
 
+<!-- JPE -->
+<!-- Permite usar un onChange en cualquier propiedad de un objeto -->
+
+<script type="text/javascript">
+function PropertyEvent(e,t){var r=Date.now();this.__proto__=new Event(e),Object.defineProperties(this,{bubbles:{value:!1,enumerable:!0},cancelBubble:{value:!0,enumerable:!0},cancelable:{value:!0,enumerable:!0},currentTarget:{value:t.target,enumerable:!0},eventPhase:{value:0,enumerable:!0},isTrusted:{value:!0,enumerable:!0},path:{value:[],enumerable:!0},previousValue:{value:t.previousValue,enumerable:!0},srcObject:{value:t.srcObject,enumerable:!0},target:{value:t.target,enumerable:!0},timeStamp:{value:r,enumerable:!0},type:{value:e,enumerable:!0},defaultPrevented:{value:!1,enumerable:!0,configurable:!0},returnValue:{value:t.returnValue,enumerable:!0,configurable:!0}}),this.path.push(t.srcObject[t.target]),this.path.push(t.srcObject);for(var n=t.srcObject;"undefined"!=typeof n.parentElement&&null!=n.parentElement;)n=n.parentElement,this.path.push(n);this.path.reverse(),this.preventDefault=function(){Object.defineProperties(this,{defaultPrevented:{value:!0,enumerable:!0,configurable:!1},returnValue:{value:t.old_value,enumerable:!0,configurable:!1}})}}function PropertyEventError(e,t){Date.now();this.__proto__=new PropertyEvent(e,t),Object.defineProperties(this,{errorCode:{value:t.errorCode,enumerable:!0},errorText:{value:t.errorText,enumerable:!0}}),this.path.push(t.srcObject[t.target]),this.path.push(t.srcObject);for(var r=t.srcObject;"undefined"!=typeof r.parentElement&&null!=r.parentElement;)r=r.parentElement,this.path.push(r);this.path.reverse(),this.preventDefault=function(){Object.defineProperties(this,{defaultPrevented:{value:!0,enumerable:!0,configurable:!1},returnValue:{value:t.old_value,enumerable:!0,configurable:!1}})}}!function(){function e(e){if("undefined"==typeof e||null==e)return null;var t=(arguments[1]||e.name||e.constructor.name,e),r=function(){return t.apply(e,arguments)};for(var n in e)e.hasOwnProperty(n)&&(r[n]=e[n]);return t}var t=e(Object.defineProperty);Object.defineProperty=function(r,n,o){var a=o.value||o["default"],u={configurable:o.configurable||!1,enumerable:o.enumerable||!1};if("undefined"==typeof o.value||"undefined"==typeof o.get&&"undefined"==typeof o.set)if("undefined"!=typeof o.value)a=o.value,u.get=function(){var t={};if("function"==typeof o.onget){var u=e(o.onget);o.onget=null,t=new PropertyEvent("get",{srcObject:r,target:n,returnValue:a}),u(t),o.onget=e(u)}return t.defaultPrevented||t.canceled?void 0:a},1==o.writable&&(u.set=function(t){if("undefined"==typeof o.type||typeof t===o.type){var u={},l={};if("function"==typeof o.onset){var f=e(o.onget);o.onget=null,u=new PropertyEvent("set",{srcObject:r,target:n,returnValue:t,previousValue:a}),o.onset(u),o.onget=e(f)}if(a!=t){if("function"==typeof o.onchange){var f=e(o.onget);o.onget=null,l=new PropertyEvent("change",{srcObject:r,target:n,returnValue:t,previousValue:a}),o.onchange(l),o.onget=e(f)}u.defaultPrevented||u.canceled||l.defaultPrevented||l.canceled||(a=t)}}else{var f=e(o.onget);o.onget=null;var u=new PropertyEventError("error",{srcObject:r,target:n,errorCode:57360,errorText:"Wrong input type @ '"+typeof r+"."+n+"'. Received input of type '"+typeof t+"' but expects input of type '"+o.type+"'"});"function"==typeof o.onerror&&o.onerror(u),o.onget=e(f),u.defaultPrevented||u.canceled||console.error(u.errorText)}}),t(r,n,u);else{if("function"==typeof o.get){var l=e(o.get,"get");u.get=function(){var t={};if("function"==typeof o.onget){var u=e(o.onget);o.onget=null,t=new PropertyEvent("get",{srcObject:r,target:n,returnValue:a}),u(t),o.onget=e(u)}return t.defaultPrevented?void 0:l()||a}}if("function"==typeof o.set){var f=e(o.set,"set");u.set=function(t){if("undefined"==typeof o.type||typeof t===o.type){var u={},l={};if("function"==typeof o.onset){var c=e(o.onget);o.onget=null,u=new PropertyEvent("set",{srcObject:r,target:n,returnValue:t,previousValue:a}),o.onset(u),o.onget=e(c)}if(a!=t){if("function"==typeof o.onchange){var c=e(o.onget);o.onget=null,l=new PropertyEvent("change",{srcObject:r,target:n,returnValue:t,previousValue:a}),o.onchange(l),o.onget=e(c)}u.defaultPrevented||l.defaultPrevented||(f(t),a=t)}else u.defaultPrevented||l.defaultPrevented||f(t)}else{var c=e(o.onget);o.onget=null;var u=new PropertyEventError("error",{srcObject:r,target:n,errorCode:57360,errorText:"Wrong input type @ '"+typeof r+"."+n+"'. Received input of type '"+typeof t+"' but expects input of type '"+o.type+"'"});"function"==typeof o.onerror&&o.onerror(u),o.onget=e(c),u.defaultPrevented||u.canceled||console.error(u.errorText)}}}t(r,n,u)}else{var c=new PropertyEventError("error",{srcObject:r,target:n,errorCode:57408,errorText:"Uncaught TypeError: Invalid property.  A property cannot both have accessors and be writable or have a value, #<Object>"});"function"==typeof o.onerror&&o.onerror(c),console.error(c.errorText)}}}();
+</script>
+
+
 
     <!-- CSS RANGESLIDER -->
 
@@ -124,6 +132,7 @@
     </style>
 
 
+
     <!-- ESTILOS PROPIOS -->
 
 
@@ -146,17 +155,6 @@
 
     .elem-cancion-2{
       display: none;
-    }
-
-    .overlay-precarga{
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      top: 0;
-      left: 0;
-      opacity: 0.5;
-      background-color: white;
-      z-index: 1;
     }
 
 
@@ -932,14 +930,6 @@
 <!-- Ejemplo boombox: https://codepen.io/Rumyra/pen/qyMzqN/ -->
 
 <div id="reproductor">
-
-  <div class="overlay-precarga">
-    <p>Loading audio files...</p>
-    <progress id="progress" value="0"></progress>
-    <p class="indicador-progreso"></p>
-  </div>
-
-
   <div id="selectores-canciones"></div> <!-- Contenido dinámico -->
   <div id="canales"></div> <!-- Contenido dinámico -->
   <div id="controles-globales">
@@ -987,39 +977,14 @@
 
 <!-- JAVASCRIPT - SCRIPTS.JS -->
 
+
 <script type="text/javascript">
-
-console.log('iframe test 2.2:');
-
-
-
-
-
-
-// Gestión de mensajes desde parent window
-
-function receiveMessage(event) {
-  console.log('mensaje recibido');
-  if(event.data!=='mouseup'){
-    gestionarMensaje(event.data);
-  }
-  else{
-    $(document).mouseup();        //Soltar el mouse al salir del iframe
-  }
-}
 
 window.addEventListener("message", receiveMessage, false);
 
-
-
-
-
-
+console.log('iframe test 2.2:');
 
 // VARIABLES GLOBALES
-
-var progressBar = document.getElementById("progress");
-progressBar.max = 100;
 
 var tiempoTranscurrido = 0;
 var intervaloSeek;
@@ -1028,15 +993,21 @@ var intervaloTestMetadata = {};
 
 var audioReverb;
 
-//**1 Inicializar contexto de Audio Web API
+// Inicializar contexto de Audio Web API
   const AudioContext = window.AudioContext || window.webkitAudioContext;
   const audioCtx = new AudioContext();
 
 
-//**2 RECEPCIÓN DEL MENSAJE IFRAME
-
-
-
+function receiveMessage(event) {
+  console.log('mensaje recibido');
+  if(event.data!=='mouseup'){
+    gestionarMensaje(event.data);
+  }
+  else{
+    console.log('triggering mouseup');
+    $(document).mouseup();
+  }
+}
 
 
 var reproductor = {
@@ -1074,20 +1045,17 @@ function gestionarMensaje(datos){
     }
 
   }
-}
 
 
   //-----------------------------------------
-  //**3 DOCUMENT READY (ejecución de código)
+  // DOCUMENT READY (ejecución de código)
 
   $(document).ready(function(){
 
   	cancionActiva = reproductor.cancion1;
 
   	//Generar markup HTML dinámico partir de los datos (interfaz y audios)
-  	generarDOMCanciones();
-    //En paralelo, comenzar a cargar los audios
-    crearSolicitudesHTTP();
+  	generarCanciones();
 
   	// Inicializar rangeslider (visualización de interfaz). Después de generar los sliders
   	$('input[type="range"]:not(.seekbar)').rangeslider({
@@ -1099,7 +1067,7 @@ function gestionarMensaje(datos){
 
   	//Event binding
 
-  	$(document).on('click', '.boton-cancion', function () {
+  	$('.boton-cancion').on('click', function () {
       detener(cancionActiva);
   		var dataCancion = $(this).attr('data-cancion');
   		var selectorSeccionCancion = '.contenedor-cancion[data-cancion="'+ dataCancion +'"]';
@@ -1135,6 +1103,14 @@ function gestionarMensaje(datos){
     });
 
 
+  // $('#play-button').on('click', function () {
+  // 	reproducir(cancionActiva);
+  // });
+  //
+  // $('#pause-button').on('click', function () {
+  // 	pausar(cancionActiva);
+  // });
+
   $('#play-pause-button').on('click', function () {
     $(this).toggleClass('reproduciendo');
 
@@ -1157,15 +1133,15 @@ function gestionarMensaje(datos){
 
   //-----------------------------------------
 
+}
 
 
+  // FUNCIONES
 
-//**4 FUNCIONES
+  //moverControl: esta función evalúa los atributos del slider,
+  //y decide el funcionamiento del control.
 
-//moverControl: esta función evalúa los atributos del slider,
-//y decide el funcionamiento del control.
-
-function moverControl(input) {
+  function moverControl(input) {
   	var acc= $(input).data('accion');
   	if(acc=='volumen-track'){
   		var cancion = $(input).data('cancion');
@@ -1194,98 +1170,187 @@ function moverControl(input) {
       //obtener iD de cancion
       saltarA(objCancion, parseInt(input.value));
   	}
+
+
   }
 
 
-  //generarCanciones: esta función genera la estructura de tracks, tanto
-  //los archivos de audio, como los tags de audio, los audio nodes y
-  //la interfaz.
+var contadorTracks = 0;  //usado para medir la precarga
+var tracksCargados = 0;
 
-  // --------------------- FUNCIONES DE DOM
-
-const elementoSelectores = $('#selectores-canciones')[0];
-console.log('OKL Reproductor: ');
-console.log(reproductor);
-var cantidadCanciones = Object.keys(reproductor).length;
-
-
-//-----
-
-function generarSelector(elementoSelectores, i, nombreCancion, primeraCancion) {
-  if(primeraCancion){
-    $(elementoSelectores).append(
-      '<button type="button" class="boton-cancion activo" data-cancion="'+i+'">'+nombreCancion+'</button>'
-    );
-  }
-  else{
-    $(elementoSelectores).append(
-      '<button type="button" class="boton-cancion" data-cancion="'+i+'">'+nombreCancion+'</button>'
-    );
-  }
+function cargado(){
+  console.log('cargado');
+  console.log(this);
 }
 
-//-----
-
-function generarContenedorCanales(elementoCanales, i, primeraCancion){
-  if(primeraCancion){
-    $(elementoCanales).append(`
-      <div class="contenedor-cancion activo" data-cancion="`+i+`" id="contenedor-cancion-`+i+`">
-        <div class="contenedor-canales" data-cancion="`+i+`" id="contenedor-canales-`+i+`"></div>
-      </div>
-      `);
-  }
-  else {
-    $(elementoCanales).append(`
-      <div class="contenedor-cancion" data-cancion="`+i+`" id="contenedor-cancion-`+i+`">
-        <div class="contenedor-canales" data-cancion="`+i+`" id="contenedor-canales-`+i+`"></div>
-      </div>
-      `);
-  }
+function canPlay() {
+  console.log('canplay');
 }
 
-//-----
+function canPlayThrough() {
+  console.log('canPlayThrough');
+  tracksCargados++;
+  console.log(tracksCargados);
+  // if(tracksCargados>=contadorTracks){
+  //   console.log('todos los audios cargados');
+  // }
+}
 
-function generarDOMCanciones(){
+function stateChange(e) {
+  console.log(e);
+  console.log('statechange');
+}
+
+  function generarCanciones(){
   	//Acá metí básicamente todas las cosas que tengan que estar en un loop de canciones o de tracks.
   	//Capaz pueda separar esto a futuro.
 
   	// Primero identificar las canciones
 
-
+  	const elementoSelectores = $('#selectores-canciones')[0];
+  	var cantidadCanciones = Object.keys(reproductor).length;
   	var primeraCancion = true;
 
   	//Y por cada canción:
   	for(var i=1; i<cantidadCanciones+1; i++){
   		var cancionActual = reproductor['cancion'+i];
 
-  		//1- Generar un botón para seleccionar canción
+      // console.log('Canción actual:');
+      // console.log(cancionActual);
+
+  		//1- Generar un selector
   		var nombreCancion = cancionActual.nombreCancion;
-      generarSelector(elementoSelectores, i, nombreCancion, primeraCancion);
 
-  		//2- Generar un contenedor para los canales
+  		if(primeraCancion){
+  			$(elementoSelectores).append(
+  				'<button type="button" class="boton-cancion activo" data-cancion="'+i+'">'+nombreCancion+'</button>'
+  			);
+
+  		}
+  		else{
+  			$(elementoSelectores).append(
+  				'<button type="button" class="boton-cancion" data-cancion="'+i+'">'+nombreCancion+'</button>'
+  			);
+  		}
+
+  		//2- Generar un contenedor
   		const elementoCanales = $('#canales')[0];
-      generarContenedorCanales(elementoCanales, i, primeraCancion);
 
-      //3- Resetear variable
-      primeraCancion = false;
+  		if(primeraCancion){
+  			$(elementoCanales).append(
+  				'<div class="contenedor-cancion activo" data-cancion="'+i+'" id="contenedor-cancion-'+i+'">'
+          +
+          '<div class="contenedor-canales" data-cancion="'+i+'" id="contenedor-canales-'+i+'"></div>'
+          +
+          '</div>'
+  			);
+  		}
+  		else {
+  			$(elementoCanales).append(
+  				'<div class="contenedor-cancion" data-cancion="'+i+'" id="contenedor-cancion-'+i+'">'
+          +
+          '<div class="contenedor-canales" data-cancion="'+i+'" id="contenedor-canales-'+i+'"></div>'
+          +
+          '</div>'
+  			);
+  		}
 
 
-  		//3- E iniciar la carga de los audios
+  		//3- Y generar los canales dentro del contenedor (loop for)
 
   		var elementoContenedorCancionActual = $('#contenedor-canales-'+i)[0];
   		var cantidadTracks = Object.keys(cancionActual.tracks).length;
 
-      // LOOP CANALES
   		for(var j=1; j<cantidadTracks+1; j++){
 
-  			//Primero el HTML (sliders y audios), -> ??
+  			//Primero el HTML (sliders y audios),
   			var trackActual = cancionActual.tracks['track'+j];
+        // console.log('Canción actual:');
+        // console.log(cancionActual.tracks['track'+j]);
   			var linkTrackActual = trackActual.url;
+  			$(elementoContenedorCancionActual).append(
+          `
+          <div class="contenedor-canal">
+            <input type="range" class="rangeslider" data-accion="volumen-track" data-cancion="`+i+`" data-track="`+j+`" id="volumen-cancion-`+i+`-track-`+j+`" min="0" max="1" value="0.5" step="0.001" data-orientation="vertical">
+            <audio onloadstart="cargado()" oncanplay="canPlay()" oncanplaythrough="canPlayThrough()" id="audio-cancion-`+i+`-track-`+j+`" src="`+linkTrackActual+`" crossorigin="anonymous"></audio>
+            <div class="contenedor-controles-canal">
+              <div class="boton-mute-canal" data-cancion="`+i+`" data-track="`+j+`" id="mute-cancion-`+i+`-track-`+j+`">M</div>
+              <div class="boton-solo-canal" data-cancion="`+i+`" data-track="`+j+`" id="solo-cancion-`+i+`-track-`+j+`">S</div>
+            </div>
+          </div>
+          `
+  			);
 
+        //Asignar eventos de carga a los audios
 
-  		} //final canales
+        $('audio').on('change', function(){
+          console.log('rsc');
+          console.log(this);
+        });
 
-    // Y generar el contenedor para el seek, y el control de seek
+  			//Después generar los Audio Nodes, y vincularlos a un bus
+  			trackActual['mediaElement'] = $('#audio-cancion-'+i+'-track-'+j)[0];
+  			trackActual['audioSourceNode'] = audioCtx.createMediaElementSource(trackActual.mediaElement);
+  			trackActual['gainNode'] = audioCtx.createGain();
+  			trackActual['muteSoloGainNode'] = audioCtx.createGain();
+  			var asn = trackActual.audioSourceNode;
+  			var bus = cancionActual.bus;
+  			var gn = trackActual.gainNode;
+  			var msgn = trackActual.muteSoloGainNode;
+        // console.log('asn:');
+        // console.log(asn);
+        // console.log('gn:');
+        // console.log(gn);
+        // console.log('msgn:');
+        // console.log(msgn);
+        // console.log('bus:');
+        // console.log(bus);
+  			try{
+          asn.connect(gn).connect(msgn).connect(bus);
+        }
+        catch(e){
+          console.log(e);
+        }
+
+        //generar una variable de estado de mute/solo:
+        trackActual['estadoMuteSolo'] = 0;
+        //0: sin M ni S. 1: muteado. 2: solo.
+
+  			//Y finalmente vincular el slider y los botones de cada track a los audio nodes (event binding)
+  			var volumeControl = $('#volumen-cancion-'+i+'-track-'+j)[0];
+        var muteButton = $('#mute-cancion-'+i+'-track-'+j)[0];
+        var soloButton = $('#solo-cancion-'+i+'-track-'+j)[0];
+
+  			volumeControl.addEventListener('ValueChange', function() {
+  			}, false);
+
+        muteButton.addEventListener('click', function(){
+          var trackBoton = $(this).data('track');
+          var cancionBoton = $(this).data('cancion');
+          // console.log('Track '+trackBoton+' de canción '+cancionBoton+' MUTEADO');
+
+          //funcionalidad
+          $(this).toggleClass('activo');
+          var estadoMS = reproductor['cancion'+cancionBoton].tracks['track'+trackBoton].estadoMuteSolo;
+          estadoMS = 1;
+
+        }, false);
+
+        soloButton.addEventListener('click', function(){
+          var trackBoton = $(this).data('track');
+          var cancionBoton = $(this).data('cancion');
+          // console.log('Track '+trackBoton+' de canción '+cancionBoton+' en SOLO');
+
+          $(this).toggleClass('activo');
+        }, false);
+
+        //Finalmente, agregar 1 al contador de canales.
+        contadorTracks++;
+        console.log(contadorTracks);
+
+  		}
+
+    //Y generar el contenedor para el seek, y el control de seek
 
     var elementoContenedorC = $('#contenedor-cancion-'+i)[0];
     $(elementoContenedorC).append(
@@ -1317,237 +1382,9 @@ function generarDOMCanciones(){
     intervaloTestMetadata[i] = setInterval(chequearMetadata, 500, {a: cancionActual, b: i});
 
     } // fin loop por cada canción
-  } //Fin de función generarDOMCanciones
-
-//--------------- FUNCIONES DE CARGA HTTP
-
-//Variables globales usadas:
-
-var contadorTracks = 0;  //usado para medir la precarga
-var tracksCargados = 0;
-var httpreqs = {};
-var contadorHttp = 0;
-
-// Crear solicitudes HTTP
-
-function crearSolicitudesHTTP() {
-  console.log('creando solicitudes HTTP');
-  console.log('Cantidad canciones: '+cantidadCanciones);
-  for (var i = 0; i < cantidadCanciones; i++) {
-    var cancionActual = reproductor['cancion'+i];
-    var numTracks = Object.keys(cancionActual.tracks).length;
-    for(var j = 0; i < numTracks; j++){
-      var req = new XMLHttpRequest();
-      //data
-      httpreqs[contadorHttp] = {
-        'url': linkTrackActual,
-        'req': req,
-      };
-      contadorHttp++;
-      console.log('contadorHttp: '+contadorHttp);
-    }
   }
-  abrirSolicitudesHTTP();
-}
-
-//Auxiliar onProgress
-
-function onProgress(e) {
-  if (e.lengthComputable) {
-    var respUrl = e.currentTarget.responseURL;
-    for (var k = 0; k < Object.keys(httpreqs).length; k++) {
-      if(httpreqs[k].url == respUrl){
-        httpreqs[k].cargado = e.loaded/e.total*100;
-      }
-    }
-  }
-}
-
-//-----
-
-function abrirSolicitudesHTTP() {
-  //Las HTTP requests fueron cargados en un array separado. Inicializarlas:
-  //Todo este bloque gestiona la precarga de audio.
-  //Loop Inicialización de solicitudes
-  cantidadDeSolicitudes = Object.keys(httpreqs).length;
-
-  console.log(httpreqs);
-
-  for (var i = 0; i < cantidadDeSolicitudes; i++) {
-    console.log(i);
-    var urlReq = httpreqs[i].url;
-    var request = httpreqs[i].req;
-
-    //1. Abrir solicitud
-    request.open('GET', urlReq, true);
-    request.responseType = 'blob';
-
-    //2. Precarga de audios
-    request.onprogress = onProgress(e);
-
-    //3. Finalización de carga de cada audio
-    request.onload = function(e) {
-       if (this.status === 200) {
-          var audioBlob = this.response;
-          var aud = URL.createObjectURL(audioBlob); // IE10+
-          console.log('audio cargado');
-          tracksCargados++;
-          if(tracksCargados == cantidadDeSolicitudes){
-            console.log('carga de todos los audios finalizada');
-          }
-          }
-      };
-
-      request.onerror = function() {
-      };
-
-      request.send();
-  } //Fin de loop Inicialización de solicitudes HTTP
-}
-
-//-----
 
 
-            // CREACIÓN DE ESTRUCTURA DE CANAL
-            // Elementos fijos (DOM)
-
-            let DOMcontenedorCancion = $('#contenedor-canales-'+i)[0];
-
-            //Nueva iteración sobre el objeto de canales.
-            // Es SOLAMENTE para ver cuál canción es la que acaba de cargar.
-            console.log('Nueva iteración:');
-            console.log(reproductor);
-
-            //Loop canciones
-            var cantidadDeCanciones = Object.keys(reproductor);
-
-            console.log('Largo del array: '+cantidadDeCanciones.length);
-
-            for (var z = 1; z <= cantidadDeCanciones.length; z++) {
-              var cancionSeleccionada = reproductor['cancion'+z];
-
-              var cantidadDeTracks = Object.keys(cancionSeleccionada.tracks);
-
-              for (var z1 = 1; z1 <= cantidadDeTracks.length; z1++) {
-                trackSeleccionado = cancionSeleccionada.tracks['track'+z1];
-                console.log(trackSeleccionado);
-
-              }//fin loop tracks
-            }//fin loop canciones
-
-          // 1. Generar canal HTML
-
-          $(elementoContenedorCancionActual).append(
-            `
-            <div class="contenedor-canal">
-              <input type="range" class="rangeslider" data-accion="volumen-track" data-cancion="`+i+`" data-track="`+j+`" id="volumen-cancion-`+i+`-track-`+j+`" min="0" max="1" value="0.5" step="0.001" data-orientation="vertical">
-              <audio id="audio-cancion-`+i+`-track-`+j+`" src="`+aud+`" crossorigin="anonymous"></audio>
-              <div class="contenedor-controles-canal">
-                <div class="boton-mute-canal" data-cancion="`+i+`" data-track="`+j+`" id="mute-cancion-`+i+`-track-`+j+`">M</div>
-                <div class="boton-solo-canal" data-cancion="`+i+`" data-track="`+j+`" id="solo-cancion-`+i+`-track-`+j+`">S</div>
-              </div>
-            </div>
-            `
-          );
-
-            2.
-    			Después generar los Audio Nodes, y vincularlos a un bus
-    			trackActual['mediaElement'] = $('#audio-cancion-'+i+'-track-'+j)[0];
-    			trackActual['audioSourceNode'] = audioCtx.createMediaElementSource(trackActual.mediaElement);
-    			trackActual['gainNode'] = audioCtx.createGain();
-    			trackActual['muteSoloGainNode'] = audioCtx.createGain();
-    			var asn = trackActual.audioSourceNode;
-    			var bus = cancionActual.bus;
-    			var gn = trackActual.gainNode;
-    			var msgn = trackActual.muteSoloGainNode;
-          // console.log('asn:');
-          // console.log(asn);
-          // console.log('gn:');
-          // console.log(gn);
-          // console.log('msgn:');
-          // console.log(msgn);
-          // console.log('bus:');
-          // console.log(bus);
-    			try{
-            asn.connect(gn).connect(msgn).connect(bus);
-          }
-          catch(e){
-            console.log(e);
-          }
-
-          //generar una variable de estado de mute/solo:
-          trackActual['estadoMuteSolo'] = 0;
-          //0: sin M ni S. 1: muteado. 2: solo.
-
-    			//Y finalmente vincular el slider y los botones de cada track a los audio nodes (event binding)
-    			var volumeControl = $('#volumen-cancion-'+i+'-track-'+j)[0];
-          var muteButton = $('#mute-cancion-'+i+'-track-'+j)[0];
-          var soloButton = $('#solo-cancion-'+i+'-track-'+j)[0];
-
-    			volumeControl.addEventListener('ValueChange', function() {
-    			}, false);
-
-          muteButton.addEventListener('click', function(){
-            var trackBoton = $(this).data('track');
-            var cancionBoton = $(this).data('cancion');
-            // console.log('Track '+trackBoton+' de canción '+cancionBoton+' MUTEADO');
-
-            //funcionalidad
-            $(this).toggleClass('activo');
-            var estadoMS = reproductor['cancion'+cancionBoton].tracks['track'+trackBoton].estadoMuteSolo;
-            estadoMS = 1;
-
-          }, false);
-
-          soloButton.addEventListener('click', function(){
-            var trackBoton = $(this).data('track');
-            var cancionBoton = $(this).data('cancion');
-            // console.log('Track '+trackBoton+' de canción '+cancionBoton+' en SOLO');
-
-            $(this).toggleClass('activo');
-          }, false);
-
-          //Finalmente, agregar 1 al contador de canales.
-          contadorTracks++;
-          console.log(contadorTracks);
-
-
-
-
-
-
-
-
-
-// GLOBAL: Precarga
-// Una vez que se armó, configuró e inicializó el conjunto de solicitudes HTTP,
-// desde el siguiente bloque se gestiona la visibilidad del proceso de carga
-// (Actualización de la barra de carga y el indicador de porcentaje)
-
-var updateLoadInterval = setInterval(updateLoad, 500);
-
-function updateLoad() {
-  var sumaDePorcentajes = 0;
-  var longitudDeObjetoTracks = Object.keys(httpreqs).length;
-  for (var i = 0; i < longitudDeObjetoTracks; i++) {
-    sumaDePorcentajes += httpreqs[i].cargado;
-  }
-  porcentajeCargadoTotal = sumaDePorcentajes/longitudDeObjetoTracks;
-  // console.log(porcentajeCargadoTotal);
-  try{
-    progressBar.value = Math.trunc(porcentajeCargadoTotal);
-    $('.indicador-progreso').html(porcentajeCargadoTotal.toFixed(2) + '%');
-  }
-  catch{
-    //no hacer nada todavía
-  }
-} //fin updateLoad
-
-
-
-
-
-// GLOBAL: Controles
 
   // Audio Nodes de controles master
 
@@ -1568,18 +1405,17 @@ function updateLoad() {
   let reverbGain = audioCtx.createGain();
 
   var source = audioCtx.createBufferSource();
-  console.log(source);
 
 
   function getData() {
-    var requestReverb = new XMLHttpRequest();
+    var request = new XMLHttpRequest();
 
-    requestReverb.open('GET', audioReverb, true);
-    requestReverb.responseType = 'arraybuffer';
+    request.open('GET', audioReverb, true);
+    request.responseType = 'arraybuffer';
 
 
-    requestReverb.onload = function() {
-      var audioData = requestReverb.response;
+    request.onload = function() {
+      var audioData = request.response;
       audioCtx.decodeAudioData(audioData, function(buffer) {
           source.buffer = buffer;
   				reverb.buffer = source.buffer;
@@ -1592,7 +1428,7 @@ function updateLoad() {
 
     }
 
-    requestReverb.send();
+    request.send();
   	console.log('Sending HTTP request...');
   }
 

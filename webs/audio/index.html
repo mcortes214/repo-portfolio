@@ -12,7 +12,7 @@ ACÁ VAN EL EMBED, Y EL SCRIPT.
 NADA MAS. -->
 
 
-<iframe id="player" src="reproductorWP.html" width="800px" height="800px"></iframe>
+<iframe id="player" src="nuevoReproductorWP.html" width="800px" height="800px"></iframe>
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
 
@@ -20,32 +20,18 @@ NADA MAS. -->
 /*-----------------CANCIONES------------------*/
 var canciones = {
   tracks: {
-    '1': {
+    'Primera canción': {
       track_1: 'https://www.maxicortes.com.ar/webs/audio/audio/sonidos-b1.mp3',
       track_2: 'https://www.maxicortes.com.ar/webs/audio/audio/sonidos-b2.mp3',
-      track_3: 'https://www.maxicortes.com.ar/webs/audio/audio/sonidos-b3.mp3',
     },
-    '2': {
+    'Segunda canción': {
       track_1: 'https://www.maxicortes.com.ar/webs/audio/audio/sonidos-1.mp3',
-      track_2: 'https://www.maxicortes.com.ar/webs/audio/audio/sonidos-2.mp3',
-      track_3: 'https://www.maxicortes.com.ar/webs/audio/audio/sonidos-3.mp3',
-      track_4: 'https://www.maxicortes.com.ar/webs/audio/audio/sonidos-4.mp3',
-      track_5: 'https://www.maxicortes.com.ar/webs/audio/audio/sonidos-5.mp3',
-    },
-    '3': {
-      track_1: 'https://www.maxicortes.com.ar/webs/audio/audio/sonidos-c1.mp3',
-      track_2: 'https://www.maxicortes.com.ar/webs/audio/audio/sonidos-c2.mp3',
-      track_3: 'https://www.maxicortes.com.ar/webs/audio/audio/sonidos-c3.mp3',
-      track_4: 'https://www.maxicortes.com.ar/webs/audio/audio/sonidos-c4.mp3',
-      track_5: 'https://www.maxicortes.com.ar/webs/audio/audio/sonidos-c5.mp3',
-      track_6: 'https://www.maxicortes.com.ar/webs/audio/audio/sonidos-c6.mp3',
     },
   },
   reverb: 'https://www.maxicortes.com.ar/webs/audio/audio/reverb-ir.wav',
 };
 
 /*--------------------------------------------*/
-console.log(document.getElementById("player").contentWindow);
 document.getElementById("player").onload = function(){
   document.getElementById("player").contentWindow.postMessage(canciones, "*");
   console.log('mensaje enviado');
@@ -56,7 +42,6 @@ $(window).mouseup(function() {
 });
 
 </script>
-
 
 
   </body>
