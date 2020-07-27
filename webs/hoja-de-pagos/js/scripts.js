@@ -30,17 +30,17 @@ function crearFechas() {
 
     for (var i = 0; i < 16; i++) {
        semana = fechaDeHoy.add(7, 'days');
-       $('.bloque-1').append('<p class="fecha-pago">'+semana.format('LL')+'</p>');
+       $('.bloque-1').append('<p class="fecha-pago">⬜ '+semana.format('LL')+'</p>');
     }
 
     for (var i = 0; i < 4; i++) {
        semana = fechaDeHoy.add(7, 'days');
-       $('.bloque-2').append('<p class="fecha-pago">'+semana.format('LL')+'</p>');
+       $('.bloque-2').append('<p class="fecha-pago">⬜ '+semana.format('LL')+'</p>');
     }
 
     for (var i = 0; i < 4; i++) {
        semana = fechaDeHoy.add(7, 'days');
-       $('.bloque-3').append('<p class="fecha-pago">'+semana.format('LL')+'</p>');
+       $('.bloque-3').append('<p class="fecha-pago">⬜ '+semana.format('LL')+'</p>');
     }
   }
 }

@@ -1320,7 +1320,7 @@ function actualizarPrecarga(){
     progressBar.value = Math.trunc(porcentajeCargadoTotal);
     $('.indicador-progreso').html(porcentajeCargadoTotal.toFixed(2) + '%');
   }
-  catch{
+  catch(e){
     //no hacer nada todavía
   }
 }

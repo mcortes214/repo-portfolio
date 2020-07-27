@@ -1320,7 +1320,7 @@ function actualizarPrecarga(){
     progressBar.value = Math.trunc(porcentajeCargadoTotal);
     $('.indicador-progreso').html(porcentajeCargadoTotal.toFixed(2) + '%');
   }
-  catch{
+  catch(e){
     //no hacer nada todavía
   }
 }
@@ -1670,8 +1670,8 @@ function postAudioLoad() {
   mapearInterfaces();
   inicializarSeeks();
 
-  $('#overlay-precarga').animate({'opacity':'0'},1000,function(){
-    $('#overlay-precarga').css({'display':'none'});
+  $('.overlay-precarga').animate({'opacity':'0'},1000,function(){
+    $('.overlay-precarga').css({'display':'none'});
   });
 
 }
