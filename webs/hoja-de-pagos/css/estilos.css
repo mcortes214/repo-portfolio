@@ -99,15 +99,17 @@ h3.titulo-año {
     color: black;
 }
 
+.contenedor-bloque-pago:not(:last-of-type) {
+  margin-bottom: 2em;
+}
 .contenedor-bloque-pago {
     display: flex;
     align-items: stretch;
-    margin-bottom: 2em;
 }
 
 .bloque-pago {
     padding-left: 20px;
-    width: 40%;
+    width: 50%;
     background-color: white;
     z-index: 1;
 }
