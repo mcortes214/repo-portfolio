@@ -170,6 +170,14 @@
     display: flex;
   }
 
+  div.cancion{
+    display: none;
+  }
+
+  div.cancion.activo{
+    display: block;
+  }
+
   div.contenedor-canales{
     display: flex;
     width: 100%;
@@ -181,16 +189,27 @@
   }
 
 
-  div.seek{
-    height: 60px;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  div.seek {
+      margin-top: 30px;
+      height: 60px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
   }
 
 
   /* RANGE SLIDERS */
+
+  .canales {
+      display: flex;
+      justify-content: space-around;
+  }
+
+  .canal {
+    display: flex;
+    align-items: center;
+}
 
   /* Vertical */
 
@@ -425,9 +444,7 @@
 
   /* ESTILOS DE DEBUG */
 
-  .canales {
-      display: none;
-  }
+
 
   </style>
 
@@ -951,11 +968,12 @@
   <div id="controles-globales">
 
 
-<!-- Descomentar!
 
 
     <span class="global-control-tag">Master</span>
     <input type="range" class="rangeslider" data-accion="volumen-master" id="volumen-master" min="0" max="1" value="0.5" step="0.001" data-orientation="horizontal">
+
+<!-- Descomentar!
 
     <div class="contenedor-on-off">
       <span class="global-control-tag">Delay on/off:</span>
@@ -972,7 +990,6 @@
     </div>
     <span class="global-control-tag">Reverb level</span>
     <input type="range" class="rangeslider" data-accion="reverb-wet" id="reverb-wet" min="0" max="4" value="0" step="0.001" data-orientation="horizontal">
-
 
 Descomentar! -->
 
@@ -1125,6 +1142,22 @@ function parsearMensaje(datos){
 
 
 
+
+// WEB AUDIO API  -----------------------------------
+
+var AudioContext = window.AudioContext // Default
+    || window.webkitAudioContext // Safari and old versions of Chrome
+    || false;
+
+if (AudioContext) {
+    // Do whatever you want using the Web Audio API
+    var audioCtx = new AudioContext;
+    // ...
+} else {
+    // Web Audio API is not supported
+    // Alert the user
+    alert("Sorry, but the Web Audio API is not supported by your browser. Please, consider upgrading to the latest version or downloading Google Chrome or Mozilla Firefox");
+}
 
 // GENERACIÓN DE DOM -----------------------------------
 
@@ -1374,7 +1407,7 @@ function onLoad(e) {
 
 
 
-// INTERFAZ
+// FUNCIONALIDAD DE INTERFAZ - acá vincular controles con variables
 
 // Variables
 
@@ -1384,19 +1417,40 @@ var cancionActiva = 0;
 
 // Funciones
 
+//Mover control captura los eventos de todos los sliders.
 function moverControl(input) {
   var valor = input.value;
   var accion = $(input).data('accion');
 
+
+  //Seek ----
   if(accion=="seek-control"){
     //obtener ID de cancion
     var cancion = $(input).data('cancion');
     saltarA(cancion, parseInt(input.value));
   }
 
+
+  //Volumen canales ----
+  if(accion=="volumen-canal"){
+    //obtener ID de cancion
+    console.log('vol');
+    var cancion = $(input).data('cancion');
+    var track = $(input).data('track');
+    nodes[cancion][track].gain.gain.value = input.value;
+  }
+
+
+  //Volumen master ----
+  if(accion=="volumen-master"){
+    //obtener ID de cancion
+    var cancion = cancionActiva;
+    nodes.masterGain.gain.value = input.value;
+  }
+
 }
 
-//Mapear interfaces: event listeners para todo
+//Mapear interfaces: event listeners para todos los botones
 function mapearInterfaces() {
 
   //Selectores de canción
@@ -1408,12 +1462,18 @@ function mapearInterfaces() {
     var dataCancion = $(this).attr('data-cancion');
     var selectorSeccionCancion = '.cancion[data-cancion="'+ dataCancion +'"]';
     var cancionSeleccionada = $(selectorSeccionCancion);
+
     //Cambiar clases
     $('.boton-cancion').removeClass('activo'); //eliminar el activo de todos los contenedores
     $(this).addClass('activo'); //agregarla a la canción seleccionada
     $('.cancion').removeClass('activo'); //eliminar el activo de todos los contenedores
     cancionSeleccionada.addClass('activo'); //agregarla a la canción seleccionada
     cancionActiva = dataCancion;
+    console.log(cancionActiva);
+
+    //Modificar routeo de nodos (master)
+
+    nodes[cancionActiva].bus.connect(nodes.masterGain);
   });
 
   //Play/pause
@@ -1434,7 +1494,83 @@ function mapearInterfaces() {
       detener(cancionActiva);
   });
 
+
+  //Mute
+  $('.boton-mute-canal').on('click', function () {
+      var cancion = $(this).data('cancion');
+      var track = $(this).data('track');
+      var nodoMute = nodes[cancion][track].mute;
+      $(this).toggleClass('activo');
+      if ($(this).hasClass('activo')) {
+        nodoMute.gain.value = 0;
+      }
+      else {
+        nodoMute.gain.value = 1;
+      }
+  });
+
 }
+
+
+
+
+// AUDIO NODES - Creación y routeo --------------------------------------------
+
+
+
+function crearAudioNodes() {
+    console.log('empezando a crear audio nodes');
+
+    //Actualizar el objeto global "nodes", guardando los nodos en estructura de
+    // árbol
+
+    //nodos globales (se declaran ahora, que ya se inicializó el audio context)
+    nodes['masterGain'] = audioCtx.createGain();
+
+    for (var i = 0; i < cantidadDeCanciones; i++) {
+      //nodos de canción
+      nodes[i] = {
+        'bus' : audioCtx.createGain()
+      };
+      var tracksEnEstaCancion = songInfo[i].length;
+
+      for (var j = 0; j < tracksEnEstaCancion; j++) {
+        //obtener elemento media
+        var mediaElement = document.getElementById('audio-cancion-'+i+'-track-'+j);
+        //nodos de track
+        nodes[i][j] = {
+          'source' : audioCtx.createMediaElementSource(mediaElement),
+          'gain' : audioCtx.createGain(),
+          'mute' : audioCtx.createGain(),
+        }
+      }
+    }
+}
+
+/**/
+
+function routearAudioNodes() {
+  console.log('routeando audio nodes');
+
+  for (var i = 0; i < cantidadDeCanciones; i++) {
+    var tracksEnEstaCancion = songInfo[i].length;
+    for (var j = 0; j < tracksEnEstaCancion; j++) {
+      nodes[i][j].source.connect(nodes[i][j].gain);
+      nodes[i][j].gain.connect(nodes[i][j].mute);
+      nodes[i][j].mute.connect(nodes[i].bus);
+    }
+  }
+
+  nodes[0].bus.connect(nodes.masterGain);  //primera canción por default
+  nodes.masterGain.connect(audioCtx.destination);
+
+}
+
+
+
+
+
+
 
 
 
@@ -1450,11 +1586,20 @@ var intervaloTestMetadata;
 //Funciones de reproducción de audio (controlan al seek)
 
 function reproducir(cancion){
+  if (audioCtx.state === 'suspended') {
+    console.log('audio suspendido');
+    audioCtx.resume();
+    console.log('reanudando audio');
+  }
+
   var tracksEnEstaCancion = songInfo[cancion].length;
 
   for(var i=0; i < tracksEnEstaCancion; i++){
     var audio = document.getElementById('audio-cancion-'+cancion+'-track-'+i);
     audio.play();
+    setInterval(function(){
+      console.log(audio.paused);
+    },2000);
   }
   reproducirSeek(cancion);
 }
@@ -1513,6 +1658,7 @@ function reproducirSeek(cancion){
   intervaloSeek = setInterval(function(){
     // Obtener currentTime del primer audio de la canción
     tiempoTranscurrido = primerAudioEnEstaCancion.currentTime;
+    console.log(tiempoTranscurrido);
     actualizarVisorSeek(cancion);
   },100);
 }
@@ -1606,7 +1752,13 @@ function actualizarVisorSeek(cancion){
 }
 
 
+//ANIMACIÓN ---------------------------------------------
 
+function borrarOverlay() {
+  $('.overlay-precarga').animate({'opacity':'0'},1000,function(){
+    $('.overlay-precarga').css({'display':'none'});
+  });
+}
 
 
 
@@ -1650,31 +1802,36 @@ function actualizarVisorSeek(cancion){
 
 // Funciones
 
+
+
 // Función main: incluye todas las promises en orden. Llama a todo el código
 //Todo el código se dispara desde el evento que recibe el mensaje.
 //Así como en otros proyectos, todo el código se dispara en el evento
 // document.ready.
+
 function main(e) {
-  receiveMessage(e).then(generarDOM).then(descargarAudios);
-  // receiveMessage(e).then(generarDOM).then(postAudioLoad()); //TESTEO PLAYBACK
+  receiveMessage(e).then(generarDOM).then(descargarAudios); //CON DESCARGA
+  // receiveMessage(e).then(generarDOM).then(postAudioLoad); //TESTEO PLAYBACK
 }
 
-//Esta función es llamada desde el callback onload de los XHR,
-// al completarse el último audio. Se lista acá porque es una función
+
+
+
+//Función postAudioLoad: Esta función es llamada desde el callback onload de
+// los XHR, al completarse el último audio. Se lista acá porque es una función
 // principal que lista todas las acciones después de la descarga.
 
 function postAudioLoad() {
   console.log('todos los audios cargados');
   clearInterval(intervaloPrecarga);
-
+  crearAudioNodes();
+  routearAudioNodes();
   mapearInterfaces();
   inicializarSeeks();
-
-  $('.overlay-precarga').animate({'opacity':'0'},1000,function(){
-    $('.overlay-precarga').css({'display':'none'});
-  });
-
+  borrarOverlay();
 }
+
+
 
 
 //Llamar todo el código desde el event listener:

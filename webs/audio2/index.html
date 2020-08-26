@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Prueba de embed - Reproductor Howler/WAD</title>
+    <title>Prueba de embed - Reproductor Melmann</title>
   </head>
   <body>
 
@@ -12,7 +12,7 @@ ACÁ VAN EL EMBED, Y EL SCRIPT.
 NADA MAS. -->
 
 
-<iframe id="player" src="reproductor.html" width="700px" height="700px"></iframe>
+<iframe id="player" src="nuevoReproductorWP.html" width="800px" height="800px"></iframe>
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
 
@@ -20,32 +20,34 @@ NADA MAS. -->
 /*-----------------CANCIONES------------------*/
 var canciones = {
   tracks: {
-    'NOMBRE DE CANCIÓN 1': {
-      track_1: '/audio/sonidos-b1.mp3',
-      track_2: '/audio/sonidos-b2.mp3',
-      track_3: '/audio/sonidos-b3.mp3',
+    'Primera canción': {
+      track_1: 'https://www.maxicortes.com.ar/webs/audio/audio/webm/sonidos-1.webm',
+      track_2: 'https://www.maxicortes.com.ar/webs/audio/audio/webm/sonidos-2.webm',
+      track_3: 'https://www.maxicortes.com.ar/webs/audio/audio/webm/sonidos-3.webm',
+      track_4: 'https://www.maxicortes.com.ar/webs/audio/audio/webm/sonidos-4.webm',
+      track_5: 'https://www.maxicortes.com.ar/webs/audio/audio/webm/sonidos-5.webm',
+      track_6: 'https://www.maxicortes.com.ar/webs/audio/audio/webm/sonidos-6.webm',
     },
-    'NOMBRE DE CANCIÓN 2': {
-      track_1: '/audio/sonidos-1.mp3',
-      track_2: '/audio/sonidos-2.mp3',
-      track_3: '/audio/sonidos-3.mp3',
-      track_4: '/audio/sonidos-4.mp3',
-      track_5: '/audio/sonidos-5.mp3',
-      track_6: '/audio/sonidos-6.mp3',
+    'Segunda canción': {
+      track_1: 'https://www.maxicortes.com.ar/webs/audio/audio/webm/sonidos-b1.webm',
+      track_2: 'https://www.maxicortes.com.ar/webs/audio/audio/webm/sonidos-b2.webm',
+      track_3: 'https://www.maxicortes.com.ar/webs/audio/audio/webm/sonidos-b3.webm',
     },
   },
-  reverb: 'audio/reverb-ir.wav',
+  reverb: 'https://www.maxicortes.com.ar/webs/audio/audio/reverb-ir.wav',
 };
 
 /*--------------------------------------------*/
-console.log(document.getElementById("player").contentWindow);
 document.getElementById("player").onload = function(){
   document.getElementById("player").contentWindow.postMessage(canciones, "*");
-  console.log('mensaje enviado al iframe: información de canción');
+  console.log('mensaje enviado');
 }
 
-</script>
+$(window).mouseup(function() {
+  document.getElementById("player").contentWindow.postMessage('mouseup', "*");
+});
 
+</script>
 
 
   </body>

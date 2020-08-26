@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
+</head>
+<body>
+<audio id="audio-cancion-0-track-0" src="https://www.maxicortes.com.ar/webs/audio/audio/webm/sonidos-1.webm" crossorigin="anonymous"></audio>
+<button type="button" name="button">Reproducir</button>
+
+  <script type="text/javascript">
+
+  // WEB AUDIO API  -----------------------------------
+
+  var AudioContext = window.AudioContext // Default
+      || window.webkitAudioContext // Safari and old versions of Chrome
+      || false;
+
+  if (AudioContext) {
+      // Do whatever you want using the Web Audio API
+      var audioCtx = new AudioContext;
+      // ...
+  } else {
+      // Web Audio API is not supported
+      // Alert the user
+      alert("Sorry, but the Web Audio API is not supported by your browser. Please, consider upgrading to the latest version or downloading Google Chrome or Mozilla Firefox");
+  }
+
+  // PLAYBACK  -----------------------------------
+
+    function reproducir(){
+      if (audioCtx.state === 'suspended') {
+        console.log('audio suspendido');
+        audioCtx.resume();
+        console.log('reanudando audio');
+      }
+
+        var audio = document.getElementById('audio-cancion-0-track-0');
+        audio.play();
+    }
+
+    $('button').on('click', function () {
+        reproducir();
+    });
+
+  // AUDIO NODES ----------------------------------
+
+  var mediaElement = document.getElementById('audio-cancion-0-track-0');
+  // var sourceNode = audioCtx.createMediaElementSource(mediaElement);
+
+  </script>
+</body>
+</html>
