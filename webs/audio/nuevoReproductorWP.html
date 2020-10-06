@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Sound Window Player</title>
-<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&family=Ubuntu&family=Work+Sans&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300&display=swap" rel="stylesheet">
   <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/p5@1.1.9/lib/p5.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/addons/p5.sound.js"></script>
@@ -3256,7 +3256,7 @@ out$.presets = presets = {
 
 
   html {
-      font-family: 'Work Sans', sans-serif;
+      font-family: 'Titillium Web', sans-serif;
   }
 
   button.tape-controls-play {
@@ -3281,6 +3281,8 @@ out$.presets = presets = {
       width: 700px;
       margin: auto;
       color: white;
+      text-transform: uppercase;
+      font-size: 0.8em;
   }
 
   div.overlay-precarga {
@@ -3399,7 +3401,8 @@ out$.presets = presets = {
 
   .contenedor-controles-canal {
       width: 20px;
-      margin-left: 10px;
+      margin-left: 15px;
+      height: 100%;
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
@@ -3580,7 +3583,11 @@ out$.presets = presets = {
       margin: 10px 10px 30px 10px;
       cursor: pointer;
       color: white;
+      text-transform: uppercase;
+      font-size: 0.9em;
+      font-family: 'Titillium Web';
   }
+
   button.boton-cancion.activo {
       background-color: transparent;
       font-weight: bold;
