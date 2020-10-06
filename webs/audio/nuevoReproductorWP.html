@@ -7,6 +7,9 @@
   <title>Sound Window Player</title>
 <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&family=Ubuntu&family=Work+Sans&display=swap" rel="stylesheet">
   <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/p5@1.1.9/lib/p5.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/addons/p5.sound.js"></script>
+
 
 
 
@@ -3252,8 +3255,8 @@ out$.presets = presets = {
 
 
 
-  html{
-    font-family: 'Work Sans', sans-serif;
+  html {
+      font-family: 'Work Sans', sans-serif;
   }
 
   button.tape-controls-play {
@@ -3272,7 +3275,15 @@ out$.presets = presets = {
     display: none;
   }
 
-  .overlay-precarga {
+  /* REPRODUCTOR */
+
+  div#reproductor {
+      width: 700px;
+      margin: auto;
+      color: white;
+  }
+
+  div.overlay-precarga {
       width: 100%;
       height: 100%;
       position: absolute;
@@ -3285,7 +3296,10 @@ out$.presets = presets = {
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      color: black;
   }
+
+
 
   /* CONTENEDORES DE CANCIÓN */
 
@@ -3363,7 +3377,7 @@ out$.presets = presets = {
       bottom: 0;
       width: 100%;
       background-color: white;
-      box-shadow: 0 0 0 1px black inset;
+      box-shadow: 0 0 0 1px white inset;
   }
 
   .rangeslider--vertical .rangeslider__handle {
@@ -3371,7 +3385,7 @@ out$.presets = presets = {
       height: 10px;
       left: -4px;
       box-shadow: none;
-      background-color: black;
+      background-color: white;
       border: none;
   }
 
@@ -3392,15 +3406,15 @@ out$.presets = presets = {
   }
 
   .boton-mute-canal,
-  .boton-solo-canal{
-    width: 20px;
-    height: 20px;
-    margin: 10px 0 0 0;
-    border: 1px solid black;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  .boton-solo-canal {
+      width: 20px;
+      height: 20px;
+      margin: 10px 0 0 0;
+      border: 1px solid white;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
   }
 
   .boton-mute-canal.activo,
@@ -3413,9 +3427,9 @@ out$.presets = presets = {
 
   .rangeslider--horizontal {
       height: 2px;
-      background: #ddd;
+      background: transparent;
       border-radius: 0;
-      border: none;
+      border: 1px solid white;
       box-shadow: none;
   }
 
@@ -3432,7 +3446,7 @@ out$.presets = presets = {
       bottom: 0;
       width: 100%;
       background-color: white;
-      box-shadow: 0 0 0 1px black inset;
+      box-shadow: 0 0 0 1px white inset;
   }
 
   .rangeslider--horizontal .rangeslider__handle {
@@ -3440,7 +3454,7 @@ out$.presets = presets = {
       height: 10px;
       top: -4px;
       box-shadow: none;
-      background-color: black;
+      background-color: white;
       border: none;
   }
 
@@ -3472,7 +3486,7 @@ out$.presets = presets = {
   input.slider-seek-view + .rangeslider--horizontal {
       height: 8px;
       border-radius: 0;
-      border: none;
+      border: 1px solid white;
       box-shadow: none;
       position: absolute;
       top: 0;
@@ -3486,7 +3500,7 @@ out$.presets = presets = {
   }
 
   input.slider-seek-view + .rangeslider--horizontal .rangeslider__fill{
-    background-color: black;
+    background-color: white;
   }
 
   /* INTERFACES GLOBALES */
@@ -3502,17 +3516,17 @@ out$.presets = presets = {
   }
 
   .efecto-on-off {
-    height: 15px;
-    width: 15px;
-    font-size: 0;
-    border: 1px solid black;
-    border-radius: 0;
-    background: transparent;
-    cursor: pointer;
-    margin-left: 10px;
+      height: 15px;
+      width: 15px;
+      font-size: 0;
+      border: 1px solid white;
+      border-radius: 0;
+      background: transparent;
+      cursor: pointer;
+      margin-left: 10px;
   }
-  .efecto-on-off.activo{
-    background-color: black;
+  .efecto-on-off.activo {
+      background-color: white;
   }
 
   .playback-control {
@@ -3560,15 +3574,16 @@ out$.presets = presets = {
   }
 
   button.boton-cancion {
-      border: 1px solid black;
+      border: 2px solid white;
       background: none;
       padding: 10px 15px;
       margin: 10px 10px 30px 10px;
       cursor: pointer;
+      color: white;
   }
-
   button.boton-cancion.activo {
-    background-color: #f0f0f0;
+      background-color: transparent;
+      font-weight: bold;
   }
 
 
@@ -4839,6 +4854,8 @@ function crearAudioNodes() {
     // árbol
 
     //nodos globales (se declaran ahora, que ya se inicializó el audio context)
+    nodes['analyser'] = audioCtx.createAnalyser();
+
     nodes['masterGain'] = audioCtx.createGain();
 
     nodes['reverb'] = audioCtx.createConvolver();
@@ -4898,6 +4915,7 @@ function routearAudioNodes() {
   nodes[0].bus.connect(nodes.masterGain);  //primera canción por default
 
   nodes.masterGain.connect(audioCtx.destination); //sonido directo
+  nodes.masterGain.connect(nodes.analyser); //FFT
 
   nodes.masterGain.connect(nodes.reverb);
   nodes.reverb.connect(nodes.reverbGain);
@@ -5167,6 +5185,10 @@ function main(e) {
 // los XHR, al completarse el último audio. Se lista acá porque es una función
 // principal que lista todas las acciones después de la descarga.
 
+var bufferLength;
+var dataArray;
+
+
 function postAudioLoad() {
   console.log('todos los audios cargados');
   clearInterval(intervaloPrecarga);
@@ -5175,6 +5197,12 @@ function postAudioLoad() {
   mapearInterfaces();
   inicializarSeeks();
   borrarOverlay();
+
+  //Analisis FFT
+  nodes.analyser.fftSize = 2048;
+  dataArray = new Uint8Array(nodes.analyser.fftSize/2);
+  nodes.analyser.getByteFrequencyData(dataArray);
+  // bufferLength = nodes.analyser.frequencyBinCount;
 }
 
 
@@ -5192,18 +5220,26 @@ window.addEventListener("message", main, false);
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 1;
+    z-index: -1;
     mix-blend-mode: color-dodge;
   }
 
-</style>
-<img id="texturas" src="texturas.gif" alt="">
+  #defaultCanvas0{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -2;
+  }
 
+</style>
+<img id="texturas" src="https://www.maxicortes.com.ar/webs/audio/img/texturas.gif" alt="">
+<div id="canvas-holder">
+
+</div>
 
 
 <script type="text/javascript">
   var h;
-
   function setup() {
     frameRate(10);
     createCanvas(800, 800);
@@ -5212,12 +5248,22 @@ window.addEventListener("message", main, false);
     noStroke();
   }
 
-  function draw() {
 
-    var col = color(h, 50, mouseX/80);
+var volumenTotal;
+var nivel;
+
+  function draw() {
+    if(dataArray){
+      nodes.analyser.getByteFrequencyData(dataArray);
+      console.log(dataArray[3]);
+    }
+
+    br = nivel;
+
+    var col = color(h, 50, br);
     background(col);
 
-    var col2 = color(h+30,50,100,mouseX/80);
+    var col2 = color(h+30,50,100,nivel);
     fill(col2);
     // for(var i = 0; i<100 ;i++){
     // ellipse(random(0,width), random(0,height), random(25-250), random(25-250));
@@ -5227,6 +5273,19 @@ window.addEventListener("message", main, false);
     if (h > 100) {
       h = 0;
     }
+
+
+  //Obtener volumen integrado
+  volumenTotal = 0;
+  if(dataArray){
+    for(var i = 0; i<dataArray.length; i++){
+      volumenTotal += dataArray[i];
+    }
+    console.log('Volumen: '+volumenTotal);
+    nivel = volumenTotal/1000;
+    console.log('Nivel: '+nivel);
+    volumenTotal = 0;
+  }
 
   }
 
