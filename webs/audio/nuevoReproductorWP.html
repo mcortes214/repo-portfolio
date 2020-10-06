@@ -3354,6 +3354,13 @@ out$.presets = presets = {
   }
 
 
+
+  div#canciones {
+      padding: 20px;
+      border: 1px dotted white;
+      margin-bottom: 20px;
+  }
+
   /* RANGE SLIDERS */
 
   .canales {
@@ -3365,6 +3372,27 @@ out$.presets = presets = {
     display: flex;
     align-items: center;
 }
+
+
+  /* PANELES DE CONTROLES */
+
+  /* .contenedor-paneles-controles {
+      display: flex;
+      justify-content: space-between;
+  } */
+
+  .contenedor-paneles-controles {
+      display: flex;
+      justify-content: space-between;
+      padding: 20px;
+      border: 1px dotted white;
+      padding-bottom: 55px;
+  }
+
+  .panel-controles {
+      width: 47%;
+      box-sizing: border-box;
+  }
 
   /* Vertical */
 
@@ -3541,6 +3569,14 @@ out$.presets = presets = {
   .efecto-on-off.activo {
       background-color: white;
   }
+
+  .seccion-playback {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    border: 1px dotted white;
+}
 
   .playback-control {
       cursor: pointer;
@@ -4160,22 +4196,19 @@ out$.presets = presets = {
   <div id="canciones"></div>                <!-- Contenido dinámico -->
   <div id="controles-globales">
 
+<div class="contenedor-paneles-controles">
+  <div class="panel-controles">
+        <div class="contenedor-on-off">
+          <span class="global-control-tag">Delay on/off:</span>
+          <button type="button" id="delay-on-off" class="efecto-on-off"></button>
+        </div>
+        <span class="global-control-tag">Delay time</span>
+        <input type="range" class="rangeslider" data-accion="delay-time" id="delay-time" min="0" max="1" value="0" step="0.001" data-orientation="horizontal">
+        <span class="global-control-tag">Delay feedback</span>
+        <input type="range" class="rangeslider" data-accion="delay-feedback" id="delay-feedback" min="0" max="1" value="0" step="0.001" data-orientation="horizontal">
+  </div>
 
-
-
-    <span class="global-control-tag">Master</span>
-    <input type="range" class="rangeslider" data-accion="volumen-master" id="volumen-master" min="0" max="1" value="0.5" step="0.001" data-orientation="horizontal">
-
-
-    <div class="contenedor-on-off">
-      <span class="global-control-tag">Delay on/off:</span>
-      <button type="button" id="delay-on-off" class="efecto-on-off"></button>
-    </div>
-    <span class="global-control-tag">Delay time</span>
-    <input type="range" class="rangeslider" data-accion="delay-time" id="delay-time" min="0" max="1" value="0" step="0.001" data-orientation="horizontal">
-    <span class="global-control-tag">Delay feedback</span>
-    <input type="range" class="rangeslider" data-accion="delay-feedback" id="delay-feedback" min="0" max="1" value="0" step="0.001" data-orientation="horizontal">
-
+  <div class="panel-controles">
     <div class="contenedor-on-off">
       <span class="global-control-tag">Reverb on/off:</span>
       <button type="button" id="reverb-on-off" class="efecto-on-off"></button>
@@ -4183,16 +4216,28 @@ out$.presets = presets = {
     <span class="global-control-tag">Reverb level</span>
     <input type="range" class="rangeslider" data-accion="reverb-wet" id="reverb-wet" min="0" max="4" value="0" step="0.001" data-orientation="horizontal">
 
+    <span class="global-control-tag">Master</span>
+    <input type="range" class="rangeslider" data-accion="volumen-master" id="volumen-master" min="0" max="1" value="0.5" step="0.001" data-orientation="horizontal">
+  </div>
+</div>
+
+
+
+
+
 
 <!-- Descomentar playback! -->
 
     <!-- Playback -->
-    <button class="playback-control" id="prev-button">PREV</button>
-    <button class="playback-control" id="rwd-button">RWD</button>
-    <button class="playback-control" id="play-pause-button">Play/pause</button>
-    <button class="playback-control" id="stop-button">Stop</button>
-    <button class="playback-control" id="fwd-button">FWD</button>
-    <button class="playback-control" id="next-button">NEXT</button>
+    <div class="seccion-playback">
+      <button class="playback-control" id="prev-button">PREV</button>
+      <button class="playback-control" id="rwd-button">RWD</button>
+      <button class="playback-control" id="play-pause-button">Play/pause</button>
+      <button class="playback-control" id="stop-button">Stop</button>
+      <button class="playback-control" id="fwd-button">FWD</button>
+      <button class="playback-control" id="next-button">NEXT</button>
+    </div>
+
 
   </div><!-- fin controles globales -->
   <div id="audios">
