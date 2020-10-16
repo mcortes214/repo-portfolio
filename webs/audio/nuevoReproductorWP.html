@@ -5087,7 +5087,16 @@ function reproducirSeek(cancion){
     tiempoTranscurrido = primerAudioEnEstaCancion.currentTime;
     console.log(tiempoTranscurrido);
     actualizarVisorSeek(cancion);
+    console.log('Transcurrido: '+tiempoTranscurrido);
+    console.log('Total: '+duracionTotalDeEstaCancion);
   },100);
+
+
+  //Loop
+  if(tiempoTranscurrido >= duracionTotalDeEstaCancion-1){
+    saltarA(cancionActiva, 0);
+  }
+
 }
 
 //------
@@ -5126,9 +5135,10 @@ function inicializarSeeks() {
 }
 
 //------
+var duracionTotalDeEstaCancion;
 
 function cambiarValoresMaximosSeek(aud, indice){
-  duracionTotal = aud.duration;
+  duracionTotalDeEstaCancion = aud.duration;
   //Actualizar valor máximo de los input
   var objetoInput = $('#slider-seek-control-cancion-'+indice);
   var objetoMarcador = $('#slider-seek-view-cancion-'+indice);

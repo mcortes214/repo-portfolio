@@ -1,0 +1,131 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html {
+    font-family: sans-serif;
+}
+body {
+    background-color: #aaa;
+    color: #fff;
+    overflow: hidden;
+}
+#controls {
+    padding: 0.5rem;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    background-color: #888;
+    background-color: rgba(0, 0, 0, 0.35);
+}
+#controls h3 {
+    display: inline-block
+}
+#slider-holder {
+    float: right;
+}
+.tag {
+    padding: 0 0.5rem
+}
+.hidden {
+    display: none;
+}
+/* range input formatting
+ * relies heavly on this:
+ * https://codepen.io/thebabydino/pen/pvpJWX
+ */
+input[type=range] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: transparent;
+    display: inline-block;
+    margin: 0 auto;
+    width: 11rem;
+    height: 1rem;
+    cursor: pointer;
+}
+/* thumb */
+input[type='range']::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    position: relative;
+    margin: -0.25em;
+    border: none;
+    /* Firefox, IE */
+    width: 1em;
+    height: 1em;
+    border-radius: 0.5em;
+    background: #fff;
+}
+input[type='range']::-moz-range-thumb {
+    border: none;
+    /* Firefox, IE */
+    width: 1em;
+    height: 1em;
+    border-radius: 0.5em;
+    cursor: ew-resize;
+    background: #fff;
+}
+input[type='range']::-ms-thumb {
+    border: none;
+    /* Firefox, IE */
+    width: 1em;
+    height: 1em;
+    border-radius: 0.5em;
+    background: #fff;
+}
+/* track */
+input[type="range"]::-webkit-slider-runnable-track {
+    -webkit-appearance: none;
+    height: 0.5em;
+    border-radius: 0.25em;
+    background: #777;
+}
+input[type='range']::-moz-range-track {
+    border: none;
+    height: 0.5em;
+    border-radius: 0.25em;
+    background: #777;
+}
+input[type='range']::-ms-track {
+    border: none;
+    height: 0.5em;
+    border-radius: 0.25em;
+    background: #777;
+    color: transparent;
+}
+
+
+
+#controls{
+  display: none;
+}
+
+div.overlay {
+    z-index: 10;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+div.overlay {
+  font-family: 'Chilanka';
+    z-index: 10;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    background: rgba(0,0,0,0.6);
+    padding: 50px;
+    cursor: pointer;
+    transition: 0.4s;
+}
+
+h1 {
+    margin-bottom: 0.5em;
+}
+p{
+   margin-bottom: 0.8em;
+}
