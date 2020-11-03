@@ -3269,7 +3269,7 @@ out$.presets = presets = {
       padding-bottom: 15px;
   }
 
-@media screen and (max-width: 650px){
+@media screen and (max-width: 800px){
   .banner-titulo {
       z-index: 5;
       position: absolute;
@@ -3336,7 +3336,7 @@ out$.presets = presets = {
       margin-top: 20px;
   }
 
-@media screen and (max-width: 650px){
+@media screen and (max-width: 800px){
   div#reproductor {
       width: 100%;
       margin-top: 40px;
@@ -3363,6 +3363,11 @@ out$.presets = presets = {
     font-size: 0.9em;
   }
 
+@media screen and (max-width: 800px){
+  div.overlay-precarga{
+    transform: scale(1.5);
+  }
+}
 
 
   /* CONTENEDORES DE CANCIÓN */
@@ -5357,7 +5362,7 @@ window.addEventListener("message", main, false);
     width: 50vw;
 }
 
-@media screen and (max-width: 650px){
+@media screen and (max-width: 800px){
   #texturas{
     width: 100vw;
   }
@@ -5381,7 +5386,7 @@ window.addEventListener("message", main, false);
   var h;
   function setup() {
     frameRate(10);
-    if(windowWidth > 650){
+    if(windowWidth > 800){
       createCanvas(windowWidth/2, windowHeight);
     }
     else{
@@ -5397,7 +5402,7 @@ var volumenTotal;
 var nivel;
 
 function windowResized() {
-  if(windowWidth > 650){
+  if(windowWidth > 800){
     resizeCanvas(windowWidth/2, windowHeight);
   }
   else{
