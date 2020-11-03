@@ -3254,20 +3254,59 @@ out$.presets = presets = {
   <style media="screen">
 
 
+  .banner-titulo {
+      z-index: 5;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 30px;
+      padding: 10px;
+      color: white;
+      background-color: black;
+      display: flex;
+      align-items: baseline;
+  }
+
+@media screen and (max-width: 650px){
+  .banner-titulo {
+      z-index: 5;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 20px;
+      padding: 10px;
+      color: white;
+      background-color: rgba(0,0,0,0.5);
+      display: flex;
+      align-items: baseline;
+      font-size: 0.7em;
+  }
+}
+
+  span.large-title {
+      font-size: 1.8em;
+      margin-right: 0.4em;
+      text-transform: uppercase;
+  }
 
   html {
       font-family: 'Titillium Web', sans-serif;
   }
 
   body {
-    display: flex;
-    width: 800px;
-    height: 800px;
-    justify-content: center;
-    align-items: center;
-    padding: 0;
-    margin: 0;
-}
+      display: flex;
+      width: 100%;
+      height: 100vh;
+      justify-content: flex-end;
+      align-items: center;
+      padding: 0;
+      margin: 0;
+      overflow: hidden;
+      background-color: black;
+  }
+
 
   button.tape-controls-play {
       margin-top: 30px;
@@ -3288,12 +3327,19 @@ out$.presets = presets = {
   /* REPRODUCTOR */
 
   div#reproductor {
-      width: 700px;
-      margin: auto;
+      width: 50%;
       color: white;
       text-transform: uppercase;
       font-size: 0.8em;
+      transform: scale(0.8);
   }
+
+@media screen and (max-width: 650px){
+  div#reproductor {
+      width: 100%;
+      margin-top: 20px;
+  }
+}
 
   div.overlay-precarga {
       width: 100%;
@@ -3309,6 +3355,10 @@ out$.presets = presets = {
       align-items: center;
       justify-content: center;
       color: black;
+  }
+
+  div.overlay-precarga .small{
+    font-size: 0.9em;
   }
 
 
@@ -4175,22 +4225,28 @@ out$.presets = presets = {
 <body>
 
 <!-- HTML Reproductor -->
-<div id="reproductor">
 
-  <div class="overlay-precarga">
-    <div class="preloaders">
-      <div class="prel ld ld-ring ld-spin" style="font-size:140px; animation-duration:2s; opacity:0.2"></div>
-      <div class="prel ld ld-ring ld-spin" style="font-size:120px; animation-duration:1.9s; opacity:0.4"></div>
-      <div class="prel ld ld-ring ld-spin" style="font-size:105px; animation-duration:1.8s; opacity:0.6"></div>
-      <div class="prel ld ld-ring ld-spin" style="font-size:90px; animation-duration:1.7s; opacity:0.8"></div>
-      <div class="prel ld ld-ring ld-spin" style="font-size:80px; animation-duration:1.6s; opacity:1"></div>
-      <div id="loading" class="prel ldBar label-center" data-preset="circle" data-value="0" style="width:150px;height:150px"></div>
-    </div>
-    <p>Loading audio files...</p>
-    <!-- <progress id="progress" value="0" max="100" style="display:none"></progress> -->
-
-    <!-- <p class="indicador-progreso">0%</p> -->
+<div class="overlay-precarga">
+  <div class="preloaders">
+    <div class="prel ld ld-ring ld-spin" style="font-size:140px; animation-duration:2s; opacity:0.2"></div>
+    <div class="prel ld ld-ring ld-spin" style="font-size:120px; animation-duration:1.9s; opacity:0.4"></div>
+    <div class="prel ld ld-ring ld-spin" style="font-size:105px; animation-duration:1.8s; opacity:0.6"></div>
+    <div class="prel ld ld-ring ld-spin" style="font-size:90px; animation-duration:1.7s; opacity:0.8"></div>
+    <div class="prel ld ld-ring ld-spin" style="font-size:80px; animation-duration:1.6s; opacity:1"></div>
+    <div id="loading" class="prel ldBar label-center" data-preset="circle" data-value="0" style="width:150px;height:150px"></div>
   </div>
+  <p>Loading audio files...</p>
+  <p class="small">(View in full screen for a better experience)</p>
+  <!-- <progress id="progress" value="0" max="100" style="display:none"></progress> -->
+
+  <!-- <p class="indicador-progreso">0%</p> -->
+</div>
+
+<div class="banner-titulo">
+  <span class="large-title">Sound Window</span> <span class="small-title">By Nicolás Melmann</span>
+</div>
+
+<div id="reproductor">
 
 
   <div id="selectores-canciones"></div>   <!-- Contenido dinámico -->
@@ -5289,20 +5345,28 @@ window.addEventListener("message", main, false);
 
 <!-- VISUALES -->
 <style media="screen">
-  #texturas{
+#texturas {
     position: absolute;
     top: 0;
     left: 0;
     z-index: -1;
     mix-blend-mode: color-dodge;
-  }
+    height: 100vh;
+    width: 50vw;
+}
 
-  #defaultCanvas0{
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -2;
+@media screen and (max-width: 650px){
+  #texturas{
+    width: 100vw;
   }
+}
+
+#defaultCanvas0{
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -2;
+}
 
 </style>
 <img id="texturas" src="https://www.maxicortes.com.ar/webs/audio/img/texturas.gif" alt="">
@@ -5315,7 +5379,12 @@ window.addEventListener("message", main, false);
   var h;
   function setup() {
     frameRate(10);
-    createCanvas(800, 800);
+    if(windowWidth > 650){
+      createCanvas(windowWidth/2, windowHeight);
+    }
+    else{
+      createCanvas(windowWidth, windowHeight);
+    }
     colorMode(HSB, 100);
     h = 10;
     noStroke();
@@ -5324,6 +5393,15 @@ window.addEventListener("message", main, false);
 
 var volumenTotal;
 var nivel;
+
+function windowResized() {
+  if(windowWidth > 650){
+    resizeCanvas(windowWidth/2, windowHeight);
+  }
+  else{
+    resizeCanvas(windowWidth, windowHeight);
+  }
+}
 
   function draw() {
     if(dataArray){
