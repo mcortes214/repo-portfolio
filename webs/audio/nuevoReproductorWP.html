@@ -5384,7 +5384,14 @@ window.addEventListener("message", main, false);
 
 <script type="text/javascript">
   var h;
+  var imgs = new Array(10);
   function setup() {
+
+    for (var i = 1; i < imgs.length; i++) {
+      imgs[i] = loadImage('img/manchas/mancha-0'+i+'.png');
+      console.log('img');
+    }
+
     frameRate(10);
     if(windowWidth > 800){
       createCanvas(windowWidth/2, windowHeight);
