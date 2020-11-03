@@ -1,0 +1,1778 @@
+<!DOCTYPE html>
+ <html>
+   <head>
+    <meta charset="utf‐8">
+    <title>Prueba audio</title>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
+
+
+    <!-- CSS RANGESLIDER -->
+
+    <style media="screen">
+    .rangeslider,
+    .rangeslider__fill {
+      display: block;
+      -moz-box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.3);
+      -webkit-box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.3);
+      box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.3);
+      -moz-border-radius: 10px;
+      -webkit-border-radius: 10px;
+      border-radius: 10px;
+    }
+
+    .rangeslider {
+      background: #e6e6e6;
+      position: relative;
+    }
+
+    .rangeslider--horizontal {
+      height: 20px;
+      width: 100%;
+    }
+
+    .rangeslider--vertical {
+      width: 20px;
+      min-height: 150px;
+      max-height: 100%;
+    }
+
+    .rangeslider--disabled {
+      filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=40);
+      opacity: 0.4;
+    }
+
+    .rangeslider__fill {
+      background: #00ff00;
+      position: absolute;
+    }
+    .rangeslider--horizontal .rangeslider__fill {
+      top: 0;
+      height: 100%;
+    }
+    .rangeslider--vertical .rangeslider__fill {
+      bottom: 0;
+      width: 100%;
+    }
+
+    .rangeslider__handle {
+      background: white;
+      border: 1px solid #ccc;
+      cursor: pointer;
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      position: absolute;
+      background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIwLjAiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwMDAwMDAiIHN0b3Atb3BhY2l0eT0iMC4xIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmFkKSIgLz48L3N2Zz4g');
+      background-size: 100%;
+      background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(255, 255, 255, 0)), color-stop(100%, rgba(0, 0, 0, 0.1)));
+      background-image: -moz-linear-gradient(rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.1));
+      background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.1));
+      background-image: linear-gradient(rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.1));
+      -moz-box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+      -webkit-box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+      -moz-border-radius: 50%;
+      -webkit-border-radius: 50%;
+      border-radius: 50%;
+    }
+    .rangeslider__handle:after {
+      content: "";
+      display: block;
+      width: 18px;
+      height: 18px;
+      margin: auto;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzAwMDAwMCIgc3RvcC1vcGFjaXR5PSIwLjEzIi8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjZmZmZmZmIiBzdG9wLW9wYWNpdHk9IjAuMCIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==');
+      background-size: 100%;
+      background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(0, 0, 0, 0.13)), color-stop(100%, rgba(255, 255, 255, 0)));
+      background-image: -moz-linear-gradient(rgba(0, 0, 0, 0.13), rgba(255, 255, 255, 0));
+      background-image: -webkit-linear-gradient(rgba(0, 0, 0, 0.13), rgba(255, 255, 255, 0));
+      background-image: linear-gradient(rgba(0, 0, 0, 0.13), rgba(255, 255, 255, 0));
+      -moz-border-radius: 50%;
+      -webkit-border-radius: 50%;
+      border-radius: 50%;
+    }
+    .rangeslider__handle:active, .rangeslider--active .rangeslider__handle {
+      background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzAwMDAwMCIgc3RvcC1vcGFjaXR5PSIwLjEiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwMDAwMDAiIHN0b3Atb3BhY2l0eT0iMC4xMiIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==');
+      background-size: 100%;
+      background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(0, 0, 0, 0.1)), color-stop(100%, rgba(0, 0, 0, 0.12)));
+      background-image: -moz-linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.12));
+      background-image: -webkit-linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.12));
+      background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.12));
+    }
+    .rangeslider--horizontal .rangeslider__handle {
+      top: -10px;
+      touch-action: pan-y;
+      -ms-touch-action: pan-y;
+    }
+    .rangeslider--vertical .rangeslider__handle {
+      left: -10px;
+      touch-action: pan-x;
+      -ms-touch-action: pan-x;
+    }
+
+    input[type="range"]:focus + .rangeslider .rangeslider__handle {
+      -moz-box-shadow: 0 0 8px rgba(255, 0, 255, 0.9);
+      -webkit-box-shadow: 0 0 8px rgba(255, 0, 255, 0.9);
+      box-shadow: 0 0 8px rgba(255, 0, 255, 0.9);
+    }
+
+    </style>
+
+
+    <!-- ESTILOS PROPIOS -->
+
+
+    <style media="screen">
+    body{
+      font-family: sans-serif;
+    }
+
+    button.tape-controls-play {
+        margin-top: 30px;
+    }
+
+    button.tape-controls-play {
+        margin-top: 30px;
+        background: transparent;
+        border: 1px solid black;
+        padding: 10px;
+        cursor: pointer;
+    }
+
+    .elem-cancion-2{
+      display: none;
+    }
+
+    .overlay-precarga{
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0.5;
+      background-color: white;
+      z-index: 1;
+    }
+
+
+    /* CONTENEDORES DE CANCIÓN */
+
+    div.contenedor-cancion {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+    }
+
+    div.contenedor-cancion.activo{
+      display: flex;
+    }
+
+    div.contenedor-canales{
+      display: flex;
+      width: 100%;
+      justify-content: space-around;
+    }
+
+    div.contenedor-canal {
+      display: flex;
+    }
+
+
+    div.contenedor-seek{
+      height: 60px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+
+    /* RANGE SLIDERS */
+
+    /* Vertical */
+
+    .rangeslider--vertical {
+        width: 2px;
+        background: #ddd;
+        border-radius: 0;
+        border: none;
+        box-shadow: none;
+    }
+
+    .rangeslider--vertical .rangeslider__handle {
+        width: 20px;
+        height: 20px;
+        left: -10px;
+        box-shadow: none;
+        background-color: black;
+        border: 3px solid white;
+    }
+
+    .rangeslider--vertical .rangeslider__fill {
+        bottom: 0;
+        width: 100%;
+        background-color: white;
+        box-shadow: 0 0 0 1px black inset;
+    }
+
+    .rangeslider--vertical .rangeslider__handle {
+        width: 10px;
+        height: 10px;
+        left: -4px;
+        box-shadow: none;
+        background-color: black;
+        border: none;
+    }
+
+    .rangeslider--vertical .rangeslider__handle::after{
+      display: none;
+    }
+
+    /* Controles de canal */
+
+    /* Mute/solo */
+
+    .contenedor-controles-canal {
+        width: 20px;
+        margin-left: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+    }
+
+    .boton-mute-canal,
+    .boton-solo-canal{
+      width: 20px;
+      height: 20px;
+      margin: 10px 0 0 0;
+      border: 1px solid black;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .boton-mute-canal.activo,
+    .boton-solo-canal.activo{
+      background-color: #ddd;
+    }
+
+
+    /* Horizontal */
+
+    .rangeslider--horizontal {
+        height: 2px;
+        background: #ddd;
+        border-radius: 0;
+        border: none;
+        box-shadow: none;
+    }
+
+    .rangeslider--horizontal .rangeslider__handle {
+        width: 20px;
+        height: 20px;
+        left: -10px;
+        box-shadow: none;
+        background-color: black;
+        border: 3px solid white;
+    }
+
+    .rangeslider--horizontal .rangeslider__fill {
+        bottom: 0;
+        width: 100%;
+        background-color: white;
+        box-shadow: 0 0 0 1px black inset;
+    }
+
+    .rangeslider--horizontal .rangeslider__handle {
+        width: 10px;
+        height: 10px;
+        top: -4px;
+        box-shadow: none;
+        background-color: black;
+        border: none;
+    }
+
+    .rangeslider--horizontal .rangeslider__handle::after{
+      display: none;
+    }
+
+    /* Seek */
+
+    .visor-tiempo-seek{
+      margin-bottom: 10px;
+    }
+
+    input.seek-control + .rangeslider--horizontal {
+        height: 8px;
+        border-radius: 0;
+        border: none;
+        box-shadow: none;
+        cursor: pointer;
+        opacity: 0;
+        position: absolute;
+    }
+
+    input.seek-marker + .rangeslider--horizontal {
+        height: 8px;
+        border-radius: 0;
+        border: none;
+        box-shadow: none;
+    }
+
+    input.seek-marker + .rangeslider--horizontal .rangeslider__handle{
+      top: -3px;
+      width: 14px;
+      height: 14px;
+    }
+
+    input.seek-marker + .rangeslider--horizontal .rangeslider__fill{
+      background-color: black;
+    }
+
+    /* INTERFACES GLOBALES */
+
+    .contenedor-on-off{
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      margin: 20px 0 10px 0;
+    }
+    .contenedor-on-off span.global-control-tag {
+      margin: 0;
+    }
+
+    .efecto-on-off {
+      height: 15px;
+      width: 15px;
+      font-size: 0;
+      border: 1px solid black;
+      border-radius: 0;
+      background: transparent;
+      cursor: pointer;
+      margin-left: 10px;
+    }
+    .efecto-on-off.activo{
+      background-color: black;
+    }
+
+    .playback-control {
+        cursor: pointer;
+        font-size: 0;
+        background: none;
+        border: none;
+        width: 20px;
+        height: 20px;
+        margin: 30px 5px;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+    }
+
+    #play-pause-button{
+      background-image: url('https://www.maxicortes.com.ar/webs/audio/img/boton-play.png');
+    }
+    #play-pause-button.reproduciendo{
+      background-image: url('https://www.maxicortes.com.ar/webs/audio/img/boton-pause.png');
+    }
+    #stop-button{
+      background-image: url('https://www.maxicortes.com.ar/webs/audio/img/boton-stop.png');
+    }
+    #prev-button{
+      background-image: url('https://www.maxicortes.com.ar/webs/audio/img/boton-prev.png');
+    }
+    #next-button{
+      background-image: url('https://www.maxicortes.com.ar/webs/audio/img/boton-next.png');
+    }
+    #rwd-button{
+      background-image: url('https://www.maxicortes.com.ar/webs/audio/img/boton-rwd.png');
+      width: 40px;
+    }
+    #fwd-button{
+      background-image: url('https://www.maxicortes.com.ar/webs/audio/img/boton-fwd.png');
+      width: 40px;
+    }
+
+
+
+    span.global-control-tag {
+        display: block;
+        margin: 20px 0 10px 0;
+    }
+
+    button.boton-cancion {
+        border: 1px solid black;
+        background: none;
+        padding: 10px 15px;
+        margin: 10px 10px 30px 10px;
+        cursor: pointer;
+    }
+
+    button.boton-cancion.activo {
+      background-color: #f0f0f0;
+    }
+
+    </style>
+
+
+
+    <!-- JS RANGESLIDER -->
+
+    <script type="text/javascript">
+
+    /*! rangeslider.js - v2.3.0 | (c) 2016 @andreruffert | MIT license | https://github.com/andreruffert/rangeslider.js */
+    (function(factory) {
+        'use strict';
+
+        if (typeof define === 'function' && define.amd) {
+            // AMD. Register as an anonymous module.
+            define(['jquery'], factory);
+        } else if (typeof exports === 'object') {
+            // CommonJS
+            module.exports = factory(require('jquery'));
+        } else {
+            // Browser globals
+            factory(jQuery);
+        }
+    }(function($) {
+        'use strict';
+
+        // Polyfill Number.isNaN(value)
+        // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/isNaN
+        Number.isNaN = Number.isNaN || function(value) {
+            return typeof value === 'number' && value !== value;
+        };
+
+        /**
+         * Range feature detection
+         * @return {Boolean}
+         */
+        function supportsRange() {
+            var input = document.createElement('input');
+            input.setAttribute('type', 'range');
+            return input.type !== 'text';
+        }
+
+        var pluginName = 'rangeslider',
+            pluginIdentifier = 0,
+            hasInputRangeSupport = supportsRange(),
+            defaults = {
+                polyfill: true,
+                orientation: 'horizontal',
+                rangeClass: 'rangeslider',
+                disabledClass: 'rangeslider--disabled',
+                activeClass: 'rangeslider--active',
+                horizontalClass: 'rangeslider--horizontal',
+                verticalClass: 'rangeslider--vertical',
+                fillClass: 'rangeslider__fill',
+                handleClass: 'rangeslider__handle',
+                startEvent: ['mousedown', 'touchstart', 'pointerdown'],
+                moveEvent: ['mousemove', 'touchmove', 'pointermove'],
+                endEvent: ['mouseup', 'touchend', 'pointerup']
+            },
+            constants = {
+                orientation: {
+                    horizontal: {
+                        dimension: 'width',
+                        direction: 'left',
+                        directionStyle: 'left',
+                        coordinate: 'x'
+                    },
+                    vertical: {
+                        dimension: 'height',
+                        direction: 'top',
+                        directionStyle: 'bottom',
+                        coordinate: 'y'
+                    }
+                }
+            };
+
+        /**
+         * Delays a function for the given number of milliseconds, and then calls
+         * it with the arguments supplied.
+         *
+         * @param  {Function} fn   [description]
+         * @param  {Number}   wait [description]
+         * @return {Function}
+         */
+        function delay(fn, wait) {
+            var args = Array.prototype.slice.call(arguments, 2);
+            return setTimeout(function(){ return fn.apply(null, args); }, wait);
+        }
+
+        /**
+         * Returns a debounced function that will make sure the given
+         * function is not triggered too much.
+         *
+         * @param  {Function} fn Function to debounce.
+         * @param  {Number}   debounceDuration OPTIONAL. The amount of time in milliseconds for which we will debounce the function. (defaults to 100ms)
+         * @return {Function}
+         */
+        function debounce(fn, debounceDuration) {
+            debounceDuration = debounceDuration || 100;
+            return function() {
+                if (!fn.debouncing) {
+                    var args = Array.prototype.slice.apply(arguments);
+                    fn.lastReturnVal = fn.apply(window, args);
+                    fn.debouncing = true;
+                }
+                clearTimeout(fn.debounceTimeout);
+                fn.debounceTimeout = setTimeout(function(){
+                    fn.debouncing = false;
+                }, debounceDuration);
+                return fn.lastReturnVal;
+            };
+        }
+
+        /**
+         * Check if a `element` is visible in the DOM
+         *
+         * @param  {Element}  element
+         * @return {Boolean}
+         */
+        function isHidden(element) {
+            return (
+                element && (
+                    element.offsetWidth === 0 ||
+                    element.offsetHeight === 0 ||
+                    // Also Consider native `<details>` elements.
+                    element.open === false
+                )
+            );
+        }
+
+        /**
+         * Get hidden parentNodes of an `element`
+         *
+         * @param  {Element} element
+         * @return {[type]}
+         */
+        function getHiddenParentNodes(element) {
+            var parents = [],
+                node    = element.parentNode;
+
+            while (isHidden(node)) {
+                parents.push(node);
+                node = node.parentNode;
+            }
+            return parents;
+        }
+
+        /**
+         * Returns dimensions for an element even if it is not visible in the DOM.
+         *
+         * @param  {Element} element
+         * @param  {String}  key     (e.g. offsetWidth …)
+         * @return {Number}
+         */
+        function getDimension(element, key) {
+            var hiddenParentNodes       = getHiddenParentNodes(element),
+                hiddenParentNodesLength = hiddenParentNodes.length,
+                inlineStyle             = [],
+                dimension               = element[key];
+
+            // Used for native `<details>` elements
+            function toggleOpenProperty(element) {
+                if (typeof element.open !== 'undefined') {
+                    element.open = (element.open) ? false : true;
+                }
+            }
+
+            if (hiddenParentNodesLength) {
+                for (var i = 0; i < hiddenParentNodesLength; i++) {
+
+                    // Cache style attribute to restore it later.
+                    inlineStyle[i] = hiddenParentNodes[i].style.cssText;
+
+                    // visually hide
+                    if (hiddenParentNodes[i].style.setProperty) {
+                        hiddenParentNodes[i].style.setProperty('display', 'block', 'important');
+                    } else {
+                        hiddenParentNodes[i].style.cssText += ';display: block !important';
+                    }
+                    hiddenParentNodes[i].style.height = '0';
+                    hiddenParentNodes[i].style.overflow = 'hidden';
+                    hiddenParentNodes[i].style.visibility = 'hidden';
+                    toggleOpenProperty(hiddenParentNodes[i]);
+                }
+
+                // Update dimension
+                dimension = element[key];
+
+                for (var j = 0; j < hiddenParentNodesLength; j++) {
+
+                    // Restore the style attribute
+                    hiddenParentNodes[j].style.cssText = inlineStyle[j];
+                    toggleOpenProperty(hiddenParentNodes[j]);
+                }
+            }
+            return dimension;
+        }
+
+        /**
+         * Returns the parsed float or the default if it failed.
+         *
+         * @param  {String}  str
+         * @param  {Number}  defaultValue
+         * @return {Number}
+         */
+        function tryParseFloat(str, defaultValue) {
+            var value = parseFloat(str);
+            return Number.isNaN(value) ? defaultValue : value;
+        }
+
+        /**
+         * Capitalize the first letter of string
+         *
+         * @param  {String} str
+         * @return {String}
+         */
+        function ucfirst(str) {
+            return str.charAt(0).toUpperCase() + str.substr(1);
+        }
+
+        /**
+         * Plugin
+         * @param {String} element
+         * @param {Object} options
+         */
+        function Plugin(element, options) {
+            this.$window            = $(window);
+            this.$document          = $(document);
+            this.$element           = $(element);
+            this.options            = $.extend( {}, defaults, options );
+            this.polyfill           = this.options.polyfill;
+            this.orientation        = this.$element[0].getAttribute('data-orientation') || this.options.orientation;
+            this.onInit             = this.options.onInit;
+            this.onSlide            = this.options.onSlide;
+            this.onSlideEnd         = this.options.onSlideEnd;
+            this.DIMENSION          = constants.orientation[this.orientation].dimension;
+            this.DIRECTION          = constants.orientation[this.orientation].direction;
+            this.DIRECTION_STYLE    = constants.orientation[this.orientation].directionStyle;
+            this.COORDINATE         = constants.orientation[this.orientation].coordinate;
+
+            // Plugin should only be used as a polyfill
+            if (this.polyfill) {
+                // Input range support?
+                if (hasInputRangeSupport) { return false; }
+            }
+
+            this.identifier = 'js-' + pluginName + '-' +(pluginIdentifier++);
+            this.startEvent = this.options.startEvent.join('.' + this.identifier + ' ') + '.' + this.identifier;
+            this.moveEvent  = this.options.moveEvent.join('.' + this.identifier + ' ') + '.' + this.identifier;
+            this.endEvent   = this.options.endEvent.join('.' + this.identifier + ' ') + '.' + this.identifier;
+            this.toFixed    = (this.step + '').replace('.', '').length - 1;
+            this.$fill      = $('<div class="' + this.options.fillClass + '" />');
+            this.$handle    = $('<div class="' + this.options.handleClass + '" />');
+            this.$range     = $('<div class="' + this.options.rangeClass + ' ' + this.options[this.orientation + 'Class'] + '" id="' + this.identifier + '" />').insertAfter(this.$element).prepend(this.$fill, this.$handle);
+
+            // visually hide the input
+            this.$element.css({
+                'position': 'absolute',
+                'width': '1px',
+                'height': '1px',
+                'overflow': 'hidden',
+                'opacity': '0'
+            });
+
+            // Store context
+            this.handleDown = $.proxy(this.handleDown, this);
+            this.handleMove = $.proxy(this.handleMove, this);
+            this.handleEnd  = $.proxy(this.handleEnd, this);
+
+            this.init();
+
+            // Attach Events
+            var _this = this;
+            this.$window.on('resize.' + this.identifier, debounce(function() {
+                // Simulate resizeEnd event.
+                delay(function() { _this.update(false, false); }, 300);
+            }, 20));
+
+            this.$document.on(this.startEvent, '#' + this.identifier + ':not(.' + this.options.disabledClass + ')', this.handleDown);
+
+            // Listen to programmatic value changes
+            this.$element.on('change.' + this.identifier, function(e, data) {
+                if (data && data.origin === _this.identifier) {
+                    return;
+                }
+
+                var value = e.target.value,
+                    pos = _this.getPositionFromValue(value);
+                _this.setPosition(pos);
+            });
+        }
+
+        Plugin.prototype.init = function() {
+            this.update(true, false);
+
+            if (this.onInit && typeof this.onInit === 'function') {
+                this.onInit();
+            }
+        };
+
+        Plugin.prototype.update = function(updateAttributes, triggerSlide) {
+            updateAttributes = updateAttributes || false;
+
+            if (updateAttributes) {
+                this.min    = tryParseFloat(this.$element[0].getAttribute('min'), 0);
+                this.max    = tryParseFloat(this.$element[0].getAttribute('max'), 100);
+                this.value  = tryParseFloat(this.$element[0].value, Math.round(this.min + (this.max-this.min)/2));
+                this.step   = tryParseFloat(this.$element[0].getAttribute('step'), 1);
+            }
+
+            this.handleDimension    = getDimension(this.$handle[0], 'offset' + ucfirst(this.DIMENSION));
+            this.rangeDimension     = getDimension(this.$range[0], 'offset' + ucfirst(this.DIMENSION));
+            this.maxHandlePos       = this.rangeDimension - this.handleDimension;
+            this.grabPos            = this.handleDimension / 2;
+            this.position           = this.getPositionFromValue(this.value);
+
+            // Consider disabled state
+            if (this.$element[0].disabled) {
+                this.$range.addClass(this.options.disabledClass);
+            } else {
+                this.$range.removeClass(this.options.disabledClass);
+            }
+
+            this.setPosition(this.position, triggerSlide);
+        };
+
+        Plugin.prototype.handleDown = function(e) {
+            e.preventDefault();
+            this.$document.on(this.moveEvent, this.handleMove);
+            this.$document.on(this.endEvent, this.handleEnd);
+
+            // add active class because Firefox is ignoring
+            // the handle:active pseudo selector because of `e.preventDefault();`
+            this.$range.addClass(this.options.activeClass);
+
+            // If we click on the handle don't set the new position
+            if ((' ' + e.target.className + ' ').replace(/[\n\t]/g, ' ').indexOf(this.options.handleClass) > -1) {
+                return;
+            }
+
+            var pos         = this.getRelativePosition(e),
+                rangePos    = this.$range[0].getBoundingClientRect()[this.DIRECTION],
+                handlePos   = this.getPositionFromNode(this.$handle[0]) - rangePos,
+                setPos      = (this.orientation === 'vertical') ? (this.maxHandlePos - (pos - this.grabPos)) : (pos - this.grabPos);
+
+            this.setPosition(setPos);
+
+            if (pos >= handlePos && pos < handlePos + this.handleDimension) {
+                this.grabPos = pos - handlePos;
+            }
+        };
+
+        Plugin.prototype.handleMove = function(e) {
+            e.preventDefault();
+            var pos = this.getRelativePosition(e);
+            var setPos = (this.orientation === 'vertical') ? (this.maxHandlePos - (pos - this.grabPos)) : (pos - this.grabPos);
+            this.setPosition(setPos);
+        };
+
+        Plugin.prototype.handleEnd = function(e) {
+            e.preventDefault();
+            this.$document.off(this.moveEvent, this.handleMove);
+            this.$document.off(this.endEvent, this.handleEnd);
+
+            this.$range.removeClass(this.options.activeClass);
+
+            // Ok we're done fire the change event
+            this.$element.trigger('change', { origin: this.identifier });
+
+            if (this.onSlideEnd && typeof this.onSlideEnd === 'function') {
+                this.onSlideEnd(this.position, this.value);
+            }
+        };
+
+        Plugin.prototype.cap = function(pos, min, max) {
+            if (pos < min) { return min; }
+            if (pos > max) { return max; }
+            return pos;
+        };
+
+        Plugin.prototype.setPosition = function(pos, triggerSlide) {
+            var value, newPos;
+
+            if (triggerSlide === undefined) {
+                triggerSlide = true;
+            }
+
+            // Snapping steps
+            value = this.getValueFromPosition(this.cap(pos, 0, this.maxHandlePos));
+            newPos = this.getPositionFromValue(value);
+
+            // Update ui
+            this.$fill[0].style[this.DIMENSION] = (newPos + this.grabPos) + 'px';
+            this.$handle[0].style[this.DIRECTION_STYLE] = newPos + 'px';
+            this.setValue(value);
+
+            // Update globals
+            this.position = newPos;
+            this.value = value;
+
+            if (triggerSlide && this.onSlide && typeof this.onSlide === 'function') {
+                this.onSlide(newPos, value);
+            }
+        };
+
+        // Returns element position relative to the parent
+        Plugin.prototype.getPositionFromNode = function(node) {
+            var i = 0;
+            while (node !== null) {
+                i += node.offsetLeft;
+                node = node.offsetParent;
+            }
+            return i;
+        };
+
+        Plugin.prototype.getRelativePosition = function(e) {
+            // Get the offset DIRECTION relative to the viewport
+            var ucCoordinate = ucfirst(this.COORDINATE),
+                rangePos = this.$range[0].getBoundingClientRect()[this.DIRECTION],
+                pageCoordinate = 0;
+
+            if (typeof e.originalEvent['client' + ucCoordinate] !== 'undefined') {
+                pageCoordinate = e.originalEvent['client' + ucCoordinate];
+            }
+            else if (
+              e.originalEvent.touches &&
+              e.originalEvent.touches[0] &&
+              typeof e.originalEvent.touches[0]['client' + ucCoordinate] !== 'undefined'
+            ) {
+                pageCoordinate = e.originalEvent.touches[0]['client' + ucCoordinate];
+            }
+            else if(e.currentPoint && typeof e.currentPoint[this.COORDINATE] !== 'undefined') {
+                pageCoordinate = e.currentPoint[this.COORDINATE];
+            }
+
+            return pageCoordinate - rangePos;
+        };
+
+        Plugin.prototype.getPositionFromValue = function(value) {
+            var percentage, pos;
+            percentage = (value - this.min)/(this.max - this.min);
+            pos = (!Number.isNaN(percentage)) ? percentage * this.maxHandlePos : 0;
+            return pos;
+        };
+
+        Plugin.prototype.getValueFromPosition = function(pos) {
+            var percentage, value;
+            percentage = ((pos) / (this.maxHandlePos || 1));
+            value = this.step * Math.round(percentage * (this.max - this.min) / this.step) + this.min;
+            return Number((value).toFixed(this.toFixed));
+        };
+
+        Plugin.prototype.setValue = function(value) {
+            if (value === this.value && this.$element[0].value !== '') {
+                return;
+            }
+
+            // Set the new value and fire the `input` event
+            this.$element
+                .val(value)
+                .trigger('input', { origin: this.identifier });
+        };
+
+        Plugin.prototype.destroy = function() {
+            this.$document.off('.' + this.identifier);
+            this.$window.off('.' + this.identifier);
+
+            this.$element
+                .off('.' + this.identifier)
+                .removeAttr('style')
+                .removeData('plugin_' + pluginName);
+
+            // Remove the generated markup
+            if (this.$range && this.$range.length) {
+                this.$range[0].parentNode.removeChild(this.$range[0]);
+            }
+        };
+
+        // A really lightweight plugin wrapper around the constructor,
+        // preventing against multiple instantiations
+        $.fn[pluginName] = function(options) {
+            var args = Array.prototype.slice.call(arguments, 1);
+
+            return this.each(function() {
+                var $this = $(this),
+                    data  = $this.data('plugin_' + pluginName);
+
+                // Create a new instance.
+                if (!data) {
+                    $this.data('plugin_' + pluginName, (data = new Plugin(this, options)));
+                }
+
+                // Make it possible to access methods from public.
+                // e.g `$element.rangeslider('method');`
+                if (typeof options === 'string') {
+                    data[options].apply(data, args);
+                }
+            });
+        };
+
+        return 'rangeslider.js is available in jQuery context e.g $(selector).rangeslider(options);';
+
+    }));
+
+
+    </script>
+
+
+  </head>
+<body>
+
+<!-- HTML REPRODUCTOR -->
+
+<!-- Ejemplo boombox: https://codepen.io/Rumyra/pen/qyMzqN/ -->
+
+<div id="reproductor">
+
+  <div class="overlay-precarga">
+    <p>Loading audio files...</p>
+    <progress id="progress" value="0"></progress>
+    <p class="indicador-progreso"></p>
+  </div>
+
+
+  <div id="selectores-canciones"></div> <!-- Contenido dinámico -->
+  <div id="canales"></div> <!-- Contenido dinámico -->
+  <div id="controles-globales">
+    <!-- Master volume -->
+    <span class="global-control-tag">Master</span>
+    <input type="range" class="rangeslider" data-accion="volumen-master" id="volumen-master" min="0" max="1" value="0.5" step="0.001" data-orientation="horizontal">
+
+    <!-- Delay -->
+    <div class="contenedor-on-off">
+      <span class="global-control-tag">Delay on/off:</span>
+      <button type="button" id="delay-on-off" class="efecto-on-off"></button>
+    </div>
+    <span class="global-control-tag">Delay time</span>
+    <input type="range" class="rangeslider" data-accion="delay-time" id="delay-time" min="0" max="1" value="0" step="0.001" data-orientation="horizontal">
+    <span class="global-control-tag">Delay feedback</span>
+    <input type="range" class="rangeslider" data-accion="delay-feedback" id="delay-feedback" min="0" max="1" value="0" step="0.001" data-orientation="horizontal">
+
+    <!-- Reverb -->
+    <div class="contenedor-on-off">
+      <span class="global-control-tag">Reverb on/off:</span>
+      <button type="button" id="reverb-on-off" class="efecto-on-off"></button>
+    </div>
+    <span class="global-control-tag">Reverb level</span>
+    <input type="range" class="rangeslider" data-accion="reverb-wet" id="reverb-wet" min="0" max="4" value="0" step="0.001" data-orientation="horizontal">
+
+    <!-- Playback -->
+    <button class="playback-control" id="prev-button">PREV</button>
+    <button class="playback-control" id="rwd-button">RWD</button>
+    <button class="playback-control" id="play-pause-button">Play/pause</button>
+    <!-- <button class="playback-control" id="play-button">Play</button>
+    <button class="playback-control" id="pause-button">Pause</button> -->
+    <button class="playback-control" id="stop-button">Stop</button>
+    <button class="playback-control" id="fwd-button">FWD</button>
+    <button class="playback-control" id="next-button">NEXT</button>
+
+  </div>
+</div>
+
+
+
+
+
+
+
+
+<!-- JAVASCRIPT - SCRIPTS.JS -->
+
+<script type="text/javascript">
+
+console.log('iframe test 2.2:');
+
+
+
+
+
+
+// Gestión de mensajes desde parent window
+
+function receiveMessage(event) {
+  console.log('mensaje recibido');
+  if(event.data!=='mouseup'){
+    gestionarMensaje(event.data);
+  }
+  else{
+    $(document).mouseup();        //Soltar el mouse al salir del iframe
+  }
+}
+
+window.addEventListener("message", receiveMessage, false);
+
+
+
+
+
+
+
+// VARIABLES GLOBALES
+
+var progressBar = document.getElementById("progress");
+progressBar.max = 100;
+
+var tiempoTranscurrido = 0;
+var intervaloSeek;
+
+var intervaloTestMetadata = {};
+
+var audioReverb;
+
+//**1 Inicializar contexto de Audio Web API
+  const AudioContext = window.AudioContext || window.webkitAudioContext;
+  const audioCtx = new AudioContext();
+
+
+//**2 RECEPCIÓN DEL MENSAJE IFRAME
+
+
+
+
+
+var reproductor = {
+}; //Se rellena automáticamente con los datos del embed
+
+// gestionarMensaje(); //eliminar esto al final del test
+// receiveMessage(); //eliminar esto al final del test
+
+
+function gestionarMensaje(datos){
+  var objetoDatos = datos.tracks;
+  var reverbAudio = datos.reverb;
+
+  audioReverb = reverbAudio;
+  // var objetoDatos = event.data; //descomentar esto al final del test
+
+  //loopear por el objeto de datos para cargar la información en el objeto "reproductor"
+  // console.log(objetoDatos);
+
+  for(var i=0; i < Object.keys(objetoDatos).length; i++){
+    var key = Object.keys(objetoDatos)[i];
+    var tracks = Object.keys(objetoDatos[key]);
+    // console.log(tracks);
+    reproductor['cancion'+(i+1)] = {
+      nombreCancion: key,
+      bus: audioCtx.createGain(),
+      tracks: {}
+    }; //generar objeto vacío de canción
+
+    for (var j = 0; j < tracks.length; j++) {
+      var trackKey = tracks[j];
+      reproductor['cancion'+(i+1)].tracks['track'+(j+1)] = {
+        url: objetoDatos[key][trackKey],
+      };
+    }
+
+  }
+}
+
+
+  //-----------------------------------------
+  //**3 DOCUMENT READY (ejecución de código)
+
+  $(document).ready(function(){
+
+  	cancionActiva = reproductor.cancion1;
+
+  	//Generar markup HTML dinámico partir de los datos (interfaz y audios)
+  	generarDOMCanciones();
+    //En paralelo, comenzar a cargar los audios
+    crearSolicitudesHTTP();
+
+  	// Inicializar rangeslider (visualización de interfaz). Después de generar los sliders
+  	$('input[type="range"]:not(.seekbar)').rangeslider({
+  		polyfill: false,
+  		onSlide: function(){
+  			moverControl(this.$element[0]); //target del evento
+  		}
+  	});
+
+  	//Event binding
+
+  	$(document).on('click', '.boton-cancion', function () {
+      detener(cancionActiva);
+  		var dataCancion = $(this).attr('data-cancion');
+  		var selectorSeccionCancion = '.contenedor-cancion[data-cancion="'+ dataCancion +'"]';
+  		var cancionSeleccionada = $(selectorSeccionCancion);
+  		$('.boton-cancion').removeClass('activo'); //eliminar el activo de todos los contenedores
+  		$(this).addClass('activo'); //agregarla a la canción seleccionada
+  		$('.contenedor-cancion').removeClass('activo'); //eliminar el activo de todos los contenedores
+  		cancionSeleccionada.addClass('activo'); //agregarla a la canción seleccionada
+
+  		cancionActiva = reproductor['cancion'+dataCancion];
+   	});
+
+    $('#delay-on-off').on('click', function () {
+    	$(this).toggleClass('activo');
+
+      if($(this).hasClass('activo')){ //si se activó
+        delay.connect(audioCtx.destination);
+      }
+      else{
+        delay.disconnect(audioCtx.destination);
+      }
+    });
+
+    $('#reverb-on-off').on('click', function () {
+    	$(this).toggleClass('activo');
+
+      if($(this).hasClass('activo')){ //si se activó
+        reverb.connect(reverbGain);
+      }
+      else{
+        reverb.disconnect(reverbGain);
+      }
+    });
+
+
+  $('#play-pause-button').on('click', function () {
+    $(this).toggleClass('reproduciendo');
+
+    if($(this).hasClass('reproduciendo')){
+      reproducir(cancionActiva);
+    }
+    else{
+      pausar(cancionActiva);
+    }
+  });
+
+  $('#stop-button').on('click', function () {
+  	detener(cancionActiva);
+  });
+
+  //Reverb
+  getData();
+
+  });
+
+  //-----------------------------------------
+
+
+
+
+//**4 FUNCIONES
+
+//moverControl: esta función evalúa los atributos del slider,
+//y decide el funcionamiento del control.
+
+function moverControl(input) {
+  	var acc= $(input).data('accion');
+  	if(acc=='volumen-track'){
+  		var cancion = $(input).data('cancion');
+  		var track = $(input).data('track');
+  		reproductor['cancion'+cancion].tracks['track'+track].gainNode.gain.value = input.value;
+  	}
+  	else if(acc=='volumen-master'){
+  		gainNodeMaster.gain.value = input.value;
+  	}
+
+  	else if(acc=='delay-time'){
+  		delay.delayTime.value = input.value;
+  	}
+
+  	else if(acc=='delay-feedback'){
+  		feedback.gain.value = input.value;
+  	}
+
+  	else if(acc=='reverb-wet'){
+  		reverbGain.gain.value = input.value;
+  	}
+
+  	else if(acc=="seek"){
+      var cancion = $(input).data('cancion');
+      objCancion = reproductor['cancion'+cancion]
+      //obtener iD de cancion
+      saltarA(objCancion, parseInt(input.value));
+  	}
+  }
+
+
+  //generarCanciones: esta función genera la estructura de tracks, tanto
+  //los archivos de audio, como los tags de audio, los audio nodes y
+  //la interfaz.
+
+  // --------------------- FUNCIONES DE DOM
+
+const elementoSelectores = $('#selectores-canciones')[0];
+console.log('OKL Reproductor: ');
+console.log(reproductor);
+var cantidadCanciones = Object.keys(reproductor).length;
+
+
+//-----
+
+function generarSelector(elementoSelectores, i, nombreCancion, primeraCancion) {
+  if(primeraCancion){
+    $(elementoSelectores).append(
+      '<button type="button" class="boton-cancion activo" data-cancion="'+i+'">'+nombreCancion+'</button>'
+    );
+  }
+  else{
+    $(elementoSelectores).append(
+      '<button type="button" class="boton-cancion" data-cancion="'+i+'">'+nombreCancion+'</button>'
+    );
+  }
+}
+
+//-----
+
+function generarContenedorCanales(elementoCanales, i, primeraCancion){
+  if(primeraCancion){
+    $(elementoCanales).append(`
+      <div class="contenedor-cancion activo" data-cancion="`+i+`" id="contenedor-cancion-`+i+`">
+        <div class="contenedor-canales" data-cancion="`+i+`" id="contenedor-canales-`+i+`"></div>
+      </div>
+      `);
+  }
+  else {
+    $(elementoCanales).append(`
+      <div class="contenedor-cancion" data-cancion="`+i+`" id="contenedor-cancion-`+i+`">
+        <div class="contenedor-canales" data-cancion="`+i+`" id="contenedor-canales-`+i+`"></div>
+      </div>
+      `);
+  }
+}
+
+//-----
+
+function generarDOMCanciones(){
+  	//Acá metí básicamente todas las cosas que tengan que estar en un loop de canciones o de tracks.
+  	//Capaz pueda separar esto a futuro.
+
+  	// Primero identificar las canciones
+
+
+  	var primeraCancion = true;
+
+  	//Y por cada canción:
+  	for(var i=1; i<cantidadCanciones+1; i++){
+  		var cancionActual = reproductor['cancion'+i];
+
+  		//1- Generar un botón para seleccionar canción
+  		var nombreCancion = cancionActual.nombreCancion;
+      generarSelector(elementoSelectores, i, nombreCancion, primeraCancion);
+
+  		//2- Generar un contenedor para los canales
+  		const elementoCanales = $('#canales')[0];
+      generarContenedorCanales(elementoCanales, i, primeraCancion);
+
+      //3- Resetear variable
+      primeraCancion = false;
+
+
+  		//3- E iniciar la carga de los audios
+
+  		var elementoContenedorCancionActual = $('#contenedor-canales-'+i)[0];
+  		var cantidadTracks = Object.keys(cancionActual.tracks).length;
+
+      // LOOP CANALES
+  		for(var j=1; j<cantidadTracks+1; j++){
+
+  			//Primero el HTML (sliders y audios), -> ??
+  			var trackActual = cancionActual.tracks['track'+j];
+  			var linkTrackActual = trackActual.url;
+
+
+  		} //final canales
+
+    // Y generar el contenedor para el seek, y el control de seek
+
+    var elementoContenedorC = $('#contenedor-cancion-'+i)[0];
+    $(elementoContenedorC).append(
+      '<div class="contenedor-seek" id="contenedor-seek-'+i+'"></div>'
+    );
+    $(elementoContenedorC).append(
+      '<div class="visor-tiempo-seek"><span class="seek-minutos">00</span>:<span class="seek-segundos">00</span></div>'
+    );
+    var elementoSeek = $('#contenedor-seek-'+i)[0];
+
+    $(elementoSeek).append(
+      '<input type="range" class="rangeslider seek-marker" data-accion="marcador-seek" data-cancion="'+i+'" id="seek-marker-'+i+'" min="0" max="2" value="0" step="0.001" data-orientation="horizontal">'
+    );
+    $(elementoSeek).append(
+      '<input type="range" class="rangeslider seek-control" data-accion="seek" data-cancion="'+i+'" id="seek-control-'+i+'" min="0" max="2" value="0" step="0.001" data-orientation="horizontal">'
+    );
+
+  	//Conectar los buses de canción al master gain:
+  	cancionActual.bus.connect(gainNodeMaster);
+
+    // console.log('Asignación de loop:');
+    // console.log(cancionActual);
+  	//Vincular un loop al evento de que el primer track termine
+      cancionActual.tracks.track1.mediaElement.addEventListener('ended',loopear.bind(null, cancionActual), false);
+
+  	primeraCancion = false; //reiniciar variable
+
+    //Y cambiar las duraciones del seek bar para esta canción
+    intervaloTestMetadata[i] = setInterval(chequearMetadata, 500, {a: cancionActual, b: i});
+
+    } // fin loop por cada canción
+  } //Fin de función generarDOMCanciones
+
+//--------------- FUNCIONES DE CARGA HTTP
+
+//Variables globales usadas:
+
+var contadorTracks = 0;  //usado para medir la precarga
+var tracksCargados = 0;
+var httpreqs = {};
+var contadorHttp = 0;
+
+// Crear solicitudes HTTP
+
+function crearSolicitudesHTTP() {
+  console.log('creando solicitudes HTTP');
+  console.log('Cantidad canciones: '+cantidadCanciones);
+  for (var i = 0; i < cantidadCanciones; i++) {
+    var cancionActual = reproductor['cancion'+i];
+    var numTracks = Object.keys(cancionActual.tracks).length;
+    for(var j = 0; i < numTracks; j++){
+      var req = new XMLHttpRequest();
+      //data
+      httpreqs[contadorHttp] = {
+        'url': linkTrackActual,
+        'req': req,
+      };
+      contadorHttp++;
+      console.log('contadorHttp: '+contadorHttp);
+    }
+  }
+  abrirSolicitudesHTTP();
+}
+
+//Auxiliar onProgress
+
+function onProgress(e) {
+  if (e.lengthComputable) {
+    var respUrl = e.currentTarget.responseURL;
+    for (var k = 0; k < Object.keys(httpreqs).length; k++) {
+      if(httpreqs[k].url == respUrl){
+        httpreqs[k].cargado = e.loaded/e.total*100;
+      }
+    }
+  }
+}
+
+//-----
+
+function abrirSolicitudesHTTP() {
+  //Las HTTP requests fueron cargados en un array separado. Inicializarlas:
+  //Todo este bloque gestiona la precarga de audio.
+  //Loop Inicialización de solicitudes
+  cantidadDeSolicitudes = Object.keys(httpreqs).length;
+
+  console.log(httpreqs);
+
+  for (var i = 0; i < cantidadDeSolicitudes; i++) {
+    console.log(i);
+    var urlReq = httpreqs[i].url;
+    var request = httpreqs[i].req;
+
+    //1. Abrir solicitud
+    request.open('GET', urlReq, true);
+    request.responseType = 'blob';
+
+    //2. Precarga de audios
+    request.onprogress = onProgress(e);
+
+    //3. Finalización de carga de cada audio
+    request.onload = function(e) {
+       if (this.status === 200) {
+          var audioBlob = this.response;
+          var aud = URL.createObjectURL(audioBlob); // IE10+
+          console.log('audio cargado');
+          tracksCargados++;
+          if(tracksCargados == cantidadDeSolicitudes){
+            console.log('carga de todos los audios finalizada');
+          }
+          }
+      };
+
+      request.onerror = function() {
+      };
+
+      request.send();
+  } //Fin de loop Inicialización de solicitudes HTTP
+}
+
+//-----
+
+
+            // CREACIÓN DE ESTRUCTURA DE CANAL
+            // Elementos fijos (DOM)
+
+            let DOMcontenedorCancion = $('#contenedor-canales-'+i)[0];
+
+            //Nueva iteración sobre el objeto de canales.
+            // Es SOLAMENTE para ver cuál canción es la que acaba de cargar.
+            console.log('Nueva iteración:');
+            console.log(reproductor);
+
+            //Loop canciones
+            var cantidadDeCanciones = Object.keys(reproductor);
+
+            console.log('Largo del array: '+cantidadDeCanciones.length);
+
+            for (var z = 1; z <= cantidadDeCanciones.length; z++) {
+              var cancionSeleccionada = reproductor['cancion'+z];
+
+              var cantidadDeTracks = Object.keys(cancionSeleccionada.tracks);
+
+              for (var z1 = 1; z1 <= cantidadDeTracks.length; z1++) {
+                trackSeleccionado = cancionSeleccionada.tracks['track'+z1];
+                console.log(trackSeleccionado);
+
+              }//fin loop tracks
+            }//fin loop canciones
+
+          // 1. Generar canal HTML
+
+          $(elementoContenedorCancionActual).append(
+            `
+            <div class="contenedor-canal">
+              <input type="range" class="rangeslider" data-accion="volumen-track" data-cancion="`+i+`" data-track="`+j+`" id="volumen-cancion-`+i+`-track-`+j+`" min="0" max="1" value="0.5" step="0.001" data-orientation="vertical">
+              <audio id="audio-cancion-`+i+`-track-`+j+`" src="`+aud+`" crossorigin="anonymous"></audio>
+              <div class="contenedor-controles-canal">
+                <div class="boton-mute-canal" data-cancion="`+i+`" data-track="`+j+`" id="mute-cancion-`+i+`-track-`+j+`">M</div>
+                <div class="boton-solo-canal" data-cancion="`+i+`" data-track="`+j+`" id="solo-cancion-`+i+`-track-`+j+`">S</div>
+              </div>
+            </div>
+            `
+          );
+
+            2.
+    			Después generar los Audio Nodes, y vincularlos a un bus
+    			trackActual['mediaElement'] = $('#audio-cancion-'+i+'-track-'+j)[0];
+    			trackActual['audioSourceNode'] = audioCtx.createMediaElementSource(trackActual.mediaElement);
+    			trackActual['gainNode'] = audioCtx.createGain();
+    			trackActual['muteSoloGainNode'] = audioCtx.createGain();
+    			var asn = trackActual.audioSourceNode;
+    			var bus = cancionActual.bus;
+    			var gn = trackActual.gainNode;
+    			var msgn = trackActual.muteSoloGainNode;
+          // console.log('asn:');
+          // console.log(asn);
+          // console.log('gn:');
+          // console.log(gn);
+          // console.log('msgn:');
+          // console.log(msgn);
+          // console.log('bus:');
+          // console.log(bus);
+    			try{
+            asn.connect(gn).connect(msgn).connect(bus);
+          }
+          catch(e){
+            console.log(e);
+          }
+
+          //generar una variable de estado de mute/solo:
+          trackActual['estadoMuteSolo'] = 0;
+          //0: sin M ni S. 1: muteado. 2: solo.
+
+    			//Y finalmente vincular el slider y los botones de cada track a los audio nodes (event binding)
+    			var volumeControl = $('#volumen-cancion-'+i+'-track-'+j)[0];
+          var muteButton = $('#mute-cancion-'+i+'-track-'+j)[0];
+          var soloButton = $('#solo-cancion-'+i+'-track-'+j)[0];
+
+    			volumeControl.addEventListener('ValueChange', function() {
+    			}, false);
+
+          muteButton.addEventListener('click', function(){
+            var trackBoton = $(this).data('track');
+            var cancionBoton = $(this).data('cancion');
+            // console.log('Track '+trackBoton+' de canción '+cancionBoton+' MUTEADO');
+
+            //funcionalidad
+            $(this).toggleClass('activo');
+            var estadoMS = reproductor['cancion'+cancionBoton].tracks['track'+trackBoton].estadoMuteSolo;
+            estadoMS = 1;
+
+          }, false);
+
+          soloButton.addEventListener('click', function(){
+            var trackBoton = $(this).data('track');
+            var cancionBoton = $(this).data('cancion');
+            // console.log('Track '+trackBoton+' de canción '+cancionBoton+' en SOLO');
+
+            $(this).toggleClass('activo');
+          }, false);
+
+          //Finalmente, agregar 1 al contador de canales.
+          contadorTracks++;
+          console.log(contadorTracks);
+
+
+
+
+
+
+
+
+
+// GLOBAL: Precarga
+// Una vez que se armó, configuró e inicializó el conjunto de solicitudes HTTP,
+// desde el siguiente bloque se gestiona la visibilidad del proceso de carga
+// (Actualización de la barra de carga y el indicador de porcentaje)
+
+var updateLoadInterval = setInterval(updateLoad, 500);
+
+function updateLoad() {
+  var sumaDePorcentajes = 0;
+  var longitudDeObjetoTracks = Object.keys(httpreqs).length;
+  for (var i = 0; i < longitudDeObjetoTracks; i++) {
+    sumaDePorcentajes += httpreqs[i].cargado;
+  }
+  porcentajeCargadoTotal = sumaDePorcentajes/longitudDeObjetoTracks;
+  // console.log(porcentajeCargadoTotal);
+  try{
+    progressBar.value = Math.trunc(porcentajeCargadoTotal);
+    $('.indicador-progreso').html(porcentajeCargadoTotal.toFixed(2) + '%');
+  }
+  catch{
+    //no hacer nada todavía
+  }
+} //fin updateLoad
+
+
+
+
+
+// GLOBAL: Controles
+
+  // Audio Nodes de controles master
+
+  //Master
+  const gainNodeMaster = audioCtx.createGain();
+
+  //Delay
+
+  const delay = audioCtx.createDelay();
+  const feedback = audioCtx.createGain();
+  feedback.gain.value = 0;
+  delay.delayTime.value = 0;
+
+  //Reverb
+  //Recuperar el archivo de audio por HTTP (así me devuelve un arraybuffer fácilmente)
+
+  let reverb = audioCtx.createConvolver();
+  let reverbGain = audioCtx.createGain();
+
+  var source = audioCtx.createBufferSource();
+  console.log(source);
+
+
+  function getData() {
+    var requestReverb = new XMLHttpRequest();
+
+    requestReverb.open('GET', audioReverb, true);
+    requestReverb.responseType = 'arraybuffer';
+
+
+    requestReverb.onload = function() {
+      var audioData = requestReverb.response;
+      audioCtx.decodeAudioData(audioData, function(buffer) {
+          source.buffer = buffer;
+  				reverb.buffer = source.buffer;
+          // source.connect(audioCtx.destination);
+          // source.loop = true;
+          console.log('buffered');
+        },
+
+        function(e){ console.log("Error with decoding audio data" + e.err); });
+
+    }
+
+    requestReverb.send();
+  	console.log('Sending HTTP request...');
+  }
+
+
+  //ROUTEO
+
+  //Conectar todos los tracks de las canciones a sus buses
+  //PRIMERO BYPASSEAR TODO, SACAR EL SONIDO
+  gainNodeMaster.connect(audioCtx.destination);
+  gainNodeMaster.connect(delay);
+  delay.connect(feedback);
+  feedback.connect(delay);
+  //El delay está afectado por el on/off.
+  //Por default está apagado.
+  gainNodeMaster.connect(reverb);
+  reverbGain.connect(audioCtx.destination);
+  //El on/off conecta y desconecta la reverb de su gain.
+
+
+  //FUNCIONES carga de metadata audios
+
+  function chequearMetadata(obj){
+    var canc = obj.a;
+    var ind = obj.b;
+    console.log('chequeando metadata canción '+ind+'...');
+    var audio = canc.tracks.track1.mediaElement;
+    if (audio.readyState > 0) {
+      audio.addEventListener('loadedmetadata', cambiarValoresSeek(canc, audio, ind));
+      // console.log(audio);
+      clearInterval(intervaloTestMetadata[ind]);
+    }
+    else{
+      console.log('canción '+ind+' aún no lista.');
+    }
+  }
+
+  function cambiarValoresSeek(cancion, aud, indice){
+    // console.log(aud);
+    // console.log(aud.duration);
+    cancion['duracionCancion'] = aud.duration;
+    // console.log(cancion);
+    // console.log('cargado');
+    //Actualizar valor máximo de los input
+    var objetoInput = $('#seek-control-'+indice);
+    var objetoMarcador = $('#seek-marker-'+indice);
+    cancion['controlSeek'] = objetoInput;
+    cancion['marcadorSeek'] = objetoMarcador;
+    // console.log(objetoInput);
+    // console.log(objetoMarcador);
+    objetoInput.attr('max', aud.duration);
+    objetoMarcador.attr('max', aud.duration);
+    objetoInput.rangeslider('update', true);
+    objetoMarcador.rangeslider('update', true);
+  }
+
+  // FUNCIONES de playback (toman un objeto de canción como argumento)
+
+  //esto sirve solamente para prevenir clipping al pausar/detener
+  playbackGain = audioCtx.createGain();
+  playbackGain.value = 1;
+
+
+  function loopear(canc) {
+  detener(canc);
+  // console.log('loopeando: ');
+  console.log(canc);
+  reproducir(canc);
+  }
+
+function actualizarVisorSeek(){
+  var segundosParaVisor = Math.trunc(tiempoTranscurrido) % 60;
+  var minutosParaVisor = Math.trunc(tiempoTranscurrido/60);
+
+  // segundos
+  if(segundosParaVisor<10){
+    $('.seek-segundos').html('0'+segundosParaVisor);
+    if(segundosParaVisor==0){
+      $('.seek-segundos').html('00');
+    }
+  }
+  else{
+    $('.seek-segundos').html(segundosParaVisor);
+  }
+
+  // minutos
+  if(minutosParaVisor<10){
+    $('.seek-minutos').html('0'+minutosParaVisor);
+    if(minutosParaVisor==0){
+      $('.seek-minutos').html('00');
+    }
+  }
+  else{
+    $('.seek-minutos').html(minutosParaVisor);
+  }
+}
+
+  function reproducir(song){
+    // console.log('reproduciendo');
+  	if (audioCtx.state === 'suspended') {
+  		audioCtx.resume();
+  	}
+  	var cantidadTracks = Object.keys(song.tracks).length;
+
+    //deshabilitar la prevención de clipping (playback gain)
+    playbackGain.value = 1;
+
+  	for(var i=1; i<cantidadTracks+1; i++){
+  		var track = song.tracks['track'+i].mediaElement;
+  		track.play();
+      // console.log('trackplay');
+  	}
+  	intervaloSeek = setInterval(function(){
+  		//reproduccion Seek
+  		tiempoTranscurrido += 0.1;
+      // console.log(tiempoTranscurrido);
+
+      actualizarVisorSeek();
+
+      song.marcadorSeek.val(tiempoTranscurrido).change();
+
+
+  	},100);
+  }
+
+  function pausar(song){
+  	var cantidadTracks = Object.keys(song.tracks).length;
+  	for(var i=1; i<cantidadTracks+1; i++){
+  		var track = song.tracks['track'+i].mediaElement;
+      playbackGain.value = 0.01;
+  		track.pause();
+      clearInterval(intervaloSeek);
+      actualizarVisorSeek();
+
+  	}
+  }
+
+  function detener(song){
+  	var cantidadTracks = Object.keys(song.tracks).length;
+  	for(var i=1; i<cantidadTracks+1; i++){
+  		var track = song.tracks['track'+i].mediaElement;
+      playbackGain.value = 0.01;
+  		track.pause();
+  		track.currentTime = 0;
+  		tiempoTranscurrido = 0;
+      song.marcadorSeek.val(tiempoTranscurrido).change();
+      clearInterval(intervaloSeek);
+      actualizarVisorSeek();
+
+      //si el botón estaba reproduciendo, ponerlo en no reproduciendo
+      if($('#play-pause-button').hasClass('reproduciendo')){
+        $('#play-pause-button').toggleClass('reproduciendo');
+      }
+
+  	}
+  }
+
+  function saltarA(song, segundos){
+  	var cantidadTracks = Object.keys(song.tracks).length;
+  	for(var i=1; i<cantidadTracks+1; i++){
+  		var track = song.tracks['track'+i].mediaElement;
+  		track.currentTime = segundos;
+  		tiempoTranscurrido = segundos;
+      song.marcadorSeek.val(tiempoTranscurrido).change();
+      actualizarVisorSeek();
+  	}
+  }
+
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>
