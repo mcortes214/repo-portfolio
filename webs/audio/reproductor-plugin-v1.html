@@ -5,7 +5,9 @@
 VERSIÓN 1.2
 Archivo de reproductor, recuperado desde un iframe en el plugin de Sound Window.
 Contiene visuales con manchas oscuras y color dentro de una gama específica.
-Esta versión (V1.2) Intenta arreglar el problema de p5. -->
+Esta versión (V1.2) Intenta arreglar el problema de p5.
+try{} en error de sound.js
+-->
 
 <head>
   <meta charset="UTF-8">
@@ -3213,7 +3215,9 @@ return Promise.all(moduleSources.map(function (moduleSrc) {
   });
   var objectURL = URL.createObjectURL(blob);
   console.log(objectURL);
-  return ac.audioWorklet.addModule(objectURL);
+  try{
+    return ac.audioWorklet.addModule(objectURL);
+  }
 }));
 }
 
