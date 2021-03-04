@@ -3271,6 +3271,7 @@ out$.presets = presets = {
       display: flex;
       align-items: baseline;
       padding-bottom: 15px;
+      box-sizing: border-box;
   }
 
 @media screen and (max-width: 800px){
@@ -3295,6 +3296,106 @@ out$.presets = presets = {
       margin-right: 0.4em;
       text-transform: uppercase;
   }
+
+  button.boton-informacion {
+      font-size: inherit;
+      font-family: inherit;
+      background-color: transparent;
+      border: 1px solid white;
+      cursor: pointer;
+      color: white;
+      border-radius: 0;
+      margin-left: 30px;
+  }
+  @media screen and (max-width: 800px){
+      button.boton-informacion
+        {
+          margin-left: auto;
+          font-size: 1.3em;
+        }
+  }
+
+
+  .overlay-informacion {
+      z-index: 99;
+      background-color: rgba(0,0,0,0.95);
+      transition: 0.4s;
+      color: white;
+      box-sizing: border-box;
+      padding: 20px;
+      width: 100%;
+      height: 100vh;
+      position: absolute;
+      display: flex;
+      display: none;
+      opacity: 0;
+  }
+
+  .caja-informacion {
+      width: 80%;
+      border: 1px solid white;
+      margin: auto;
+      overflow-y: scroll;
+      max-height: 80vh;
+      position: relative;
+      box-sizing: border-box;
+      padding: 3em;
+  }
+
+  .caja-informacion em {
+      opacity: 0.6;
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 2px;
+  }
+  ::-webkit-scrollbar-button {
+    width: 0px;
+    height: 0px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #e1e1e1;
+    border: 0px none #ffffff;
+    border-radius: 0px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #ffffff;
+  }
+  ::-webkit-scrollbar-thumb:active {
+    background: #000000;
+  }
+  ::-webkit-scrollbar-track {
+    background: #666666;
+    border: 0px none #ffffff;
+    border-radius: 0px;
+  }
+  ::-webkit-scrollbar-track:hover {
+    background: #666666;
+  }
+  ::-webkit-scrollbar-track:active {
+    background: #333333;
+  }
+  ::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+
+  button.cerrar-informacion {
+      position: absolute;
+      right: 1em;
+      top: 1em;
+      cursor: pointer;
+      background: transparent;
+      border: none;
+      margin-right: calc(10vw + 1.5em);
+      margin-top: 10vh;
+      z-index: 100;
+  }
+
+button.cerrar-informacion svg {
+    width: 30px;
+    height: 30px;
+}
 
   html {
       font-family: 'Titillium Web', sans-serif;
@@ -4233,11 +4334,40 @@ out$.presets = presets = {
 
   </script>
 </head>
+<div class="overlay-informacion">
+  <button class="cerrar-informacion">
+    <svg viewbox="0 0 50 50">
+       <line x1='0' y1='0' x2='50' y2='50' style='stroke:rgb(255,255,255);stroke-width:1' />
+       <line x1='0' y1='50' x2='50' y2='0' style='stroke:rgb(255,255,255);stroke-width:1' />
+    </svg>
+  </button>
+  <div class="caja-informacion">
+    <h2>About this project</h2>
+    <p><strong>Sound window</strong> is an interactive -  visual reactive sound piece hosted on a web page, the frequencies of an electroacoustic composition are interpreted into a real-time cinematic landscape.</p>
+    <p>Created during the lockdown the piece is inspired from Erik Satie´s «furniture music» concept, the audiovisual device helps to design our own soundscape indoors as a way to connect throughout sound with the outside world, to design our own soundscape indoors, inviting us to relax, becoming functional to indoors activities, such as reading, writing, computer work, yoga, etc.</p>
+    <p>Combining sounds and musical textures generated with instruments and electronics, the different layers of sound, faint and delicate, can be managed through a virtual mixer allowing users to carry out their own sonic combinations and compositions, creating their own soundscapes, having audio manipulation tools  (delays, reverbs) users can intervene the musical sound palette.</p>
+    <h3>How to use:</h3>
+    <ol>
+      <li>Wait until the player is loaded</li>
+      <li>Choose the song and hit the play button to start the track</li>
+      <li>Choose the song and hit the play button to start the track</li>
+      <li>Construct and deconstruct the music, create the soundscape which is more suitable for your space, move the faders to create your own mix, adding or removing sound layers (feel free to play everything, it won't break).</li>
+      <li>Experiment with the sound effects, add Delay Time - Delay Feedback and Reverb as much as you want!</li>
+      <li>Enjoy.</li>
+    </ol>
+    <p><em>This project was possible thanks to the support of Asylum Arts and Chateau Ephemere.</em></p>
+  </div>
+</div>
+
+<div class="overlay-precarga">
 <body>
 
 <!-- HTML Reproductor -->
 
-<div class="overlay-precarga">
+
+
+
+
   <div class="preloaders">
     <div class="prel ld ld-ring ld-spin" style="font-size:140px; animation-duration:2s; opacity:0.2"></div>
     <div class="prel ld ld-ring ld-spin" style="font-size:120px; animation-duration:1.9s; opacity:0.4"></div>
@@ -4255,6 +4385,7 @@ out$.presets = presets = {
 
 <div class="banner-titulo">
   <span class="large-title">Sound Window</span> <span class="small-title">By Nicolás Melmann</span>
+  <button class="boton-informacion">About</button>
 </div>
 
 <div id="reproductor">
@@ -4321,7 +4452,7 @@ out$.presets = presets = {
 
 <script type="text/javascript">
 
-console.log('Sound Window Player v3.0:');
+console.log('Sound Window Player v4.0:');
 
 
 // Sintaxis:
@@ -5265,7 +5396,21 @@ function borrarOverlay() {
 }
 
 
+//BOTÓN INFORMACIÓN
 
+$(document).ready(function(){
+
+  $('.boton-informacion').click(function(){
+    $('.overlay-informacion').css({'display':'flex'});
+    $('.overlay-informacion').animate({'opacity':'1'},400);
+  });
+
+  $('.cerrar-informacion').click(function(){
+    $('.overlay-informacion').animate({'opacity':'0'},400,function(){
+      $('.overlay-informacion').css({'display':'none'});
+    });
+  });
+});
 
 // DEBUG --------------------------------------------
 
