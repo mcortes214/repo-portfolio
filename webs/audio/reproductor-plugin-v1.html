@@ -3212,6 +3212,7 @@ return Promise.all(moduleSources.map(function (moduleSrc) {
     type: 'application/javascript'
   });
   var objectURL = URL.createObjectURL(blob);
+  console.log(objectURL);
   return ac.audioWorklet.addModule(objectURL);
 }));
 }
